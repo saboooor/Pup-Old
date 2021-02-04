@@ -8,7 +8,7 @@ module.exports = {
 			color: randomcolor,
 			description:
 `[**Invite the bot to your server using this invite link!**](https://discord.com/api/oauth2/authorize?client_id=765287593762881616&permissions=8&scope=bot)
-[**Join the bot's discord server!**](https://discord.gg/8dEu9YRtYS)`,
+[**Join the bot's discord server!**](https://discord.gg/g7hSukX)`,
 		} });
 	},
 };
