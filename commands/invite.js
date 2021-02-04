@@ -2,7 +2,7 @@ module.exports = {
 	name: 'invite',
 	cooldown: 10,
 	guildOnly: false,
-	async execute(message, args, client, sleep, config, Discord) {
+	async execute(message, args, client, sleep, config, Client, Discord) {
 		const randomcolor = Math.floor(Math.random() * 16777215);
 		await message.channel.send({ embed: {
 			color: randomcolor,

@@ -2,7 +2,7 @@ module.exports = {
 	name: 'poll',
 	cooldown: 10,
 	guildOnly: true,
-	async execute(message, args, client, sleep, config, Discord) {
+	async execute(message, args, client, sleep, config, Client, Discord) {
 		function isEven(value) {
 			if (value % 2 == 0) {
 				return true;

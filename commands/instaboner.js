@@ -3,7 +3,7 @@ module.exports = {
 	aliases: ['instapp', 'instapenis', 'instaerect'],
 	cooldown: 10,
 	guildOnly: false,
-	async execute(message, args, client, sleep, config, Discord) {
+	async execute(message, args, client, sleep, config, Client, Discord) {
 		const random = Math.round(Math.random() * 35);
 		const pp = await message.channel.send('Calculating pp size..');
 		let penis = '8D';

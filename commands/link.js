@@ -2,7 +2,7 @@ module.exports = {
 	name: 'link',
 	cooldown: 10,
 	guildOnly: false,
-	async execute(message, args, client, sleep, config, Discord) {
+	async execute(message, args, client, sleep, config, Client, Discord) {
 		const randomcolor = Math.floor(Math.random() * 16777215);
 		if (message.guild.id == '661736128373719141') {
 			message.channel.send({ embed: {

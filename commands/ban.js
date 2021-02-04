@@ -5,7 +5,7 @@ module.exports = {
 	argamnt: 2,
 	usage: '<User Mention or ID> <Reason>',
 	permissions: 'BAN_MEMBERS',
-	async execute(message, args, client, sleep, config, Discord) {
+	async execute(message, args, client, sleep, config, Client, Discord) {
 		try {
 			const user = client.users.cache.find(u => u.id === args[0].replace('<@!', '').replace('>', ''));
 			user.send(`**You've been banned from ${message.guild.name} for ${args.join(' ').replace(`${args[0]} `, '')}`);

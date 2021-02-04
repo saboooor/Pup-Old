@@ -5,7 +5,7 @@ module.exports = {
 	argamnt: 2,
 	usage: '<User Mention or ID> <Reason>',
 	permissions: 'KICK_MEMBERS',
-	async execute(message, args, client, sleep, config, Discord) {
+	async execute(message, args, client, sleep, config, Client, Discord) {
 		try {
 			const member = message.guild.members.cache.find(u => u.id === args[0].replace('<@!', '').replace('>', ''));
 			const user = client.users.cache.find(u => u.id === args[0].replace('<@!', '').replace('>', ''));

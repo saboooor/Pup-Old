@@ -5,7 +5,7 @@ module.exports = {
 	args: true,
 	argamnt: 1,
 	usage: '<Suggestion>',
-	async execute(message, args, client, sleep, config, Discord) {
+	async execute(message, args, client, sleep, config, Client, Discord) {
 		let channel = message.guild.channels.cache.find(c => c.name.includes('suggestions'));
 		if (channel === undefined) channel = message.channel;
 		const suggestion = args.join(' ');
