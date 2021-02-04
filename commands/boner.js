@@ -5,40 +5,25 @@ module.exports = {
 	guildOnly: false,
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		const random = Math.round(Math.random() * 35);
-		const pp = await message.channel.send('Calculating pp size..');
+		const Embed = new Discord.MessageEmbed().setColor(Math.round(Math.random() * 16777215)).setTitle(`${message.member.displayName}'s pp size`);
+		const pp = await message.channel.send(Embed);
 		let penis = '8D';
-		let randomcolor = '';
+		const randomcolor = Math.round(Math.random() * 16777215);
 		const ms = 1000;
 		for (let step = 0; step < random; step++) {
-			randomcolor = Math.round(Math.random() * 16777215);
 			sleep(ms);
-			await pp.edit('', { embed: {
-				color: randomcolor,
-				title: `${message.member.displayName}'s pp size`,
-				description: `${penis}`,
-			} });
+			Embed.setDescription(penis);
+			await pp.edit (Embed);
 			penis = penis.replace('=', '==').replace('8D', '8=D');
 		}
 		const sike = Math.round(Math.random() * 10);
 		if (sike == 5) {
-			await pp.edit({ embed: {
-				color: randomcolor,
-				title: `${message.member.displayName}'s pp size`,
-				description: 'sike bitch',
-				footer: {
-					text: 'u have no pp',
-				},
-			} });
+			Embed.setDescription('SIKE BITCH').setFooter('u have no pp');
+			await pp.edit(Embed);
 			return;
 		}
-		await pp.edit({ embed: {
-			color: randomcolor,
-			title: `${message.member.displayName}'s pp size`,
-			description: pp.embeds[0].description,
-			footer: {
-				text: `pp size = ${random}"`,
-			},
-		} });
+		Embed.setFooter(`pp size = ${random}"`);
+		await pp.edit(Embed);
 		return;
 
 	},
