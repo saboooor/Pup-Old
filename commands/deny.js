@@ -11,33 +11,18 @@ module.exports = {
 		const approving = await message.channel.messages.fetch({ around: args[0], limit: 1 })
 		const fetchedMsg = approving.first();
 		fetchedMsg.reactions.removeAll();
+		const Embed = new Discord.MessageEmbed()
+		.setColor(15158332)
+		.setAuthor(fetchedMsg.embeds[0].author.name, fetchedMsg.embeds[0].author.iconURL)
+		.setDescription(fetchedMsg.embeds[0].description)
+		.setTitle('Suggestion (Denied)');
 		if (args[1] === undefined) {
-			fetchedMsg.edit({ embed: {
-				color: 15158332,
-				title: 'Suggestion (Denied)',
-				description: fetchedMsg.embeds[0].description,
-				author: {
-					name: fetchedMsg.embeds[0].author.name,
-					icon_url: fetchedMsg.embeds[0].author.iconURL,
-				},
-				footer: {
-					text: 'No response.',
-				},
-			} });
+			Embed.setFooter('No response.');
+			fetchedMsg.edit(Embed);
 		}
 		else {
-			fetchedMsg.edit({ embed: {
-				color: 15158332,
-				title: 'Suggestion (Denied)',
-				description: fetchedMsg.embeds[0].description,
-				author: {
-					name: fetchedMsg.embeds[0].author.name,
-					icon_url: fetchedMsg.embeds[0].author.iconURL,
-				},
-				footer: {
-					text: `Response:${args.join(' ').replace(args[0], '')}`,
-				},
-			} });
+			Embed.setFooter(`Response:${args.join(' ').replace(args[0], '')}`);
+			fetchedMsg.edit(Embed);
 		}
 	},
 };

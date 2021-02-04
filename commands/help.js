@@ -4,11 +4,9 @@ module.exports = {
 	cooldown: 10,
 	guildOnly: false,
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		const randomcolor = Math.floor(Math.random() * 16777215);
-		await message.channel.send({ embed: {
-			color: randomcolor,
-			description:
-`**BOT FEATURES:**
+		const Embed = new Discord.MessageEmbed()
+		.setColor(Math.floor(Math.random() * 16777215))
+.setDescription(`**BOT FEATURES:**
 
 - Sorts DiscordSRV 'list' command
 - Simp reaction ( :regional_indicator_s: :regional_indicator_i: :regional_indicator_m: :regional_indicator_p: )
@@ -61,7 +59,7 @@ Deny a suggestion
 Walks you through how to setup support tickets in your guild
 *Permission: Administrator*
 
-**Still need help with the bot? Do ${config.prefix}invite!**`,
-		} });
+**Still need help with the bot? Do ${config.prefix}invite!**`);
+		await message.channel.send(Embed);
 	},
 };

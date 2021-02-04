@@ -14,7 +14,8 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed()
 		.setColor(3066993)
 		.setAuthor(fetchedMsg.embeds[0].author.name, fetchedMsg.embeds[0].author.iconURL)
-		.setDescription(fetchedMsg.embeds[0].description);
+		.setDescription(fetchedMsg.embeds[0].description)
+		.setTitle('Suggestion (Approved)');
 		if (args[1] === undefined) {
 			Embed.setFooter('No response.');
 			fetchedMsg.edit(Embed);
