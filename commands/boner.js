@@ -8,12 +8,10 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed().setColor(Math.round(Math.random() * 16777215)).setTitle(`${message.member.displayName}'s pp size`).setDescription('Calculating...');
 		const pp = await message.channel.send(Embed);
 		const shaft = [];
-		const randomcolor = Math.round(Math.random() * 16777215);
-		const ms = 1000;
 		for (let step = 0; step < random; step++) {
-			sleep(ms);
-			Embed.setDescription('8' + shaft + 'D');
-			pp.edit (Embed);
+			sleep(1000);
+			Embed.setDescription('8' + shaft.join('') + 'D');
+			await pp.edit (Embed);
 			shaft.push('=');
 		}
 		const sike = Math.round(Math.random() * 10);
