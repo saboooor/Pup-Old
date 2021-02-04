@@ -6,7 +6,7 @@ module.exports = {
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		const random = Math.round(Math.random() * 35);
 		const Embed = new Discord.MessageEmbed().setColor(Math.round(Math.random() * 16777215)).setTitle(`${message.member.displayName}'s pp size`).setDescription('Calculating...');
-		const pp = message.channel.send(Embed);
+		const pp = await message.channel.send(Embed);
 		const shaft = [];
 		const randomcolor = Math.round(Math.random() * 16777215);
 		const ms = 1000;
