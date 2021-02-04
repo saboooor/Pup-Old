@@ -13,6 +13,5 @@ module.exports = {
 		const random = Math.round(Math.random() * 35);
 		Embed.setDescription('8' + '='.repeat(random - 1) + 'D').setFooter(`pp size = ${random}"`);
 		message.channel.send(Embed);
-		return;
 	},
 };
