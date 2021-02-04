@@ -181,8 +181,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (reaction.emoji.name === '🔒') {
 			if (message.author.id != config.botid) return;
 			await reaction.users.remove(user.id);
-			await message.react('785116664190337034');
-			await message.react('785116663460266005');
+			await message.react(config.yes);
+			await message.react(config.no);
 			return;
 		}
 		if (reaction.emoji.name === 'no') {

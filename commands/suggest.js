@@ -18,7 +18,7 @@ module.exports = {
 			title: 'Suggestion',
 			description: suggestion,
 		} });
-		await msg.react('785116664190337034');
-		await msg.react('785116663460266005');
+		await msg.react(config.yes);
+		await msg.react(config.no);
 	},
 };

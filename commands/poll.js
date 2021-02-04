@@ -32,8 +32,8 @@ module.exports = {
 				title: 'Poll',
 				description: poll,
 			} });
-			await msg.react('785116664190337034');
-			await msg.react('785116663460266005');
+			await msg.react(config.yes);
+			await msg.react(config.no);
 		}
 		else if (args[0].toLowerCase() == 'choices') {
 			message.channel.send('Keep in mind that this poll option is still a work in progress. Please DM or ping @saboor#6969 to report any bugs.');
