@@ -11,27 +11,22 @@ module.exports = {
 				return false;
 			}
 		}
-		if (args[1] === undefined) {
-			return message.channel.send({ embed: {
-				color: 3447003,
-				title: 'Usage:',
-				description: `\`${config.prefix}poll yesno <Yes/No Question>\`\n\`${config.prefix}poll choices "<Question>" [<Emoji> "<Option>"]\``,
-				footer: { text: 'You can add more options by repeating [<Emoji> "<Option>"]' },
-			} });
-		}
+		const Usage = new Discord.MessageEmbed()
+		.setColor(3447003)
+		.setTitle('Usage')
+		.setDescription(`\`${config.prefix}poll yesno <Yes/No Question>\`\n\`${config.prefix}poll choices "<Question>" [<Emoji> "<Option>"]\``)
+		.setFooter('You can add more options by repeating [<Emoji> "<Option>"]');
+		const Poll = new Discord.MessageEmbed()
+		.setColor(3447003)
+		.setTitle('Poll')
+		.setAuthor(message.author.username, message.author.avatarURL())
+		if (args[1] === undefined) return message.channel.send(Usage);
 		let channel = message.guild.channels.cache.find(c => c.name.includes('polls'));
 		if (channel === undefined) channel = message.channel;
 		if (args[0].toLowerCase() == 'yesno') {
 			const poll = args.join(' ').replace(args[0] + ' ', '');
-			const msg = await channel.send({ embed: {
-				color: 3447003,
-				author: {
-					name: message.author.username,
-					icon_url: message.author.avatarURL(),
-				},
-				title: 'Poll',
-				description: poll,
-			} });
+			Poll.setDescription(poll);
+			const msg = await channel.send(Poll);
 			await msg.react(config.yes);
 			await msg.react(config.no);
 		}
@@ -51,32 +46,15 @@ module.exports = {
 			const e = poll[0];
 			poll.shift();
 			poll.pop();
-			const msg = await channel.send({ embed: {
-				color: 3447003,
-				author: {
-					name: message.author.username,
-					icon_url: message.author.avatarURL(),
-				},
-				title: 'Poll',
-				description: `${e}\n${poll.join('')}`,
-			} });
+			Poll.setDescription(`${e}\n${poll.join('')}`)
+			const msg = await channel.send(Poll);
 			res.forEach(p => {
-				try {
-					if (p !== undefined) {
-						msg.react(p);
-					}
+				if (p !== undefined) {
+					msg.react(p).catch(e => console.log(e));
 				}
-				catch(l) {console.log(l);}
 			});
 		}
-		else {
-			return message.channel.send({ embed: {
-				color: 3447003,
-				title: 'Usage:',
-				description: `\`${config.prefix}poll yesno <Yes/No Question>\`\n\`${config.prefix}poll choices "<Question>" [<Emoji> "<Option>"]\``,
-				footer: { text: 'You can add more options by repeating [<Emoji> "<Option>"]' },
-			} });
-		}
+		else return message.channel.send(Usage);
 		if (channel === message.channel) return;
 		if (channel === message.guild.channels.cache.find(c => c.name.includes('polls'))) return message.channel.send(`**Poll Created! Check <#${channel.id}>**`);
 	},
