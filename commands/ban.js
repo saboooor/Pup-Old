@@ -12,6 +12,6 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed().setColor(Math.round(Math.random() * 16777215)).setTitle(`Banned ${user.tag} for ${args.join(' ').replace(`${args[0]} `, '')}`);
 		await user.send(`**You've been banned from ${message.guild.name} for ${args.join(' ').replace(`${args[0]} `, '')}**`);
 		await message.channel.send(Embed);
-		await member.ban().catch(e => console.log(e));
+		await member.ban().catch(e => message.channel.send(`\`${`${e}`.split('at')[0]}\``));
 	},
 };
