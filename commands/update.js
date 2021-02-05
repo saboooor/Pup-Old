@@ -5,7 +5,8 @@ module.exports = {
 	argamnt: 1,
 	usage: '<Server ID>',
     async execute(message, args, client, sleep, config, Client, Discord) {
-        const https = require('https'); // or 'https' for https:// URLs
+        const https = require('https');
+        const fetch = require('node-fetch');
         const fs = require('fs');
         const file = fs.createWriteStream("purpurclip.jar");
         const reply = await message.channel.send('Downloading purpurclip.jar...');
