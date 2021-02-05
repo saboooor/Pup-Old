@@ -10,9 +10,9 @@ module.exports = {
 		require('moment-duration-format');
 		const moment = require('moment');
 		let id = ''; let serverip = '';
-		let serverport = 25565; let panelstats = '';
+		let serverport = 25565;
 		let pong = ''; let info = '';
-		let cpu = ''; let pup = '';
+		let cpu = '';
 		let ram = ''; let status = '';
 		let statuscolor = ''; let statusname = '';
 		let name = ''; let icon_url = '';
@@ -70,9 +70,11 @@ module.exports = {
 				name = 'Pup Bot';
 				icon_url = reply.author.avatarURL();
 				const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
-				pup = `\n**Uptime:** ${duration}`;
+				Embed.addField('**Uptime:**', duration);
 			}
-			panelstats = `**Node:** ${info.attributes.node}\n**CPU Usage:** ${cpu.current}%\n**RAM Usage:** ${Math.ceil(ram.current / 1000000)} MB`;
+			Embed.addField('**Node:**', info.attributes.node);
+			Embed.addField('**CPU Usage:**', cpu.current);
+			Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
 
@@ -101,10 +103,14 @@ module.exports = {
 			}
 			if (pong.motdLine1) Embed.addField('MOTD:', pong.motdLine1.descriptionText.replace(/§{1}./g, ''));
 			if (pong.description) Embed.addField('MOTD:', pong.description.descriptionText.replace(/§{1}./g, ''));
+			if (pong.favicon) {
+				const base64string = Buffer.from(pong.favicon.replace(/^data:image\/png;base64,/, ""), 'base64');
+				const iconpng = new Discord.MessageAttachment(base64string, "icon.png");
+				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png')
+			}
 		}
-		const base64strimg = Buffer.from(pong.favicon.replace(/^data:image\/png;base64,/, ""), 'base64');
-		const iconpng = new Discord.MessageAttachment(base64strimg, "icon.png");
-		Embed.setColor(statuscolor).setAuthor(name, icon_url).setDescription(`${panelstats}${pup}`).attachFiles([iconpng]).setThumbnail('attachment://icon.png');
-		await reply.channel.send('', Embed);
+		Embed.setColor(statuscolor).setAuthor(name);
+		await reply.delete();
+		await message.channel.send(Embed);
 	},
 };
