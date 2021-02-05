@@ -3,7 +3,7 @@ module.exports = {
 	guildOnly: true,
 	aliases: ['status'],
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		const Embed = new Discord.MessageEmbed();
+		const Embed = new Discord.MessageEmbed().setThumbnail('https://bugs.mojang.com/secure/attachment/99116/unknown_pack.png');
 		const reply = await message.channel.send('Pinging...');
 		const panel = 'https://panel.birdflop.com';
 		const util = require('minecraft-server-util');
@@ -61,7 +61,6 @@ module.exports = {
 			status = await Client.getServerStatus(id).catch((error) => {console.log(error);});
 			statusname = status.replace('running', 'Online').replace('stopping', 'Stopping').replace('offline', 'Offline').replace('starting', 'Starting');
 			name = `${info.attributes.name} (${statusname})`;
-			icon_url = message.guild.iconURL();
 			if (status == 'running') statuscolor = 65280;
 			if (status == 'stopping') statuscolor = 16737280;
 			if (status == 'offline') statuscolor = 16711680;
@@ -71,6 +70,7 @@ module.exports = {
 				icon_url = reply.author.avatarURL();
 				const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
 				Embed.addField('**Uptime:**', duration);
+				Embed.setThumbnail(reply.author.avatarURL());
 			}
 			Embed.addField('**Node:**', info.attributes.node);
 			Embed.addField('**CPU Usage:**', cpu.current);
@@ -91,22 +91,22 @@ module.exports = {
 				}
 			}
 
-			if (pong.version) Embed.addField('Version:', pong.version);
-			if (pong.maxPlayers) Embed.addField('Players Online:', `${pong.onlinePlayers} / ${pong.maxPlayers}`);
+			if (pong.version) Embed.addField('**Version:**', pong.version);
+			if (pong.maxPlayers) Embed.addField('**Players Online:**', `${pong.onlinePlayers} / ${pong.maxPlayers}`);
 			let players = pong.samplePlayers;
 			if (players) {
 				players.forEach(element => {
 					players[players.indexOf(element)] = element.name;
 				});
 				players = players.join('\n');
-				Embed.addField('Players:', players);
+				Embed.addField('**Players:**', players);
 			}
-			if (pong.motdLine1) Embed.addField('MOTD:', pong.motdLine1.descriptionText.replace(/§{1}./g, ''));
-			if (pong.description) Embed.addField('MOTD:', pong.description.descriptionText.replace(/§{1}./g, ''));
+			if (pong.motdLine1) Embed.addField('**MOTD:**', pong.motdLine1.descriptionText.replace(/§{1}./g, ''));
+			if (pong.description) Embed.addField('**MOTD:**', pong.description.descriptionText.replace(/§{1}./g, ''));
 			if (pong.favicon) {
 				const base64string = Buffer.from(pong.favicon.replace(/^data:image\/png;base64,/, ""), 'base64');
 				const iconpng = new Discord.MessageAttachment(base64string, "icon.png");
-				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png')
+				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 			}
 		}
 		Embed.setColor(statuscolor).setAuthor(name);
