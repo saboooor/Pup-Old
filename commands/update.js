@@ -20,7 +20,7 @@ module.exports = {
 				reply.edit(`Downloaded! Uploading to server... (${info.attributes.name})`);
 			});
 		});
-		const disk = await fetch('https://panel.birdflop.com/api/client/servers/${args[0]}/files/upload',
+		const disk = await fetch(`https://panel.birdflop.com/api/client/servers/${args[0]}/files/upload`,
 			{
 				headers: {
 					'Content-Type': 'application/json',
