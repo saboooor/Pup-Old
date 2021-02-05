@@ -7,7 +7,10 @@ module.exports = {
 		if (message.guild.id == '661736128373719141') e = ['Warden', '661797951223627787', 'Nether Depths'];
 		if (message.guild.id == '711661870926397601') e = ['Taco\'s Turtle Bot', '743741294190395402', 'Taco Haven'];
 		if (!e[0]) return;
-		const Embed = new Discord.MessageEmbed().setColor(Math.floor(Math.random() * 16777215)).setTitle('DISCORD LINKING').setDescription(`**Follow these steps to link your Discord and Minecraft accounts**
+		const Embed = new Discord.MessageEmbed()
+			.setColor(Math.floor(Math.random() * 16777215))
+			.setTitle('DISCORD LINKING')
+			.setDescription(`**Follow these steps to link your Discord and Minecraft accounts**
 **1.** If you are not already on the server, join it.
 **2.** Use the command \`/discord link\` in-game.
 **3.** Click here -> <@${e[1]}>

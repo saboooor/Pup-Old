@@ -20,10 +20,10 @@ module.exports = {
 			.setColor(3447003)
 			.setTitle('Poll')
 			.setAuthor(message.author.username, message.author.avatarURL());
-		if (args[1] === undefined) return message.channel.send(Usage);
+		if (!args[1]) return message.channel.send(Usage);
 		let channel = message.guild.channels.cache.find(c => c.name.includes('polls'));
-		if (channel === undefined) channel = message.channel;
-		if (args[0].toLowerCase() == 'yesno') {
+		if (channel) channel = message.channel;
+		if (!args[0].toLowerCase() == 'yesno') {
 			const poll = args.join(' ').replace(args[0] + ' ', '');
 			Poll.setDescription(poll);
 			const msg = await channel.send(Poll);

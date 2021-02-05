@@ -5,7 +5,10 @@ module.exports = {
 	guildOnly: false,
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		const random = Math.round(Math.random() * 35);
-		const Embed = new Discord.MessageEmbed().setColor(Math.round(Math.random() * 16777215)).setTitle(`${message.member.displayName}'s pp size`).setDescription('Calculating...');
+		const Embed = new Discord.MessageEmbed()
+			.setColor(Math.round(Math.random() * 16777215))
+			.setTitle(`${message.member.displayName}'s pp size`)
+			.setDescription('Calculating...');
 		const pp = await message.channel.send(Embed);
 		const shaft = [];
 		for (let step = 0; step < random; step++) {
