@@ -12,14 +12,14 @@ module.exports = {
 			}
 		}
 		const Usage = new Discord.MessageEmbed()
-		.setColor(3447003)
-		.setTitle('Usage')
-		.setDescription(`\`${config.prefix}poll yesno <Yes/No Question>\`\n\`${config.prefix}poll choices "<Question>" [<Emoji> "<Option>"]\``)
-		.setFooter('You can add more options by repeating [<Emoji> "<Option>"]');
+			.setColor(3447003)
+			.setTitle('Usage')
+			.setDescription(`\`${config.prefix}poll yesno <Yes/No Question>\`\n\`${config.prefix}poll choices "<Question>" [<Emoji> "<Option>"]\``)
+			.setFooter('You can add more options by repeating [<Emoji> "<Option>"]');
 		const Poll = new Discord.MessageEmbed()
-		.setColor(3447003)
-		.setTitle('Poll')
-		.setAuthor(message.author.username, message.author.avatarURL())
+			.setColor(3447003)
+			.setTitle('Poll')
+			.setAuthor(message.author.username, message.author.avatarURL());
 		if (args[1] === undefined) return message.channel.send(Usage);
 		let channel = message.guild.channels.cache.find(c => c.name.includes('polls'));
 		if (channel === undefined) channel = message.channel;
@@ -46,15 +46,15 @@ module.exports = {
 			const e = poll[0];
 			poll.shift();
 			poll.pop();
-			Poll.setDescription(`${e}\n${poll.join('')}`)
+			Poll.setDescription(`${e}\n${poll.join('')}`);
 			const msg = await channel.send(Poll);
 			res.forEach(p => {
 				if (p !== undefined) {
-					msg.react(p).catch(e => console.log(e));
+					msg.react(p).catch(a => console.log(a));
 				}
 			});
 		}
-		else return message.channel.send(Usage);
+		else {return message.channel.send(Usage);}
 		if (channel === message.channel) return;
 		if (channel === message.guild.channels.cache.find(c => c.name.includes('polls'))) return message.channel.send(`**Poll Created! Check <#${channel.id}>**`);
 	},
