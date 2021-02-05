@@ -66,7 +66,6 @@ module.exports = {
 			if (status == 'starting') statuscolor = 16737280;
 			if (id == '5bcaad8d') {
 				name = 'Pup Bot';
-				icon_url = reply.author.avatarURL();
 				const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
 				if (duration) Embed.addField('**Uptime:**', duration);
 				Embed.setThumbnail(reply.author.avatarURL());
@@ -103,8 +102,8 @@ module.exports = {
 			if (pong.motdLine1) Embed.addField('**MOTD:**', pong.motdLine1.descriptionText.replace(/§{1}./g, ''));
 			if (pong.description) Embed.addField('**MOTD:**', pong.description.descriptionText.replace(/§{1}./g, ''));
 			if (pong.favicon) {
-				const base64string = Buffer.from(pong.favicon.replace(/^data:image\/png;base64,/, ""), 'base64');
-				const iconpng = new Discord.MessageAttachment(base64string, "icon.png");
+				const base64string = Buffer.from(pong.favicon.replace(/^data:image\/png;base64,/, ''), 'base64');
+				const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
 				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 			}
 		}
