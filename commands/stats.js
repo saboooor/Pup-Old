@@ -99,8 +99,8 @@ module.exports = {
 				players = players.join('\n');
 				Embed.addField('Players:', players);
 			}
-			if (pong.motdLine1.descriptionText) Embed.addField('MOTD:', pong.motdLine1.descriptionText).replace(/§{1}./g, '');
-			if (pong.description.descriptionText) Embed.addField('MOTD:', pong.description.descriptionText).replace(/§{1}./g, '');
+			if (pong.motdLine1) Embed.addField('MOTD:', pong.motdLine1.descriptionText).replace(/§{1}./g, '');
+			if (pong.description) Embed.addField('MOTD:', pong.description.descriptionText).replace(/§{1}./g, '');
 		}
 		// const imageStream = new Buffer.from(pong.favicon, 'base64');
 		// const attachment = new Discord.MessageAttachment(imageStream, 'img.png');
