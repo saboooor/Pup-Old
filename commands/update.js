@@ -20,15 +20,7 @@ module.exports = {
 				reply.edit(`Downloaded! Uploading to server... (${info.attributes.name})`);
 			});
 		});
-		const disk = await fetch(`https://panel.birdflop.com/api/client/servers/${args[0]}/files/upload`,
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'Application/vnd.pterodactyl.v1+json',
-					'Authorization': `Bearer ${config.panelapikey}`,
-				},
-			},
-		);
-		console.log(disk);
+		const upload = Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
+		console.log(upload);
 	},
 };
