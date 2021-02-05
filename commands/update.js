@@ -20,15 +20,15 @@ module.exports = {
 				reply.edit(`Downloaded! Uploading to server... (${info.attributes.name})`);
 			});
 		});
-		fetch(`https://panel.birdflop.com/api/client/servers/${args[0]}/files/upload`, {
-			'method': 'GET',
-			'headers': {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${config.panelapikey}`,
+		const disk = await fetch('https://panel.birdflop.com/api/client/servers/${args[0]}/files/upload',
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'Application/vnd.pterodactyl.v1+json',
+					'Authorization': `Bearer ${config.panelapikey}`,
+				},
 			},
-		})
-			.then(response => console.log(response.url))
-			.catch(err => console.error(err));
+		);
+		console.log(disk);
 	},
 };
