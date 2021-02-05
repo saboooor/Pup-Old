@@ -72,7 +72,7 @@ module.exports = {
 			}
 			if (info.attributes.node) Embed.addField('**Node:**', info.attributes.node);
 			if (cpu.current) Embed.addField('**CPU Usage:**', cpu.current);
-			Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
+			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
 
