@@ -11,7 +11,7 @@ module.exports = {
 	argamnt: 1,
 	usage: '<Code>',
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		if (!config.ownerID.includes(message.author.id)) return message.reply('You do not have the proper permissions to execute this command.');
+		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		try {
 			const code = args.join(' ');
 			let evaled = eval(code);
