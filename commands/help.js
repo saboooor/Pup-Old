@@ -5,8 +5,8 @@ module.exports = {
 	guildOnly: false,
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		const Embed = new Discord.MessageEmbed()
-		.setColor(Math.floor(Math.random() * 16777215))
-.setDescription(`**BOT FEATURES:**
+			.setColor(Math.floor(Math.random() * 16777215))
+			.setDescription(`**BOT FEATURES:**
 
 - Sorts DiscordSRV 'list' command
 - Simp reaction ( :regional_indicator_s: :regional_indicator_i: :regional_indicator_m: :regional_indicator_p: )
