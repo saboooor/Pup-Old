@@ -67,11 +67,11 @@ module.exports = {
 				name = 'Pup Bot';
 				icon_url = reply.author.avatarURL();
 				const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
-				Embed.addField('**Uptime:**', duration);
+				if (duration) Embed.addField('**Uptime:**', duration);
 				Embed.setThumbnail(reply.author.avatarURL());
 			}
-			Embed.addField('**Node:**', info.attributes.node);
-			Embed.addField('**CPU Usage:**', cpu.current);
+			if (info.attributes.node) Embed.addField('**Node:**', info.attributes.node);
+			if (cpu.current) Embed.addField('**CPU Usage:**', cpu.current);
 			Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
@@ -80,12 +80,14 @@ module.exports = {
 				pong = await util.status(serverip, { port: serverport });
 			}
 			catch (e) {
-				reply.edit('**Invalid Server**\n`Trying Bedrock...`\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
-				try {
-					pong = await util.statusBedrock(serverip, { port: serverport });
-				}
-				catch (a) {
-					return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
+				if (id !== '') {
+					reply.edit('**Invalid Server**\n`Trying Bedrock...`\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
+					try {
+						pong = await util.statusBedrock(serverip, { port: serverport });
+					}
+					catch (a) {
+						return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
+					}
 				}
 			}
 
