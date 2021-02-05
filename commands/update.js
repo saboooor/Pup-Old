@@ -17,7 +17,6 @@ module.exports = {
             response.pipe(file);
             const info = await Client.getServerInfo(args[0]).catch((error) => {console.log(error);});
             file.on('finish', function() {
-                file.close(cb);
                 reply.edit(`Downloaded! Uploading to server... (${info.attributes.name})`);
             });
         });
