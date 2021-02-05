@@ -104,7 +104,7 @@ module.exports = {
 		}
 		const base64strimg = Buffer.from(pong.favicon, 'base64');
 		const iconpng = new Discord.MessageAttachment(base64strimg, "icon.png");
-		Embed.setColor(statuscolor).setAuthor(name, icon_url).setDescription(`${panelstats}${pup}`).attachFiles(iconpng).setThumbnail('attachment://icon.png');
+		Embed.setColor(statuscolor).setAuthor(name, icon_url).setDescription(`${panelstats}${pup}`).attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 		await reply.edit('', Embed);
 	},
 };
