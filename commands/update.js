@@ -5,6 +5,7 @@ module.exports = {
 	argamnt: 1,
 	usage: '<Server ID>',
     async execute(message, args, client, sleep, config, Client, Discord) {
+        return message.reply('This command was temporarily disabled, check back later')
         const https = require('https');
         const fetch = require('node-fetch');
         const fs = require('fs');
