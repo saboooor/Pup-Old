@@ -102,10 +102,9 @@ module.exports = {
 			if (pong.motdLine1) Embed.addField('MOTD:', pong.motdLine1.descriptionText.replace(/§{1}./g, ''));
 			if (pong.description) Embed.addField('MOTD:', pong.description.descriptionText.replace(/§{1}./g, ''));
 		}
-		// const imageStream = new Buffer.from(pong.favicon, 'base64');
-		// const attachment = new Discord.MessageAttachment(imageStream, 'img.png');
-		// console.log(attachment);
-		Embed.setColor(statuscolor).setAuthor(name, icon_url).setDescription(`${panelstats}${pup}`);
+		const base64strimg = Buffer.from(pong.favicon, 'base64');
+		const iconpng = new Discord.MessageAttachment(base64strimg, 'icon.png');
+		Embed.setColor(statuscolor).setAuthor(name, icon_url).setDescription(`${panelstats}${pup}`).setImage(iconpng);
 		await reply.edit('', Embed);
 	},
 };
