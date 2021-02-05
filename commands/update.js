@@ -20,7 +20,7 @@ module.exports = {
 				reply.edit(`Downloaded! Uploading to server... (${info.attributes.name})`);
 			});
 		});
-		const upload = Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
+		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
 		console.log(upload);
 	},
 };
