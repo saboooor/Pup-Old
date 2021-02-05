@@ -103,7 +103,7 @@ module.exports = {
 			if (pong.description) Embed.addField('MOTD:', pong.description.descriptionText.replace(/§{1}./g, ''));
 		}
 		const base64strimg = Buffer.from(pong.favicon, 'base64');
-		const iconpng = new Discord.MessageAttachment(base64strimg, 'icon.png');
+		const iconpng = new Discord.MessageAttachment(base64strimg, "icon.png");
 		Embed.setColor(statuscolor).setAuthor(name, icon_url).setDescription(`${panelstats}${pup}`).setImage(iconpng);
 		await reply.edit('', Embed);
 	},
