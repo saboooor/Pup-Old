@@ -50,6 +50,7 @@ module.exports = {
 			statuscolor = 3447003;
 		}
 		if (id !== '') {
+			Embed.setThumbnail(message.guild.iconURL());
 			Client.login(panel, config.panelapikey, (logged_in, err) => {
 				if (logged_in == false) return message.reply(`Something went wrong\n${err}`);
 			});
@@ -75,7 +76,6 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-
 			try {
 				pong = await util.status(serverip, { port: serverport });
 			}
@@ -90,7 +90,6 @@ module.exports = {
 					}
 				}
 			}
-
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.maxPlayers) Embed.addField('**Players Online:**', `${pong.onlinePlayers} / ${pong.maxPlayers}`);
 			let players = pong.samplePlayers;
