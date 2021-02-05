@@ -80,7 +80,7 @@ module.exports = {
 				pong = await util.status(serverip, { port: serverport });
 			}
 			catch (e) {
-				if (id !== '') {
+				if (id == '') {
 					reply.edit('**Invalid Server**\n`Trying Bedrock...`\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 					try {
 						pong = await util.statusBedrock(serverip, { port: serverport });
