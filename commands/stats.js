@@ -10,13 +10,13 @@ module.exports = {
 		require('moment-duration-format');
 		const moment = require('moment');
 		let id = ''; let serverip = '';
-		let serverport = 25565; let mcstats = '';
-		let panelstats = ''; let pong = '';
-		let info = ''; let cpu = '';
+		let serverport = 25565; let panelstats = '';
+		let pong = ''; let info = '';
+		let cpu = ''; let pup = '';
 		let ram = ''; let status = '';
 		let statuscolor = ''; let statusname = '';
 		let name = ''; let icon_url = '';
-		let arg = args[0]; let pup = '';
+		let arg = args[0];
 		if (arg !== undefined) arg = arg.toLowerCase();
 		if (!arg) {
 			id = '5bcaad8d';
@@ -75,6 +75,7 @@ module.exports = {
 			panelstats = `**Node:** ${info.attributes.node}\n**CPU Usage:** ${cpu.current}%\n**RAM Usage:** ${Math.ceil(ram.current / 1000000)} MB`;
 		}
 		if (serverip !== '') {
+
 			try {
 				pong = await util.status(serverip, { port: serverport });
 			}
@@ -87,31 +88,24 @@ module.exports = {
 					return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 				}
 			}
-			Embed.addField('Players Online:', `${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			Embed.addField('MOTD:', `${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			// eslint-disable-next-line prefer-const
+
+			if (pong.version) Embed.addField('Version:', pong.version);
+			if (pong.maxPlayers) Embed.addField('Players Online:', `${pong.onlinePlayers} / ${pong.maxPlayers}`);
 			let players = pong.samplePlayers;
-			if (players !== undefined) {
-				if (players !== null) {
-					players.forEach(element => {
-						players[players.indexOf(element)] = element.name;
-					});
-					players = players.join('\n');
-				}
+			if (players) {
+				players.forEach(element => {
+					players[players.indexOf(element)] = element.name;
+				});
+				players = players.join('\n');
+				Embed.addField('Players:', players);
 			}
-			if (!pong.description) {
-				Embed.addField('MOTD:', pong.motdLine1.descriptionText);
-				mcstats = `\n**Players Online:** ${pong.onlinePlayers} / ${pong.maxPlayers}\n**MOTD:** ${pong.motdLine1.descriptionText}`;
-			}
-			else {
-				Embed.addField('MOTD:', pong.description.descriptionText);
-				mcstats = `\n**Version:** ${pong.version}\n**Players Online:** ${pong.onlinePlayers} / ${pong.maxPlayers}\n${players}\n**MOTD:**\n${pong.description.descriptionText}`;
-			}
+			if (pong.motdLine1.descriptionText) Embed.addField('MOTD:', pong.motdLine1.descriptionText).replace(/§{1}./g, '');
+			if (pong.description.descriptionText) Embed.addField('MOTD:', pong.description.descriptionText).replace(/§{1}./g, '');
 		}
 		// const imageStream = new Buffer.from(pong.favicon, 'base64');
 		// const attachment = new Discord.MessageAttachment(imageStream, 'img.png');
 		// console.log(attachment);
-		Embed.setColor(statuscolor).setAuthor(name, icon_url).setDescription(`${panelstats}${pup}${mcstats.replace('\nnull', '')}`.replace(/§{1}./g, '').replace(' discord.gg', ' https://discord.gg'));
+		Embed.setColor(statuscolor).setAuthor(name, icon_url).setDescription(`${panelstats}${pup}`);
 		await reply.edit('', Embed);
 	},
 };
