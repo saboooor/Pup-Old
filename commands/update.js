@@ -15,7 +15,7 @@ module.exports = {
         });
         const request = https.get("https://ci.pl3x.net/job/Purpur/lastSuccessfulBuild/artifact/final/purpurclip.jar", async function(response) {
             response.pipe(file);
-            const info = await Client.getServerInfo(id).catch((error) => {console.log(error);});
+            const info = await Client.getServerInfo(args[0]).catch((error) => {console.log(error);});
             file.on('finish', function() {
                 file.close(cb);
                 reply.edit(`Downloaded! Uploading to server... (${info.attributes.name})`);
