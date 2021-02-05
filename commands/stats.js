@@ -10,14 +10,12 @@ module.exports = {
 		require('moment-duration-format');
 		const moment = require('moment');
 		let id = ''; let serverip = '';
-		let serverport = 25565;
+		let serverport = 25565; let arg = args[0];
 		let pong = ''; let info = '';
-		let cpu = '';
+		let cpu = ''; let name = '';
 		let ram = ''; let status = '';
 		let statuscolor = ''; let statusname = '';
-		let name = ''; let icon_url = '';
-		let arg = args[0];
-		if (arg !== undefined) arg = arg.toLowerCase();
+		if (arg) arg = arg.toLowerCase();
 		if (!arg) {
 			id = '5bcaad8d';
 			if (message.guild.id == '661736128373719141') {
@@ -47,7 +45,7 @@ module.exports = {
 		else {
 			serverip = args.join(':').split(':')[0];
 			const port = args.join(':').split(':')[1];
-			if (port !== undefined) serverport = parseInt(port);
+			if (port) serverport = parseInt(port);
 			name = `${serverip}:${serverport}`.replace(':25565', '');
 			statuscolor = 3447003;
 		}
