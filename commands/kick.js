@@ -3,19 +3,15 @@ module.exports = {
 	guildOnly: true,
 	args: true,
 	argamnt: 2,
-	usage: '<User Mention or ID> <Reason>',
+	usage: '<User Mention> <Reason>',
 	permissions: 'KICK_MEMBERS',
-	execute(message, args, client, sleep, config, Client, Discord) {
-		try {
-			const member = message.guild.members.cache.find(u => u.id === args[0].replace('<@!', '').replace('>', ''));
-			const user = client.users.cache.find(u => u.id === args[0].replace('<@!', '').replace('>', ''));
-			const Embed = new Discord.MessageEmbed().setColor(Math.round(Math.random() * 16777215)).setDescription(`Kicked ${user.tag} for ${args.join(' ').replace(`${args[0]} `, '')}`);
-			user.send(`**You've been kicked from ${message.guild.name} for ${args.join(' ').replace(`${args[0]} `, '')}**`);
-			message.channel.send(Embed);
-			member.kick();
-		}
-		catch(a) {
-			message.reply('ur supposed to use a discord user mention or id dumbass');
-		}
+	async execute(message, args, client, sleep, config, Client, Discord) {
+		if (!message.mentions.users.first()) return message.reply('ur supposed to use a discord user mention dumbass');
+		const member = message.guild.members.cache.find(message.mentions.users.first().id);
+		const user = client.users.cache.find(message.mentions.users.first().id);
+		const Embed = new Discord.MessageEmbed().setColor(Math.round(Math.random() * 16777215)).setDescription(`Kicked ${user.tag} for ${args.join(' ').replace(`${args[0]} `, '')}`);
+		await user.send(`**You've been kicked from ${message.guild.name} for ${args.join(' ').replace(`${args[0]} `, '')}**`);
+		await member.kick();
+		await message.channel.send(Embed);
 	},
 };
