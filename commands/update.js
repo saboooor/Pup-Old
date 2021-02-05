@@ -12,7 +12,7 @@ module.exports = {
         Client.login('https://panel.birdflop.com', config.panelapikey, (logged_in, err) => {
             if (logged_in == false) return message.reply(`Something went wrong\n${err}`);
         });
-        const request = https.get("https://ci.pl3x.net/job/Purpur/lastSuccessfulBuild/artifact/final/purpurclip.jar", function(response) {
+        const request = https.get("https://ci.pl3x.net/job/Purpur/lastSuccessfulBuild/artifact/final/purpurclip.jar", async function(response) {
             response.pipe(file);
             const info = await Client.getServerInfo(id).catch((error) => {console.log(error);});
             file.on('finish', function() {
