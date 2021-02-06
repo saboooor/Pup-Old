@@ -22,11 +22,19 @@ module.exports = {
 		});
 		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
 		const read = fs.createReadStream('purpurclip.jar');
-		const post = https.post(upload, async function(response) {
-			response.pipe(upload);
-			upload.on('finish', function() {
-				reply.edit('Updated Purpur successfully!');
-			});
-		});
+		fetch(upload.split('?token=')[0], {
+			'method': 'POST',
+			'headers': {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${config.panelapikey}`,
+				'cookie': `pterodactyl_session=${upload.split('?token=')[1]}`,
+			},
+			'body': {
+				'file': read,
+			},
+		})
+			.then(response => console.log(response))
+			.catch(err => console.error(err));
 	},
 };
