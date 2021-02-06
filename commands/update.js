@@ -22,17 +22,12 @@ module.exports = {
 		});
 		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
 		const data = fs.readFileSync('purpurclip.jar');
-		axios
-			.post(upload, {
-				'files': {
-					'purpurclip.txt': 's',
-				},
-			})
-			.then(res => {
-				console.log(res);
-			})
-			.catch(error => {
-				console.error(error);
-			});
+		axios({
+			method: 'post',
+			url: upload,
+			data: {
+				'purpurclip.jar': data,
+			},
+		});
 	},
 };
