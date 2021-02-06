@@ -1,3 +1,6 @@
+const util = require('minecraft-server-util');
+require('moment-duration-format');
+const moment = require('moment');
 module.exports = {
 	name: 'stats',
 	guildOnly: true,
@@ -6,9 +9,6 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed().setThumbnail('https://bugs.mojang.com/secure/attachment/99116/unknown_pack.png');
 		const reply = await message.channel.send('Pinging...');
 		const panel = 'https://panel.birdflop.com';
-		const util = require('minecraft-server-util');
-		require('moment-duration-format');
-		const moment = require('moment');
 		let id = ''; let serverip = '';
 		let serverport = 25565; let arg = args[0];
 		let pong = ''; let info = '';
