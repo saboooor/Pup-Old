@@ -21,11 +21,11 @@ module.exports = {
 			});
 		});
 		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
-		const bruh = await fs.createReadStream('purpurclip.jar');
+		const data = await fs.readFile('purpurclip.jar');
 		axios
 			.post(upload, {
 				'files': {
-					'purpurclip.jar': bruh,
+					'purpurclip.jar': data,
 				},
 			})
 			.then(res => {
