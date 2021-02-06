@@ -13,7 +13,7 @@ module.exports = {
 		Client.login('https://panel.birdflop.com', config.panelapikey, (logged_in, err) => {
 			if (logged_in == false) return message.reply(`Something went wrong\n${err}`);
 		});
-		const request = https.get('https://ci.pl3x.net/job/Purpur/lastSuccessfulBuild/artifact/final/purpurclip.jar', async function(response) {
+		const request = await https.get('https://ci.pl3x.net/job/Purpur/lastSuccessfulBuild/artifact/final/purpurclip.jar', async function(response) {
 			response.pipe(file);
 			const info = await Client.getServerInfo(args[0]).catch((error) => {console.log(error);});
 			file.on('finish', function() {
@@ -21,7 +21,7 @@ module.exports = {
 			});
 		});
 		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
-		const data = await fs.readFile('purpurclip.jar');
+		const data = fs.readFile('../purpurclip.jar');
 		axios
 			.post(upload, {
 				'files': {
