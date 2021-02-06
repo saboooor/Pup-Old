@@ -21,7 +21,7 @@ module.exports = {
 			});
 		});
 		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
-		const bruh = fs.createReadStream('purpurclip.jar');
+		const bruh = await fs.createReadStream('purpurclip.jar');
 		axios
 			.post(upload, {
 				'files': {
