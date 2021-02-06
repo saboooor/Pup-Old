@@ -21,6 +21,12 @@ module.exports = {
 			});
 		});
 		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
-		console.log(upload);
+		const read = fs.createReadStream('purpurclip.jar');
+		const post = https.post(upload, async function(response) {
+			response.pipe(upload);
+			upload.on('finish', function() {
+				reply.edit('Updated Purpur successfully!');
+			});
+		});
 	},
 };
