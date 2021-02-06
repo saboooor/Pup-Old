@@ -21,19 +21,21 @@ module.exports = {
 			});
 		});
 		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
-		const data = fs.readFileSync('purpurclip.jar');
-		console.log(data);
-		axios
-			.post(upload, {
-				'files': {
-					'purpurclip.jar': data,
-				},
-			})
-			.then(res => {
-				console.log(res);
-			})
-			.catch(error => {
-				console.error(error);
-			});
+		const data = fs.createReadStream('purpurclip.jar');
+
+		// personally I'd function out the inner body here and just call
+		// to the function and pass in the newFile
+		data.on('end', function() {
+			console.log(data);
+			axios
+				.post(upload, data)
+				.then(res => {
+					console.log(res);
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		});
+
 	},
 };
