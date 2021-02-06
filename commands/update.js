@@ -6,7 +6,7 @@ module.exports = {
 	usage: '<Server ID>',
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		const https = require('https');
-		const fetch = require('node-fetch');
+		const axios = require('axios');
 		const fs = require('fs');
 		const file = fs.createWriteStream('purpurclip.jar');
 		const reply = await message.channel.send('Downloading purpurclip.jar...');
@@ -21,7 +21,15 @@ module.exports = {
 			});
 		});
 		const upload = await Client.getServerUpload(args[0]).catch((error) => {console.log(error);});
-		const read = fs.createReadStream('purpurclip.jar');
-		upload.pipe(read);
+		axios
+			.post(upload, {
+				file,
+			})
+			.then(res => {
+				console.log(res);
+			})
+			.catch(error => {
+				console.error(error);
+			});
 	},
 };
