@@ -232,7 +232,7 @@ client.on('guildMemberAdd', (member) => {
 
 let lastUpdated = 0;
 
-async function updateCount() {
+function updateCount() {
 	util.status('play.netherdepths.com')
 		.catch(e => client.channels.cache.get('670774287317073951').send('**❗Server is offline❗**'))
 		.then(pong => {
