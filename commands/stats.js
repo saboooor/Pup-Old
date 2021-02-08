@@ -107,15 +107,7 @@ module.exports = {
 				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 			}
 		}
-		if (serverip == 'play.netherdepths.com') {
-			Embed.setThumbnail(client.guilds.cache.get('661736128373719141').iconURL());
-			reply.edit('', Embed);
-		}
-		else if (serverip == 'tacohaven.club') {
-			Embed.setThumbnail(client.guilds.cache.get('711661870926397601').iconURL());
-			reply.edit('', Embed);
-		}
-		else if (pong.favicon) {
+		if (pong.favicon) {
 			await reply.delete();
 			await message.channel.send('', Embed);
 		}
