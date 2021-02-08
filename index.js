@@ -234,19 +234,11 @@ let lastUpdated = 0;
 
 setInterval(async function() {
 	const pong = await util.status('play.netherdepths.com').catch(e => {
-		if (client.channels.cache.get('808189057665728542').name != 'Server: Offline') {
-			client.channels.cache.get('808189057665728542').setName('Server: Offline');
-			if (client.channels.cache.get('808188940728664084').name != 'Players: 0 / 30') client.channels.cache.get('808188940728664084').setName('Players: 0 / 30');
-			lastUpdated = Date.now();
-		}
+		client.channels.cache.get('670774287317073951').send('**❗Server is offline❗**');
 		return;
 	});
 	if (client.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 		client.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
-		lastUpdated = Date.now();
-	}
-	else if (client.channels.cache.get('808189057665728542').name != 'Server: Online') {
-		client.channels.cache.get('808189057665728542').setName('Server: Online');
 		lastUpdated = Date.now();
 	}
 }, 60000);
@@ -254,19 +246,11 @@ setInterval(async function() {
 client.on('message', async (message) => {
 	if (Date.now() - lastUpdated >= 60) {
 		const pong = await util.status('play.netherdepths.com').catch(e => {
-			if (client.channels.cache.get('808189057665728542').name != 'Server: Offline') {
-				client.channels.cache.get('808189057665728542').setName('Server: Offline');
-				if (client.channels.cache.get('808188940728664084').name != 'Players: 0 / 30') client.channels.cache.get('808188940728664084').setName('Players: 0 / 30');
-				lastUpdated = Date.now();
-			}
+			client.channels.cache.get('670774287317073951').send('**❗Server is offline❗**');
 			return;
 		});
 		if (client.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 			client.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			lastUpdated = Date.now();
-		}
-		else if (client.channels.cache.get('808189057665728542').name != 'Server: Online') {
-			client.channels.cache.get('808189057665728542').setName('Server: Online');
 			lastUpdated = Date.now();
 		}
 	}
