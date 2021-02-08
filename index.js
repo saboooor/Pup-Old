@@ -237,6 +237,7 @@ setInterval(async function() {
 		client.channels.cache.get('670774287317073951').send('**❗Server is offline❗**');
 		return;
 	});
+	if (!pong) return;
 	if (client.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 		client.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
 		lastUpdated = Date.now();
@@ -248,6 +249,7 @@ client.on('message', async (message) => {
 		client.channels.cache.get('670774287317073951').send('**❗Server is offline❗**');
 		return;
 	});
+	if (!pong) return;
 	if (Date.now() - lastUpdated >= 60) {
 		if (client.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 			client.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
