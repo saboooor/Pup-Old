@@ -80,6 +80,7 @@ client.on('message', message => {
 	}
 
 	try {
+		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(`**COMMAND: ${message.author.tag} >** ${message.content}`);
 		command.execute(message, args, client, sleep, config, Client, Discord);
 	}
 	catch (error) {
