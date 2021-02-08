@@ -232,7 +232,7 @@ client.on('guildMemberAdd', (member) => {
 
 let lastUpdated = 0;
 
-setInterval(async function() {
+async function updateCount() {
 	const pong = await util.status('play.netherdepths.com').catch(e => {
 		client.channels.cache.get('670774287317073951').send('**❗Server is offline❗**');
 		return;
@@ -242,18 +242,10 @@ setInterval(async function() {
 		client.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
 		lastUpdated = Date.now();
 	}
-}, 60000);
-
-client.on('message', async (message) => {
-	const pong = await util.status('play.netherdepths.com').catch(e => {
-		client.channels.cache.get('670774287317073951').send('**❗Server is offline❗**');
-		return;
-	});
-	if (!pong) return;
+}
+setInterval(updateCount(), 60000);
+client.on('message', (message) => {
 	if (Date.now() - lastUpdated >= 60) {
-		if (client.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
-			client.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			lastUpdated = Date.now();
-		}
+		updateCount();
 	}
 });
