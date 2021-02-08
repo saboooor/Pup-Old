@@ -2,6 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./config.json');
 const nodeactyl = require('nodeactyl');
+const util = require('minecraft-server-util');
 const Client = nodeactyl.Client;
 
 function sleep(milliseconds) {
@@ -223,7 +224,30 @@ client.on('guildMemberRemove', (member) => {
 	if (member.guild.id == '789642848298336318') client.channels.cache.get('789642848915685439').send(`**${client.users.cache.get(member.id).username}** left`);
 	if (member.guild.id == '746125698644705524') client.channels.cache.get('746125698644705527').send(`**${client.users.cache.get(member.id).username}** left`);
 });
+
 client.on('guildMemberAdd', (member) => {
 	if (member.guild.id != '661736128373719141') return;
-	client.channels.cache.get('670774287317073951').send(`<@${client.users.cache.get(member.id).username}> joined the Nether Depths Discord server! Join yourself with /discord`);
+	client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);
+});
+
+client.on('message', async (message) => {
+	if (message.channel.id == '670774287317073951') {
+		sleep('100');
+		const pong = await util.status('play.netherdepths.com');
+		if (message.content.toLowerCase().includes('server')) {
+			if (!pong) {
+				message.guild.channels.get('808188940728664084').setName('Players: 0');
+				message.guild.channels.get('808189057665728542').setName('Server: Offline');
+			}
+			else if (message.guild.channels.get('808189057665728542').name == 'Server: Offline') {
+				message.guild.channels.get('808189057665728542').setName('Server: Online');
+			}
+			if (message.content.toLowerCase().includes('joined')) {
+				if (message.guild.channels.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) message.guild.channels.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+			}
+			if (message.content.toLowerCase().includes('left')) {
+				if (message.guild.channels.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) message.guild.channels.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+			}
+		}
+	}
 });
