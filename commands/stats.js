@@ -109,18 +109,18 @@ module.exports = {
 		}
 		if (serverip == 'play.netherdepths.com') {
 			Embed.setThumbnail(client.guilds.cache.get('661736128373719141').iconURL());
-			reply.edit(Embed);
+			reply.edit('', Embed);
 		}
 		else if (serverip == 'tacohaven.club') {
 			Embed.setThumbnail(client.guilds.cache.get('711661870926397601').iconURL());
-			reply.edit(Embed);
+			reply.edit('', Embed);
 		}
 		else if (pong.favicon) {
 			await reply.delete();
-			await message.channel.send(Embed);
+			await message.channel.send('', Embed);
 		}
 		else {
-			reply.edit(Embed);
+			reply.edit('', Embed);
 		}
 	},
 };
