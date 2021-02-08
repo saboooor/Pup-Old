@@ -33,6 +33,7 @@ for (const file of commandFiles) {
 const cooldowns = new Discord.Collection();
 
 client.on('message', message => {
+	if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(`**MESSAGE: \nIN ${message.guild.name} \n${message.author.tag} >** ${message.content}`);
 	if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
 	const args = message.content.slice(config.prefix.length).trim().split(/ +/);
