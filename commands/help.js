@@ -11,6 +11,7 @@ module.exports = {
 - Support tickets
 - Suggestions
 - Slur Autoban
+- More (DM me if you want me to do something that it doesn't already do!)
 
 **COMMANDS:**
 *These commands can be used by anyone*
