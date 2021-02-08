@@ -246,7 +246,7 @@ setInterval(function() {
 }, 60000);
 client.on('message', (message) => {
 	if (message.channel.type == 'dm') return;
-	if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(`**MESSAGE:\n${message.author.tag} >** ${message.content}`);
+	if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(`**MESSAGE:\nIN ${message.guild.name}\n${message.author.tag} >** ${message.content}`);
 	if (Date.now() - lastUpdated >= 60) {
 		updateCount('670774287317073951', '808188940728664084');
 	}
