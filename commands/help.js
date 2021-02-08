@@ -8,31 +8,27 @@ module.exports = {
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setDescription(`**BOT FEATURES:**
 
-- Sorts DiscordSRV 'list' command
-- Simp reaction ( :regional_indicator_s: :regional_indicator_i: :regional_indicator_m: :regional_indicator_p: )
-- @alerts reaction ( :tada: )
 - Support tickets
 - Suggestions
 - Slur Autoban
-- Control servers that use Pterodactyl (DM me)
 
 **COMMANDS:**
 *These commands can be used by anyone*
 
 **${config.prefix}suggest <suggestion>**
-Adds a suggestion to #suggestions
+Suggest something (Automatically goes to #suggestions if it exists)
+**${config.prefix}poll**
+Create a poll (Automatically goes to #polls if it exists)
 **${config.prefix}ping / ${config.prefix}pong**
-Pong!
-**${config.prefix}tts <message>**
-Text to speech in voice chat pog
+The bot's ping (Pong!)
 **${config.prefix}boner / ${config.prefix}pp / ${config.prefix}penis / ${config.prefix}erect**
-See pp size
+See pp size *suspense increases*
 **${config.prefix}instaboner / ${config.prefix}instapp / ${config.prefix}instapenis / ${config.prefix}instaerect**
-See pp size but instant
-**${config.prefix}pupstats**
-Check pup's stats
+See pp size but speedy nyoom
+**${config.prefix}stats / status [Server]**
+Check the stats for pup or a Minecraft server
 **${config.prefix}invite**
-Invite the bot to your server or join the bot's discord server!
+Invite the bot to your server or join the discord server where the bot's home is!
 
 **ADMIN COMMANDS:**
 *These commands require the member to have specified permissions*
@@ -48,7 +44,7 @@ Clear a lot of messages at once
 *Permission: Delete Messages*
 **${config.prefix}react <message id> <emoji>**
 React with the bot
-*Permission: Administrator*
+*Permission: Send Messages*
 **${config.prefix}approve <message id> [response] / ${config.prefix}accept**
 Approve a suggestion
 *Permission: Administrator*
