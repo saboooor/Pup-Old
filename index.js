@@ -239,7 +239,7 @@ client.on('message', async (message) => {
 				message.guild.channels.cache.get('808188940728664084').setName('Players: 0');
 				message.guild.channels.cache.get('808189057665728542').setName('Server: Offline');
 			}
-			else if (message.guild.channels.get('808189057665728542').name == 'Server: Offline') {
+			else if (message.guild.channels.cache.get('808189057665728542').name == 'Server: Offline') {
 				message.guild.channels.cache.get('808189057665728542').setName('Server: Online');
 			}
 			if (message.content.toLowerCase().includes('joined')) {
