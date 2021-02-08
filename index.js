@@ -236,17 +236,17 @@ client.on('message', async (message) => {
 		const pong = await util.status('play.netherdepths.com');
 		if (message.content.toLowerCase().includes('server')) {
 			if (!pong) {
-				message.guild.channels.get('808188940728664084').setName('Players: 0');
-				message.guild.channels.get('808189057665728542').setName('Server: Offline');
+				message.guild.channels.cache.get('808188940728664084').setName('Players: 0');
+				message.guild.channels.cache.get('808189057665728542').setName('Server: Offline');
 			}
 			else if (message.guild.channels.get('808189057665728542').name == 'Server: Offline') {
-				message.guild.channels.get('808189057665728542').setName('Server: Online');
+				message.guild.channels.cache.get('808189057665728542').setName('Server: Online');
 			}
 			if (message.content.toLowerCase().includes('joined')) {
-				if (message.guild.channels.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) message.guild.channels.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+				if (message.guild.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) message.guild.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
 			}
 			if (message.content.toLowerCase().includes('left')) {
-				if (message.guild.channels.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) message.guild.channels.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+				if (message.guild.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) message.guild.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
 			}
 		}
 	}
