@@ -36,7 +36,7 @@ module.exports = {
 			*These commands require the member to have specified permissions*
 			\`-help admin\`
 			
-			**Want to support the bot? [Donate here!](https;//paypal.me/youhavebeenyoted)**
+			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 			**Still need help with the bot? Do ${config.prefix}invite!**`
 				.replace(/	/, ''));
 		}
@@ -57,7 +57,7 @@ module.exports = {
 			*These commands require the member to have specified permissions*
 			\`-help admin\`
 			
-			**Want to support the bot? [Donate here!](https;//paypal.me/youhavebeenyoted)**
+			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 			**Still need help with the bot? Do ${config.prefix}invite!**`
 				.replace(/	/, ''));
 		}
@@ -95,7 +95,7 @@ module.exports = {
 			Walks you through how to setup support tickets in your guild
 			*Permission: Administrator*
 			
-			**Want to support the bot? [Donate here!](https;//paypal.me/youhavebeenyoted)**
+			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 			**Still need help with the bot? Do ${config.prefix}invite!**`
 				.replace(/	/, ''));
 		}
@@ -112,7 +112,7 @@ module.exports = {
 			*These commands require the member to have specified permissions*
 			\`-help admin\`
 			
-			**Want to support the bot?** [**Donate here!**](https;//paypal.me/youhavebeenyoted)
+			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 			**Still need help with the bot? Do ${config.prefix}invite!**`
 				.replace(/	/, ''));
 		}
