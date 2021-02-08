@@ -6,15 +6,16 @@ module.exports = {
 	guildOnly: true,
 	aliases: ['status'],
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		const Embed = new Discord.MessageEmbed().setThumbnail('https://bugs.mojang.com/secure/attachment/99116/unknown_pack.png');
+		const Embed = new Discord.MessageEmbed()
+			.setThumbnail('https://bugs.mojang.com/secure/attachment/99116/unknown_pack.png')
+			.setColor(3447003);
 		const reply = await message.channel.send('Pinging...');
 		const panel = 'https://panel.birdflop.com';
-		let id = ''; let serverip = '';
-		let serverport = 25565; let arg = args[0];
-		let pong = ''; let info = '';
-		let cpu = ''; let name = '';
-		let ram = ''; let status = '';
-		let statuscolor = ''; let statusname = '';
+		let id = '';
+		let serverip = '';
+		let serverport = 25565;
+		let arg = args[0];
+		let pong = '';
 		if (arg) arg = arg.toLowerCase();
 		if (!arg) {
 			id = '5bcaad8d';
@@ -46,26 +47,25 @@ module.exports = {
 			serverip = args.join(':').split(':')[0];
 			const port = args.join(':').split(':')[1];
 			if (port) serverport = parseInt(port);
-			name = `${serverip}:${serverport}`.replace(':25565', '');
-			statuscolor = 3447003;
+			Embed.setTitle(`${serverip}:${serverport}`.replace(':25565', ''));
 		}
 		if (id !== '') {
 			Embed.setThumbnail(message.guild.iconURL());
 			Client.login(panel, config.panelapikey, (logged_in, err) => {
 				if (logged_in == false) return message.reply(`Something went wrong\n${err}`);
 			});
-			info = await Client.getServerInfo(id).catch((error) => {console.log(error);});
-			cpu = await Client.getCPUUsage(id).catch((error) => {console.log(error);});
-			ram = await Client.getRAMUsage(id).catch((error) => {console.log(error);});
-			status = await Client.getServerStatus(id).catch((error) => {console.log(error);});
-			statusname = status.replace('running', 'Online').replace('stopping', 'Stopping').replace('offline', 'Offline').replace('starting', 'Starting');
-			name = `${info.attributes.name} (${statusname})`;
-			if (status == 'running') statuscolor = 65280;
-			if (status == 'stopping') statuscolor = 16737280;
-			if (status == 'offline') statuscolor = 16711680;
-			if (status == 'starting') statuscolor = 16737280;
+			const info = await Client.getServerInfo(id).catch((error) => {console.log(error);});
+			const cpu = await Client.getCPUUsage(id).catch((error) => {console.log(error);});
+			const ram = await Client.getRAMUsage(id).catch((error) => {console.log(error);});
+			const status = await Client.getServerStatus(id).catch((error) => {console.log(error);});
+			const statusname = status.replace('running', 'Online').replace('stopping', 'Stopping').replace('offline', 'Offline').replace('starting', 'Starting');
+			Embed.setTitle(`${info.attributes.name} (${statusname})`);
+			if (status == 'running') Embed.setColor(65280);
+			if (status == 'stopping') Embed.setColor(16737280);
+			if (status == 'offline') Embed.setColor(16711680);
+			if (status == 'starting') Embed.setColor(16737280);
 			if (id == '5bcaad8d') {
-				name = 'Pup Bot';
+				Embed.setTitle('Pup Bot');
 				const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
 				if (duration) Embed.addField('**Uptime:**', duration);
 				Embed.setThumbnail(reply.author.avatarURL());
@@ -107,8 +107,20 @@ module.exports = {
 				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 			}
 		}
-		Embed.setColor(statuscolor).setAuthor(name);
-		await reply.delete();
-		await message.channel.send(Embed);
+		if (serverip == 'play.netherdepths.com') {
+			Embed.setThumbnail(client.guilds.cache.get('661736128373719141').iconURL());
+			reply.edit(Embed);
+		}
+		else if (serverip == 'tacohaven.club') {
+			Embed.setThumbnail(client.guilds.cache.get('711661870926397601').iconURL());
+			reply.edit(Embed);
+		}
+		else if (pong.favicon) {
+			await reply.delete();
+			await message.channel.send(Embed);
+		}
+		else {
+			reply.edit(Embed);
+		}
 	},
 };
