@@ -7,7 +7,9 @@ module.exports = {
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215));
-		if (args[0].toLowerCase() == 'commands') {
+		let arg = args[0];
+		if (arg) arg = arg.toLowerCase();
+		if (arg == 'commands') {
 			Embed.setDescription(`**BOT FEATURES:**
 			\`-help features\`
 			
@@ -37,7 +39,7 @@ module.exports = {
 			**Still need help with the bot? Do ${config.prefix}invite!**`
 				.replace(/	/, ''));
 		}
-		else if (args[0].toLowerCase() == 'features') {
+		else if (arg == 'features') {
 			Embed.setDescription(`**BOT FEATURES:**
 			- Support tickets
 			- Suggestions
@@ -56,7 +58,7 @@ module.exports = {
 			**Still need help with the bot? Do ${config.prefix}invite!**`
 				.replace(/	/, ''));
 		}
-		else if (args[0].toLowerCase() == 'admin') {
+		else if (arg == 'admin') {
 			Embed.setDescription(`**BOT FEATURES:**
 			\`-help features\`
 			
