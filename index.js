@@ -230,24 +230,42 @@ client.on('guildMemberAdd', (member) => {
 	client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);
 });
 
+let lastUpdated = 0;
+
+setInterval(async function() {
+	const pong = await util.status('play.netherdepths.com');
+	if (client.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
+		client.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+		lastUpdated = Date.now();
+	}
+	if (!pong) {
+		if (client.channels.cache.get('808189057665728542').name != 'Server: Offline') {
+			client.channels.cache.get('808189057665728542').setName('Server: Offline');
+			lastUpdated = Date.now();
+		}
+	}
+	else if (client.channels.cache.get('808189057665728542').name != 'Server: Online') {
+		client.channels.cache.get('808189057665728542').setName('Server: Online');
+		lastUpdated = Date.now();
+	}
+}, 60000);
+
 client.on('message', async (message) => {
-	if (message.channel.id == '670774287317073951') {
-		sleep('100');
+	if (Date.now() - lastUpdated >= 60) {
 		const pong = await util.status('play.netherdepths.com');
-		if (message.content.toLowerCase().includes('server')) {
-			if (!pong) {
-				message.guild.channels.cache.get('808188940728664084').setName('Players: 0');
-				message.guild.channels.cache.get('808189057665728542').setName('Server: Offline');
+		if (client.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
+			client.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+			lastUpdated = Date.now();
+		}
+		if (!pong) {
+			if (client.channels.cache.get('808189057665728542').name != 'Server: Offline') {
+				client.channels.cache.get('808189057665728542').setName('Server: Offline');
+				lastUpdated = Date.now();
 			}
-			else if (message.guild.channels.cache.get('808189057665728542').name == 'Server: Offline') {
-				message.guild.channels.cache.get('808189057665728542').setName('Server: Online');
-			}
-			if (message.content.toLowerCase().includes('joined')) {
-				if (message.guild.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) message.guild.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			}
-			if (message.content.toLowerCase().includes('left')) {
-				if (message.guild.channels.cache.get('808188940728664084').name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) message.guild.channels.cache.get('808188940728664084').setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			}
+		}
+		else if (client.channels.cache.get('808189057665728542').name != 'Server: Online') {
+			client.channels.cache.get('808189057665728542').setName('Server: Online');
+			lastUpdated = Date.now();
 		}
 	}
 });
