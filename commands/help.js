@@ -11,6 +11,7 @@ module.exports = {
 		if (arg) arg = arg.toLowerCase();
 		if (arg == 'commands') {
 			Embed.setDescription(`**BOT FEATURES:**
+			*This is what the bot can do other than commands*
 			\`-help features\`
 			
 			**COMMANDS:**
@@ -41,6 +42,8 @@ module.exports = {
 		}
 		else if (arg == 'features') {
 			Embed.setDescription(`**BOT FEATURES:**
+			*This is what the bot can do other than commands*
+
 			- Support tickets
 			- Suggestions
 			- Slur Autoban
@@ -60,6 +63,7 @@ module.exports = {
 		}
 		else if (arg == 'admin') {
 			Embed.setDescription(`**BOT FEATURES:**
+			*This is what the bot can do other than commands*
 			\`-help features\`
 			
 			**COMMANDS:**
@@ -97,6 +101,7 @@ module.exports = {
 		}
 		else {
 			Embed.setDescription(`**BOT FEATURES:**
+			*This is what the bot can do other than commands*
 			\`-help features\`
 			
 			**COMMANDS:**
