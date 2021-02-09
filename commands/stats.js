@@ -77,7 +77,7 @@ module.exports = {
 			res.on('data', function(chunk) {
 				body += chunk;
 			});
-			res.on('end', function() {
+			await res.once('end', function() {
 				pong = JSON.parse(body);
 			});
 			console.log(pong);
