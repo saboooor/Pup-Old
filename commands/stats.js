@@ -71,17 +71,16 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-			let pong = '';
-			await https.get(`https://api.mcsrvstat.us/2/${serverip}`, function(res) {
+			const pong = await https.get(`https://api.mcsrvstat.us/2/${serverip}`, function(res) {
 				let body = '';
 				res.on('data', function(chunk) {
 					body += chunk;
 				});
 				res.on('end', function() {
-					pong = JSON.parse(body);
+					return JSON.parse(body);
 				});
-				console.log(pong);
 			});
+			console.log(pong);
 			if (id == '') {
 				if (pong.online == 'true') return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 			}
