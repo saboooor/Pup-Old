@@ -1,5 +1,5 @@
 const util = require('minecraft-server-util');
-const request = require('request');
+const fetch = require('node-fetch');
 require('moment-duration-format');
 const moment = require('moment');
 module.exports = {
@@ -71,20 +71,7 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-			const pong = await request.get({
-				url: `https://api.mcsrvstat.us/2/${serverip}`,
-				json: true,
-			}, (err, res, data) => {
-				if (err) {
-					console.log('Error:', err);
-				}
-				else if (res.statusCode !== 200) {
-					console.log('Status:', res.statusCode);
-				}
-				else {
-					return data;
-				}
-			});
+			const pong = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
 			console.log(pong);
 			if (id == '') {
 				if (pong.online == 'true') return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
