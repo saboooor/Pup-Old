@@ -77,13 +77,15 @@ module.exports = {
 					if (id == '') {
 						if (pong.online == 'true') return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 					}
-					Embed.addField('**Version:**', pong.version);
-					Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
-					Embed.addField('**Players:**', pong.players.list.join('\n'));
-					Embed.addField('**MOTD:**', pong.motd.clean.join('\n'));
-					const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
-					const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
-					Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
+					if (pong.version) Embed.addField('**Version:**', pong.version);
+					if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
+					if (pong.players.online) Embed.addField('**Players:**', pong.players.list.join('\n'));
+					if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n'));
+					if (pong.icon) {
+						const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
+						const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
+						Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
+					}
 				});
 		}
 		await reply.delete();
