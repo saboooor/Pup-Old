@@ -71,14 +71,14 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-			const pong = await https.get(`https://api.mcsrvstat.us/2/${serverip}`, function(res) {
-				let body = '';
-				res.on('data', function(chunk) {
-					body += chunk;
-				});
-				res.on('end', function() {
-					return JSON.parse(body);
-				});
+			const res = await https.get(`https://api.mcsrvstat.us/2/${serverip}`);
+			let body = '';
+			let pong = '';
+			res.on('data', function(chunk) {
+				body += chunk;
+			});
+			res.on('end', function() {
+				pong = JSON.parse(body);
 			});
 			console.log(pong);
 			if (id == '') {
