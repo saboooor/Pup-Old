@@ -249,6 +249,6 @@ async function updateCount(global, vc) {
 	}
 }
 setInterval(function() {
-	console.log(Date.now() - lastUpdated - 1);
+	console.log(Date.now() - lastUpdated);
 	updateCount('670774287317073951', '808188940728664084');
 }, 5000);
