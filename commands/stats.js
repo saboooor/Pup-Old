@@ -78,6 +78,7 @@ module.exports = {
 				});
 				res.on('end', function() {
 					const pong = JSON.parse(body);
+					console.log(pong.version);
 					if (id == '') {
 						if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 					}
