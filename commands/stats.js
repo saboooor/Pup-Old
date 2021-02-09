@@ -1,4 +1,3 @@
-const util = require('minecraft-server-util');
 const fetch = require('node-fetch');
 require('moment-duration-format');
 const moment = require('moment');
