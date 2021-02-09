@@ -234,7 +234,7 @@ client.on('guildMemberAdd', (member) => {
 let lastUpdated = 0;
 
 async function updateCount(global, vc) {
-	if (Date.now() - lastUpdated >= 60) {
+	if (Date.now() - lastUpdated >= 60000) {
 		const pong = await util.status('play.netherdepths.com').catch(e => client.channels.cache.get(global).send('**❗Server is offline❗**'));
 		if (!pong.onlinePlayers) return;
 		if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
