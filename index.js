@@ -231,21 +231,22 @@ client.on('guildMemberAdd', (member) => {
 	client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);
 });
 
-let lastUpdated = 0;
+const lastUpdated = 0;
 
 async function updateCount(global, vc) {
-	const pong = await util.status('play.netherdepths.com').catch(e => client.channels.cache.get(global).send('**❗Server is offline❗**'));
-	if (!pong.onlinePlayers) return;
-	if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
-		client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
-		lastUpdated = Date.now();
+	if (Date.now() - lastUpdated >= 60) {
+		const pong = await util.status('play.netherdepths.com').catch(e => client.channels.cache.get(global).send('**❗Server is offline❗**'));
+		if (!pong.onlinePlayers) return;
+		if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
+			client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+			console.log(lastUpdated);
+		}
 	}
 }
 setInterval(function() {
 	updateCount('670774287317073951', '808188940728664084');
 }, 60000);
 client.on('message', (message) => {
-	if (Date.now() - lastUpdated >= 60) {
-		updateCount('670774287317073951', '808188940728664084');
-	}
+	console.log(Date.now() - lastUpdated);
+	updateCount('670774287317073951', '808188940728664084');
 });
