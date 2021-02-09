@@ -232,7 +232,6 @@ client.on('guildMemberAdd', (member) => {
 });
 
 let lastUpdated = Date.now() - 270000;
-
 async function updateCount(global, vc) {
 	if (Date.now() - lastUpdated >= 300000) {
 		const pong = await util.status('play.netherdepths.com').catch(e => client.channels.cache.get(global).send('**❗Server is offline❗**'));
@@ -252,8 +251,4 @@ async function updateCount(global, vc) {
 setInterval(function() {
 	console.log(Date.now() - lastUpdated);
 	updateCount('670774287317073951', '808188940728664084');
-}, 60000);
-client.on('message', (message) => {
-	console.log(Date.now() - lastUpdated);
-	updateCount('670774287317073951', '808188940728664084');
-});
+}, 5000);
