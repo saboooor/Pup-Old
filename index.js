@@ -235,7 +235,7 @@ let lastUpdated = 0;
 
 async function updateCount(global, vc) {
 	const pong = await util.status('play.netherdepths.com').catch(e => client.channels.cache.get(global).send('**❗Server is offline❗**'));
-	if (!pong) return;
+	if (!pong.onlinePlayers) return;
 	if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 		client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
 		lastUpdated = Date.now();
@@ -245,8 +245,6 @@ setInterval(function() {
 	updateCount('670774287317073951', '808188940728664084');
 }, 60000);
 client.on('message', (message) => {
-	if (message.channel.type == 'dm') return;
-	if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(`**MESSAGE:\nIN ${message.guild.name}\n${message.author.tag} >** ${message.content}`);
 	if (Date.now() - lastUpdated >= 60) {
 		updateCount('670774287317073951', '808188940728664084');
 	}
