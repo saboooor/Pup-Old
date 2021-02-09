@@ -231,7 +231,7 @@ client.on('guildMemberAdd', (member) => {
 	client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);
 });
 
-let lastUpdated = 0;
+let lastUpdated = Date.now() - 270000;
 
 async function updateCount(global, vc) {
 	if (Date.now() - lastUpdated >= 300000) {
@@ -239,7 +239,13 @@ async function updateCount(global, vc) {
 		if (!pong.onlinePlayers) return;
 		if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 			client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			lastUpdated = Date.now();
+			if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
+				console.log('Failed to change channel name! Rate limited?');
+				lastUpdated = Date.now() + 60000;
+			}
+			else {
+				lastUpdated = Date.now();
+			}
 		}
 	}
 }
