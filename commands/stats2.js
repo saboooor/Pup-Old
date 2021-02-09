@@ -5,8 +5,9 @@ module.exports = {
 	aliases: ['status'],
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		const serverip = args[0];
-		await https.get(`https://api.mcsrvstat.us/2/${serverip}`, async function(response) {
-			console.log(response);
+		https.get(`https://api.mcsrvstat.us/2/${serverip}`, function(res) {
+			const aaa = JSON.parse(res);
+			console.log(aaa);
 		});
 	},
 };
