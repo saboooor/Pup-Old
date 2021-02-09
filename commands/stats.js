@@ -71,22 +71,20 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-			fetch(`https://api.mcsrvstat.us/2/${serverip}`)
-				.then(res => res.json())
-				.then(pong => {
-					if (id == '') {
-						if (pong.online == 'true') return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
-					}
-					if (pong.version) Embed.addField('**Version:**', pong.version);
-					if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
-					if (pong.players.online) Embed.addField('**Players:**', pong.players.list.join('\n'));
-					if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n'));
-					if (pong.icon) {
-						const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
-						const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
-						Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
-					}
-				});
+			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
+			const pong = json.json();
+			if (id == '') {
+				if (pong.online == 'true') return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
+			}
+			if (pong.version) Embed.addField('**Version:**', pong.version);
+			if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
+			if (pong.players.online) Embed.addField('**Players:**', pong.players.list.join('\n'));
+			if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n'));
+			if (pong.icon) {
+				const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
+				const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
+				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
+			}
 		}
 		await reply.delete();
 		await message.channel.send('', Embed);
