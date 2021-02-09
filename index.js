@@ -235,7 +235,7 @@ let lastUpdated = Date.now() - 270000;
 async function updateCount(global, vc) {
 	if (Date.now() - lastUpdated < 300000) return;
 	const pong = await util.status('play.netherdepths.com').catch(e => client.channels.cache.get(global).send('**❗Server is offline❗**'));
-	if (!pong.onlinePlayers) return;
+	if (!pong.maxPlayers) return;
 	if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 		await client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
 		if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
