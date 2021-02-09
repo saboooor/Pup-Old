@@ -71,8 +71,10 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-			const pong = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
-			console.log(pong);
+			fetch(`https://api.mcsrvstat.us/2/${serverip}`)
+				.then(res => res.json())
+				.then(json => console.log(json));
+			return;
 			if (id == '') {
 				if (pong.online == 'true') return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 			}
