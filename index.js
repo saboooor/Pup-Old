@@ -239,8 +239,8 @@ async function updateCount(global, vc) {
 		if (!pong.onlinePlayers) return;
 		if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 			client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+			lastUpdated = Date.now();
 		}
-		lastUpdated = Date.now();
 	}
 }
 setInterval(function() {
