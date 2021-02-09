@@ -237,7 +237,7 @@ async function updateCount(global, vc) {
 	const pong = await util.status('play.netherdepths.com').catch(e => client.channels.cache.get(global).send('**❗Server is offline❗**'));
 	if (!pong.onlinePlayers) return;
 	if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
-		client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
+		await client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
 		if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 			console.log('Failed to change channel name! Rate limited?');
 			lastUpdated = Date.now() + 60000;
