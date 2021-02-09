@@ -71,7 +71,7 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-			https.get(`https://api.mcsrvstat.us/2/${serverip}`, function(res) {
+			await https.get(`https://api.mcsrvstat.us/2/${serverip}`, function(res) {
 				let body = '';
 				res.on('data', function(chunk) {
 					body += chunk;
@@ -81,8 +81,7 @@ module.exports = {
 					if (id == '') {
 						if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 					}
-					message.channel.send(pong.version);
-					Embed.addField('**Version:**', pong.version);
+					if (pong.version) Embed.addField('**Version:**', pong.version);
 					if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.max} / ${pong.players.online}`);
 					if (pong.players.list) Embed.addField('**Players:**', pong.players.list.join('\n'));
 					if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n'));
