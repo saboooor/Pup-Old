@@ -82,7 +82,7 @@ module.exports = {
 				});
 			});
 			if (id == '') {
-				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
+				if (pong.online == 'true') return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.max} / ${pong.players.online}`);
