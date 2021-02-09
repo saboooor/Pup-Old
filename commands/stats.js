@@ -80,11 +80,11 @@ module.exports = {
 				res.on('end', function() {
 					pong = JSON.parse(body);
 				});
+				console.log(pong);
 			});
 			if (id == '') {
 				if (pong.online == 'true') return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
 			}
-			console.log(pong);
 			Embed.addField('**Version:**', pong.version);
 			Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
 			Embed.addField('**Players:**', pong.players.list.join('\n'));
