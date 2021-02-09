@@ -1,4 +1,5 @@
 const util = require('minecraft-server-util');
+const https = require('https');
 require('moment-duration-format');
 const moment = require('moment');
 module.exports = {
@@ -13,9 +14,7 @@ module.exports = {
 		const panel = 'https://panel.birdflop.com';
 		let id = '';
 		let serverip = '';
-		let serverport = 25565;
 		let arg = args[0];
-		let pong = '';
 		if (arg) arg = arg.toLowerCase();
 		if (!arg) {
 			id = '5bcaad8d';
@@ -44,10 +43,7 @@ module.exports = {
 			serverip = 'snapshot.netherdepths.com';
 		}
 		else {
-			serverip = args.join(':').split(':')[0];
-			const port = args.join(':').split(':')[1];
-			if (port) serverport = parseInt(port);
-			Embed.setTitle(`${serverip}:${serverport}`.replace(':25565', ''));
+			serverip = args[0];
 		}
 		if (id !== '') {
 			Embed.setThumbnail(message.guild.iconURL());
@@ -75,44 +71,29 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-			try {
-				pong = await util.status(serverip, { port: serverport });
-			}
-			catch (e) {
-				if (id == '') {
-					reply.edit('**Invalid Server**\n`Trying Bedrock...`\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
-					try {
-						pong = await util.statusBedrock(serverip, { port: serverport });
-					}
-					catch (a) {
-						return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
-					}
-				}
-			}
-			if (pong.version) Embed.addField('**Version:**', pong.version);
-			if (pong.maxPlayers) Embed.addField('**Players Online:**', `${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			let players = pong.samplePlayers;
-			if (players) {
-				players.forEach(element => {
-					players[players.indexOf(element)] = element.name;
+			https.get(`https://api.mcsrvstat.us/2/${serverip}`, function(res) {
+				let body = '';
+				res.on('data', function(chunk) {
+					body += chunk;
 				});
-				players = players.join('\n');
-				Embed.addField('**Players:**', players);
-			}
-			if (pong.motdLine1) Embed.addField('**MOTD:**', pong.motdLine1.descriptionText.replace(/§{1}./g, ''));
-			if (pong.description) Embed.addField('**MOTD:**', pong.description.descriptionText.replace(/§{1}./g, ''));
-			if (pong.favicon) {
-				const base64string = Buffer.from(pong.favicon.replace(/^data:image\/png;base64,/, ''), 'base64');
-				const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
-				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
-			}
+				res.on('end', function() {
+					const pong = JSON.parse(body);
+					if (id == '') {
+						if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
+					}
+					if (pong.version) Embed.addField('**Version:**', pong.version);
+					if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.max} / ${pong.players.online}`);
+					if (pong.players.list) Embed.addField('**Players:**', pong.players.list.join('\n'));
+					if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n'));
+					if (pong.icon) {
+						const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
+						const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
+						Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
+					}
+				});
+			});
 		}
-		if (pong.favicon) {
-			await reply.delete();
-			await message.channel.send('', Embed);
-		}
-		else {
-			reply.edit('', Embed);
-		}
+		await reply.delete();
+		await message.channel.send('', Embed);
 	},
 };
