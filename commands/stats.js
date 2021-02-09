@@ -72,25 +72,26 @@ module.exports = {
 		}
 		if (serverip !== '') {
 			await https.get(`https://api.mcsrvstat.us/2/${serverip}`, function(res) {
+				let pong = '';
 				let body = '';
 				res.on('data', function(chunk) {
 					body += chunk;
 				});
 				res.on('end', function() {
-					const pong = JSON.parse(body);
-					if (id == '') {
-						if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
-					}
-					if (pong.version) Embed.addField('**Version:**', pong.version);
-					if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.max} / ${pong.players.online}`);
-					if (pong.players.list) Embed.addField('**Players:**', pong.players.list.join('\n'));
-					if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n'));
-					if (pong.icon) {
-						const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
-						const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
-						Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
-					}
+					pong = JSON.parse(body);
 				});
+				if (id == '') {
+					if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
+				}
+				if (pong.version) Embed.addField('**Version:**', pong.version);
+				if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.max} / ${pong.players.online}`);
+				if (pong.players.list) Embed.addField('**Players:**', pong.players.list.join('\n'));
+				if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n'));
+				if (pong.icon) {
+					const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
+					const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
+					Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
+				}
 			});
 		}
 		await reply.delete();
