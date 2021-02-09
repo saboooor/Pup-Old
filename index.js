@@ -248,7 +248,7 @@ async function updateCount(global, vc) {
 		}
 	}
 }
-setInterval(function() {
+client.on('message', message => {
 	console.log(Date.now() - lastUpdated);
 	updateCount('670774287317073951', '808188940728664084');
-}, 5000);
+});
