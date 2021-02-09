@@ -1,5 +1,5 @@
 const util = require('minecraft-server-util');
-const https = require('https');
+const request = require('node-request');
 require('moment-duration-format');
 const moment = require('moment');
 module.exports = {
@@ -71,14 +71,19 @@ module.exports = {
 			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
 		}
 		if (serverip !== '') {
-			const res = await https.get(`https://api.mcsrvstat.us/2/${serverip}`);
-			let body = '';
-			let pong = '';
-			res.on('data', function(chunk) {
-				body += chunk;
-			});
-			await res.once('end', function() {
-				pong = JSON.parse(body);
+			const pong = await request.get({
+				url: `https://api.mcsrvstat.us/2/${serverip}`,
+				json: true,
+			}, (err, res, data) => {
+				if (err) {
+					console.log('Error:', err);
+				}
+				else if (res.statusCode !== 200) {
+					console.log('Status:', res.statusCode);
+				}
+				else {
+					return data;
+				}
 			});
 			console.log(pong);
 			if (id == '') {
