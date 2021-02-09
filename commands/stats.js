@@ -1,5 +1,5 @@
 const util = require('minecraft-server-util');
-const request = require('node-request');
+const request = require('node-requests');
 require('moment-duration-format');
 const moment = require('moment');
 module.exports = {
