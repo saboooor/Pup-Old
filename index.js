@@ -239,11 +239,11 @@ async function updateCount(global, vc) {
 		if (!pong.onlinePlayers) return;
 		if (client.channels.cache.get(vc).name != `Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`) {
 			client.channels.cache.get(vc).setName(`Players: ${pong.onlinePlayers} / ${pong.maxPlayers}`);
-			console.log(lastUpdated);
 		}
 	}
 }
 setInterval(function() {
+	console.log(Date.now() - lastUpdated);
 	updateCount('670774287317073951', '808188940728664084');
 }, 60000);
 client.on('message', (message) => {
