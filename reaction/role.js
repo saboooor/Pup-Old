@@ -116,6 +116,32 @@ module.exports = {
 				return;
 			}
 		}
+		if (reaction.emoji.name == '🤖') {
+			const member = message.guild.members.cache.find(member => member.id === user.id);
+			const role = message.guild.roles.cache.find(role => role.id === '806678882685943888');
+			if (!member.roles.cache.has('806678882685943888')) {
+				member.roles.add(role);
+				reaction.users.remove(user.id);
+				message.channel.send(`✅ **Added Pup Role to <@${user.id}>**`)
+					.then(msg => {
+						setTimeout(function() {
+							msg.delete();
+						}, 1000);
+					});
+				return;
+			}
+			if (member.roles.cache.has('806678882685943888')) {
+				member.roles.remove(role);
+				reaction.users.remove(user.id);
+				message.channel.send(`❌ **Removed Pup Role from <@${user.id}>**`)
+					.then(msg => {
+						setTimeout(function() {
+							msg.delete();
+						}, 1000);
+					});
+				return;
+			}
+		}
 		if (reaction.emoji.name == '📘') checkign(reaction, user, vnext, 'vnext');
 		if (reaction.emoji.name == '🏆') checkign(reaction, user, vtotal, 'vtotal');
 	},
