@@ -233,19 +233,20 @@ client.on('guildMemberAdd', (member) => {
 
 let lastUpdated = Date.now() - 270000;
 async function updateCount(global, vc) {
-	if (Date.now() - lastUpdated < 300000) return;
-	const json = await fetch('https://api.mcsrvstat.us/2/play.netherdepths.com');
-	const pong = await json.json();
-	if (!pong.online) client.channels.cache.get(global).send('**❗Server is offline❗**');
-	if (!pong.players.max) return;
-	if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
-		await client.channels.cache.get(vc).setName(`Players: ${pong.players.online} / ${pong.players.max}`);
+	if (Date.now() - lastUpdated > 300000) {
+		const json = await fetch('https://api.mcsrvstat.us/2/play.netherdepths.com');
+		const pong = await json.json();
+		if (!pong.online) client.channels.cache.get(global).send('**❗Server is offline❗**');
+		if (!pong.players) return;
 		if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
-			console.log('Failed to change channel name! Rate limited?');
-			lastUpdated = Date.now() + 60000;
-		}
-		else {
-			lastUpdated = Date.now();
+			await client.channels.cache.get(vc).setName(`Players: ${pong.players.online} / ${pong.players.max}`);
+			if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
+				console.log('Failed to change channel name! Rate limited?');
+				lastUpdated = Date.now() + 60000;
+			}
+			else {
+				lastUpdated = Date.now();
+			}
 		}
 	}
 }
