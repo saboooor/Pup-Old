@@ -220,10 +220,10 @@ client.on('message', message => {
 });
 
 client.on('guildMemberRemove', (member) => {
-	if (member.guild.id == '661736128373719141') client.channels.cache.get('721674323869433926').send(`**${client.users.cache.get(member.id).username} (<@!${client.users.cache.get(member.id)}>)** left`);
-	if (member.guild.id == '711661870926397601') client.channels.cache.get('711661871400222782').send(`**${client.users.cache.get(member.id).username} (<@!${client.users.cache.get(member.id)}>)** left`);
-	if (member.guild.id == '789642848298336318') client.channels.cache.get('789642848915685439').send(`**${client.users.cache.get(member.id).username} (<@!${client.users.cache.get(member.id)}>)** left`);
-	if (member.guild.id == '746125698644705524') client.channels.cache.get('746125698644705527').send(`**${client.users.cache.get(member.id).username} (<@!${client.users.cache.get(member.id)}>)** left`);
+	if (member.guild.id == '661736128373719141') client.channels.cache.get('721674323869433926').send(`**${client.users.cache.get(member.id)} (<@!${client.users.cache.get(member.id).username}>)** left`);
+	if (member.guild.id == '711661870926397601') client.channels.cache.get('711661871400222782').send(`**${client.users.cache.get(member.id)} (<@!${client.users.cache.get(member.id).username}>)** left`);
+	if (member.guild.id == '789642848298336318') client.channels.cache.get('789642848915685439').send(`**${client.users.cache.get(member.id)} (<@!${client.users.cache.get(member.id).username}>)** left`);
+	if (member.guild.id == '746125698644705524') client.channels.cache.get('746125698644705527').send(`**${client.users.cache.get(member.id)} (<@!${client.users.cache.get(member.id).username}>)** left`);
 });
 
 client.on('guildMemberAdd', (member) => {
