@@ -25,6 +25,9 @@ module.exports = {
 				id = 'd68c84e1';
 				serverip = 'tacohaven.club';
 			}
+			else if (message.guild.id == '763836032902234192') {
+				serverip = 'mc.silver-springs-smp.org';
+			}
 		}
 		else if (arg == 'pb') {
 			id = '5bcaad8d';
@@ -40,6 +43,9 @@ module.exports = {
 		else if (arg == 'ndt') {
 			id = '6f0c0a62';
 			serverip = 'snapshot.netherdepths.com';
+		}
+		else if (arg == 'ss') {
+			serverip = 'mc.silver-springs-smp.org';
 		}
 		else {
 			serverip = args[0];
@@ -73,7 +79,7 @@ module.exports = {
 			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
 			const pong = await json.json();
 			if (id == '') {
-				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT`');
+				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT, SS`');
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);

@@ -12,7 +12,8 @@ module.exports = {
 		else if (arg == 'pb') {id = '5bcaad8d';}
 		else if (arg == 'th') {id = 'd68c84e1';}
 		else if (arg == 'nd') {id = '1eb5e2e9';}
-		else {return message.channel.send('**Invalid server**\nList of servers:\n`PB, TH, ND`');}
+		else if (arg == 'ndt') {id = '6f0c0a62';}
+		else {return message.channel.send('**Invalid server**\nList of servers:\n`PB, TH, ND, NDT`');}
 		const guilds = client.guilds.cache;
 		try {
 			if (id == '5bcaad8d') if (message.member.id != '249638347306303499') return message.reply('You can\'t do that!');
