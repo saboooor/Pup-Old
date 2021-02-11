@@ -26,6 +26,7 @@ module.exports = {
 				serverip = 'tacohaven.club';
 			}
 			else if (message.guild.id == '763836032902234192') {
+				id = '';
 				serverip = 'mc.silver-springs-smp.org';
 			}
 		}
