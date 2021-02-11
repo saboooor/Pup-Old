@@ -83,7 +83,7 @@ module.exports = {
 			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
 			const pong = await json.json();
 			if (id == '') {
-				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT, SS`');
+				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDT, SS, GW`');
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
