@@ -48,6 +48,9 @@ module.exports = {
 		else if (arg == 'ss') {
 			serverip = 'mc.silver-springs-smp.org';
 		}
+		else if (arg == 'gw') {
+			serverip = 'play.goldenwaters.org';
+		}
 		else {
 			serverip = args[0];
 		}
