@@ -7,10 +7,15 @@ module.exports = {
 	usage: '<Setting> <true/false>',
 	permissions: 'ADMINISTRATOR',
 	async execute(message, args, client, sleep, config, Client, Discord) {
+		if (!settings[message.guild.id]) {
+			settings[message.guild.id] = {
+				'leave': true,
+			};
+		}
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle('Settings')
-			.setDescription(`<:leave:794299854595555349> **Leave messages:** ${settings[message.guild.id]}`);
+			.setDescription(`<:leave:794299854595555349> **Leave messages:** ${settings[message.guild.id].leave}`);
 		message.channel.send(Embed);
 	},
 };
