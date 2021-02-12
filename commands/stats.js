@@ -76,8 +76,8 @@ module.exports = {
 				Embed.setThumbnail(reply.author.avatarURL());
 			}
 			if (info.attributes.node) Embed.addField('**Node:**', info.attributes.node);
-			if (cpu.current) Embed.addField('**CPU Usage:**', cpu.current);
-			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB`);
+			if (cpu.current) Embed.addField('**CPU Usage:**', cpu.current + '%');
+			if (ram.current) Embed.addField('**RAM Usage:**', `${Math.ceil(ram.current / 1000000)} MB / ${Math.ceil(ram.max / 1000000)} MB`);
 		}
 		if (serverip !== '') {
 			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
