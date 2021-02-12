@@ -10,7 +10,7 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle('Settings')
-			.setDescription(`<:leave:794299854637629441> **Leave messages:** ${settings.penis}`);
+			.setDescription(`<:leave:794299854595555349> **Leave messages:** ${settings[message.guild.id]}`);
 		message.channel.send(Embed);
 	},
 };
