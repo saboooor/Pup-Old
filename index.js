@@ -251,5 +251,5 @@ async function updateCount(global, vc) {
 	}
 }
 client.on('message', message => {
-	updateCount('670774287317073951', '808188940728664084');
+	if (message.author.id == '661797951223627787') updateCount('670774287317073951', '808188940728664084');
 });
