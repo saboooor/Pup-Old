@@ -23,7 +23,7 @@ module.exports = {
 		if (!args[1]) return message.channel.send(Usage);
 		let channel = message.guild.channels.cache.find(c => c.name.includes('polls'));
 		if (channel) channel = message.channel;
-		if (!args[0].toLowerCase() == 'yesno') {
+		if (args[0].toLowerCase() == 'yesno') {
 			const poll = args.join(' ').replace(args[0] + ' ', '');
 			Poll.setDescription(poll);
 			const msg = await channel.send(Poll);
