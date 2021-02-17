@@ -43,7 +43,11 @@ client.on('message', message => {
 	if (!command) return;
 
 	if (command.args && args.length < command.argamnt) {
-		return message.channel.send(`Usage: \`${config.prefix + command.name + ' ' + command.usage}\``);
+		const Usage = new Discord.MessageEmbed()
+			.setColor(3447003)
+			.setTitle('Usage')
+			.setDescription(`\`${config.prefix + command.name + ' ' + command.usage}\``);
+		return message.channel.send(Usage);
 	}
 
 	if (command.guildOnly && message.channel.type === 'dm') {
