@@ -88,7 +88,7 @@ module.exports = {
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players.max) Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
 			if (pong.players.list) Embed.addField('**Players:**', pong.players.list.join('\n').replace(/_/g, '\\_'));
-			if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n').replace(/&{1}./g, ''));
+			if (pong.motd.clean) Embed.addField('**MOTD:**', pong.motd.clean.join('\n').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&le;/g, '≤').replace(/&ge;/g, '≥'));
 			if (pong.icon) {
 				const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
 				const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
