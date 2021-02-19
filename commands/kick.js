@@ -13,7 +13,7 @@ module.exports = {
 			.setColor(Math.round(Math.random() * 16777215))
 			.setTitle(`Kicked ${user.tag} for ${args.join(' ').replace(`${args[0]} `, '')}`);
 		await user.send(`**You've been banned from ${message.guild.name} for ${args.join(' ').replace(`${args[0]} `, '')}**`).catch(e => {
-			message.channel.send('Could not DM user! You may have to manually let them know that they have been banned.');
+			message.channel.send('Could not DM user! You may have to manually let them know that they have been kicked.');
 		});
 		await message.channel.send(Embed);
 		await member.kick().catch(e => message.channel.send(`\`${`${e}`.split('at')[0]}\``));
