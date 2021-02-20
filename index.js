@@ -185,18 +185,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (message.channel.topic === null) return;
 		if (!message.channel.topic.includes('#')) return;
 		if (reaction.emoji.name === '🔒') {
-			if (message.author.id != config.botid) return;
-			await reaction.users.remove(user.id);
-			await message.react(config.yes);
-			await message.react(config.no);
-			return;
-		}
-		if (reaction.emoji.name === 'no') {
-			await message.reactions.removeAll();
-			await message.react('🔒');
-			return;
-		}
-		if (reaction.emoji.name === 'yes') {
 			await message.reactions.removeAll();
 			await message.react('🔒');
 			client.reaction.get('close').execute(reaction, user, client, config, message);
