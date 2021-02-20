@@ -218,6 +218,7 @@ client.on('message', message => {
 			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
 		});
 		Client.restartServer('5bcaad8d').catch();
+		Client.killServer('5bcaad8d').catch();
 	}
 });
 
