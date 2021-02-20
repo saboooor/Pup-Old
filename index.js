@@ -214,10 +214,10 @@ client.on('message', message => {
 		if (message.channel.id != '812082273393704960') return;
 		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
 		message.channel.send('Updating to latest commit...');
-		Client.restartServer('5bcaad8d').catch();
 		Client.login('https://panel.birdflop.com', config.panelapikey, (logged_in, err) => {
 			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
 		});
+		Client.restartServer('5bcaad8d').catch();
 	}
 });
 
