@@ -6,10 +6,11 @@ module.exports = {
 	usage: '<User Mention> <Reason>',
 	permissions: 'BAN_MEMBERS',
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		if (!message.mentions.users.first()) return message.reply('ur supposed to use a discord user mention dumbass');
+		if (!message.mentions.users.first()) return message.reply('Please use a user mention');
 		const user = message.mentions.users.first();
 		const member = message.guild.members.cache.get(user.id);
-		console.log(member.roles.highest);
+		const author = message.guild.members.cache.get(message.author.id);
+		if (member.roles.highest.rawPosition > author.roles.highest.rawPosition) return message.reply('You can\'t do that! Your role is lower than the user\'s role!');
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))
 			.setTitle(`Banned ${user.tag} for ${args.join(' ').replace(`${args[0]} `, '')}`);
