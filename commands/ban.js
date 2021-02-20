@@ -9,7 +9,7 @@ module.exports = {
 		if (!message.mentions.users.first()) return message.reply('ur supposed to use a discord user mention dumbass');
 		const user = message.mentions.users.first();
 		const member = message.guild.members.cache.get(user.id);
-		console.log(member.roles.highest);
+		console.log(member.roles.cache.highest);
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))
 			.setTitle(`Banned ${user.tag} for ${args.join(' ').replace(`${args[0]} `, '')}`);
