@@ -20,6 +20,7 @@ client.once('ready', () => {
 	console.log('I am running');
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
 	client.users.cache.get('249638347306303499').send('ey *cunt* i started');
+	client.channels.cache.get('812082273393704960').send('Started Successfully!');
 });
 
 client.commands = new Discord.Collection();
@@ -208,6 +209,15 @@ client.on('message', message => {
 	if (message.channel.type == 'dm') {
 		if (message.author.bot) return;
 		client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
+	}
+	else if (message.webhookID) {
+		if (message.channel.id != '812082273393704960') return;
+		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
+		message.channel.send('Updating to latest commit...');
+		Client.restartServer('5bcaad8d').catch();
+		Client.login('https://panel.birdflop.com', config.panelapikey, (logged_in, err) => {
+			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
+		});
 	}
 });
 
