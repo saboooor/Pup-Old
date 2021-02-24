@@ -90,6 +90,32 @@ module.exports = {
 			});
 			return;
 		}
+		if (reaction.emoji.name == '⛔') {
+			const member = message.guild.members.cache.find(member => member.id === user.id);
+			const role = message.guild.roles.cache.find(role => role.id === '813926386132582432');
+			if (!member.roles.cache.has('813926386132582432')) {
+				member.roles.add(role);
+				reaction.users.remove(user.id);
+				message.channel.send(`✅ **Added NSFW Role to <@${user.id}>**`)
+					.then(msg => {
+						setTimeout(function() {
+							msg.delete();
+						}, 1000);
+					});
+				return;
+			}
+			if (member.roles.cache.has('813926386132582432')) {
+				member.roles.remove(role);
+				reaction.users.remove(user.id);
+				message.channel.send(`❌ **Removed NSFW Role from <@${user.id}>**`)
+					.then(msg => {
+						setTimeout(function() {
+							msg.delete();
+						}, 1000);
+					});
+				return;
+			}
+		}
 		if (reaction.emoji.name == '❗') {
 			const member = message.guild.members.cache.find(member => member.id === user.id);
 			const role = message.guild.roles.cache.find(role => role.id === '744779426612641872');
