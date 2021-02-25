@@ -142,6 +142,11 @@ client.on('message', message => {
 			client.response.get('whatip').execute(message);
 		}
 	}
+	if(message.content.toLowerCase().includes('pup')) {
+		if(['bad', 'gross', 'shit', 'dum'].some(word => message.content.toLowerCase().includes(word))) {
+			client.response.get('pupbad').execute(message);
+		}
+	}
 	if(message.mentions.roles.size > 0) {
 		const role = message.mentions.roles.find(r => r.name.toLowerCase().includes('alerts'));
 		if (role !== undefined) {
