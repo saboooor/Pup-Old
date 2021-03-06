@@ -1,18 +1,18 @@
 module.exports = {
-	name: 'settings',
+	name: 'addsetting',
 	guildOnly: true,
 	usage: '[<Setting> <Value>]',
 	permissions: 'ADMINISTRATOR',
 	async execute(message, args, client, sleep, config, Client, Discord) {
+		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}** \`${client.settings.get(message.guild.id)[prop]}\``;
 		});
 		if (args[1]) {
 			const [prop, ...value] = args;
-			if(!client.settings.has(message.guild.id, prop)) {
-				return message.reply("Invalid setting!");
-			}
-			client.settings.set(message.guild.id, value.join(" "), prop);
+			client.guilds.cache.forEach(guild => {
+				client.settings.set(guild.id, value.join(" "), prop);
+			});
 		}
 		srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}** \`${client.settings.get(message.guild.id)[prop]}\``;
