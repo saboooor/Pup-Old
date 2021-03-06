@@ -13,7 +13,7 @@ module.exports = {
 		if (arg == 'commands') {
 			Embed.setDescription(`**BOT FEATURES:**
 			*This is what the bot can do other than commands*
-			\`-help features\`
+			\`${srvconfig.prefix}help features\`
 			
 			**COMMANDS:**
 			*These commands can be used by anyone*
@@ -35,7 +35,7 @@ module.exports = {
 			
 			**ADMIN COMMANDS:**
 			*These commands require the member to have specified permissions*
-			\`-help admin\`
+			\`${srvconfig.prefix}help admin\`
 			
 			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 			**Still need help with the bot? Do ${srvconfig.prefix}invite!**`
@@ -52,11 +52,11 @@ module.exports = {
 			
 			**COMMANDS:**
 			*These commands can be used by anyone*
-			\`-help commands\`
+			\`${srvconfig.prefix}help commands\`
 			
 			**ADMIN COMMANDS:**
 			*These commands require the member to have specified permissions*
-			\`-help admin\`
+			\`${srvconfig.prefix}help admin\`
 			
 			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 			**Still need help with the bot? Do ${srvconfig.prefix}invite!**`
@@ -65,11 +65,11 @@ module.exports = {
 		else if (arg == 'admin') {
 			Embed.setDescription(`**BOT FEATURES:**
 			*This is what the bot can do other than commands*
-			\`-help features\`
+			\`${srvconfig.prefix}help features\`
 			
 			**COMMANDS:**
 			*These commands can be used by anyone*
-			\`-help commands\`
+			\`${srvconfig.prefix}help commands\`
 			
 			**ADMIN COMMANDS:**
 			*These commands require the member to have specified permissions*
@@ -106,15 +106,15 @@ module.exports = {
 		else {
 			Embed.setDescription(`**BOT FEATURES:**
 			*This is what the bot can do other than commands*
-			\`-help features\`
+			\`${srvconfig.prefix}help features\`
 			
 			**COMMANDS:**
 			*These commands can be used by anyone*
-			\`-help commands\`
+			\`${srvconfig.prefix}help commands\`
 			
 			**ADMIN COMMANDS:**
 			*These commands require the member to have specified permissions*
-			\`-help admin\`
+			\`${srvconfig.prefix}help admin\`
 			
 			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 			**Still need help with the bot? Do ${srvconfig.prefix}invite!**`
