@@ -49,7 +49,13 @@ for (const file of commandFiles) {
 const cooldowns = new Discord.Collection();
 
 client.on('message', message => {
-	const srvconfig = client.settings.get(message.guild.id);
+	let srvconfig = [];
+	if (message.guild.id) {
+		srvconfig = client.settings.get(message.guild.id);
+	}
+	else {
+		srvconfig.prefix = '-'
+	}
 	if (!message.content.startsWith(srvconfig.prefix) || message.author.bot) return;
 
 	const args = message.content.slice(srvconfig.prefix.length).trim().split(/ +/);

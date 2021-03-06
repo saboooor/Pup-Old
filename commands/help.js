@@ -5,7 +5,13 @@ module.exports = {
 	cooldown: 10,
 	guildOnly: false,
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		const srvconfig = client.settings.get(message.guild.id);
+		let srvconfig = [];
+		if (message.guild.id) {
+			srvconfig = client.settings.get(message.guild.id);
+		}
+		else {
+			srvconfig.prefix = '-'
+		}
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215));
 		let arg = args[0];
