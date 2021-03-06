@@ -6,7 +6,7 @@ module.exports = {
 			return `**${prop}** \`${client.settings.get(message.guild.id)[prop]}\``;
 		});
 		if (args[1]) {
-			if (!message.author.hasPermission('ADMINISTRATOR')) return message.reply('You can\'t do that!');
+			if (!message.member.hasPermission('ADMINISTRATOR')) return message.reply('You can\'t do that!');
 			const [prop, ...value] = args;
 			if(!client.settings.has(message.guild.id, prop)) {
 				return message.reply("Invalid setting!");
