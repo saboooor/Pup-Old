@@ -23,6 +23,21 @@ client.once('ready', () => {
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
 });
 
+const Enmap = require('enmap');
+
+client.settings = new Enmap({
+	name: "settings",
+	fetchAll: false,
+	autoFetch: true,
+	cloneLevel: 'deep',
+	autoEnsure: {
+	  prefix: "-"
+	}
+});  
+client.on("guildDelete", guild => {
+	client.settings.delete(guild.id);
+});
+
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
