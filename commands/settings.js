@@ -1,7 +1,6 @@
 module.exports = {
 	name: 'settings',
 	guildOnly: true,
-	usage: '[<Setting> <Value>]',
 	permissions: 'ADMINISTRATOR',
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {

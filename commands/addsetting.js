@@ -1,8 +1,6 @@
 module.exports = {
 	name: 'addsetting',
 	guildOnly: true,
-	usage: '[<Setting> <Value>]',
-	permissions: 'ADMINISTRATOR',
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
