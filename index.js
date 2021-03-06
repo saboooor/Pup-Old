@@ -280,7 +280,7 @@ async function updateCount(global, vc) {
 	if (Date.now() - lastUpdated > 300000) {
 		const json = await fetch('https://api.mcsrvstat.us/2/play.netherdepths.com');
 		const pong = await json.json();
-		if (!pong.online) return
+		if (!pong.online) return;
 		if (!pong.players) return;
 		if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
 			await client.channels.cache.get(vc).setName(`Players: ${pong.players.online} / ${pong.players.max}`);
