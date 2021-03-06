@@ -50,7 +50,7 @@ const cooldowns = new Discord.Collection();
 
 client.on('message', message => {
 	let srvconfig = [];
-	if (message.guild.id) {
+	if (message.guild) {
 		srvconfig = client.settings.get(message.guild.id);
 	}
 	else {
