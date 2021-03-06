@@ -27,7 +27,7 @@ const Enmap = require('enmap');
 
 client.settings = new Enmap({
 	name: "settings",
-	fetchAll: false,
+	fetchAll: true,
 	autoFetch: true,
 	cloneLevel: 'deep',
 	autoEnsure: {
