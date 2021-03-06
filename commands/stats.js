@@ -37,10 +37,6 @@ module.exports = {
 			id = '50dc31e4';
 			serverip = 'play.netherdepths.com';
 		}
-		else if (arg == 'nde') {
-			id = '1eb5e2e9';
-			serverip = 'pp.netherdepths.com';
-		}
 		else {
 			serverip = args[0];
 		}
@@ -73,7 +69,7 @@ module.exports = {
 			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
 			const pong = await json.json();
 			if (id == '') {
-				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND, NDE`');
+				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND`');
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players) {
