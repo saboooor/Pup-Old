@@ -265,10 +265,9 @@ client.on('message', message => {
 });
 
 client.on('guildMemberRemove', (member) => {
-	console.log(member.guild)
 	let srvconfig = client.settings.get(member.guild.id);
 	if (!srvconfig.leavemessage) return;
-	member.guild.SystemChannel.send(srvconfig.leavemessage.replace(/{USER MENTION}/g, client.users.cache.get(member.id)).replace(/{USER TAG}/g, client.users.cache.get(member.id).tag));
+	member.guild.systemChannel.send(srvconfig.leavemessage.replace(/{USER MENTION}/g, client.users.cache.get(member.id)).replace(/{USER TAG}/g, client.users.cache.get(member.id).tag));
 });
 
 client.on('guildMemberAdd', (member) => {
