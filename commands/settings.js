@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}** \`${client.settings.get(message.guild.id)[prop]}\``;
-		  });
+		});
 		if (args[1]) {
 			const [prop, ...value] = args;
 			if(!client.settings.has(message.guild.id, prop)) {
