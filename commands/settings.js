@@ -2,20 +2,16 @@ const settings = require('../settings.json');
 module.exports = {
 	name: 'settings',
 	guildOnly: true,
-	args: true,
-	argamnt: 2,
-	usage: '<Setting> <true/false>',
+	usage: '[<Setting> <true/false>]',
 	permissions: 'ADMINISTRATOR',
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		if (!settings[message.guild.id]) {
-			settings[message.guild.id] = {
-				'leave': true,
-			};
-		}
+		let srvconfig = Object.keys(guildConf).map(prop => {
+			return `${prop}  :  ${guildConf[prop]}`;
+		  });	  
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle('Settings')
-			.setDescription(`<:leave:794299854595555349> **Leave messages:** ${settings[message.guild.id].leave}`);
+			.setDescription(srvconfig.join("\n"));
 		message.channel.send(Embed);
 	},
 };
