@@ -5,8 +5,8 @@ module.exports = {
 	usage: '[<Setting> <true/false>]',
 	permissions: 'ADMINISTRATOR',
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		let srvconfig = Object.keys(guildConf).map(prop => {
-			return `${prop}  :  ${guildConf[prop]}`;
+		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
+			return `${prop}  :  ${client.settings.get(message.guild.id)[prop]}`;
 		  });	  
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
