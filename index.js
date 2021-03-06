@@ -157,7 +157,7 @@ client.on('message', message => {
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', ' sloppy ', 'sloppy ', ' sloppy', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (message.author.bot) return;
 		let srvconfig = []
-		if (message.channel.type = 'dm') {
+		if (message.channel.type == 'dm') {
 			srvconfig.simpreaction = true;
 		}
 		else {
@@ -167,7 +167,7 @@ client.on('message', message => {
 		client.response.get('simp').execute(message);
 	}
 	if(['nigger', 'nibba', 'fag', 'faggot', 'faguette', 'fagget', 'nibber', 'nigga'].some(word => message.content.toLowerCase().replace(/‎/g, '').replace(/­/g, '').includes(word))) {
-		if (message.channel.type = 'dm') return;
+		if (message.channel.type == 'dm') return;
 		if (message.author.bot) return;
 		let srvconfig = client.settings.get(message.guild.id);
 		if (!srvconfig.slurban) return;
