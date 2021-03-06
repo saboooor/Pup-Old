@@ -31,7 +31,9 @@ client.settings = new Enmap({
 	autoFetch: true,
 	cloneLevel: 'deep',
 	autoEnsure: {
-	  prefix: config.prefix
+	  prefix: config.prefix,
+	  slurban: true,
+	  simpreaction: true,
 	}
 });  
 client.on("guildDelete", guild => {
@@ -153,10 +155,20 @@ client.on('message', message => {
 		client.response.get('list2').execute(message);
 	}
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', ' sloppy ', 'sloppy ', ' sloppy', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
+		if (message.author.bot) return;
+		let srvconfig = []
+		if (message.channel.type = 'dm') srvconfig.simpreaction = true;
+		else {
+			srvconfig = client.settings.get(message.guild.id);
+		}
+		if (!srvconfig.simpreaction) return;
 		client.response.get('simp').execute(message);
 	}
 	if(['nigger', 'nibba', 'fag', 'faggot', 'faguette', 'fagget', 'nibber', 'nigga'].some(word => message.content.toLowerCase().replace(/‎/g, '').replace(/­/g, '').includes(word))) {
+		if (message.channel.type = 'dm') return;
 		if (message.author.bot) return;
+		let srvconfig = client.settings.get(message.guild.id);
+		if (!srvconfig.slurban) return;
 		client.response.get('badword').execute(message);
 	}
 	if(message.content.toLowerCase().includes('what')) {
