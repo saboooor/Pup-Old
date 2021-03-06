@@ -157,7 +157,9 @@ client.on('message', message => {
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', ' sloppy ', 'sloppy ', ' sloppy', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (message.author.bot) return;
 		let srvconfig = []
-		if (message.channel.type = 'dm') srvconfig.simpreaction = true;
+		if (message.channel.type = 'dm') {
+			srvconfig.simpreaction = true;
+		}
 		else {
 			srvconfig = client.settings.get(message.guild.id);
 		}
