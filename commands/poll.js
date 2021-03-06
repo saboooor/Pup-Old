@@ -14,7 +14,7 @@ module.exports = {
 		const Usage = new Discord.MessageEmbed()
 			.setColor(3447003)
 			.setTitle('Usage')
-			.setDescription(`\`${config.prefix}poll yesno <Yes/No Question>\`\n\`${config.prefix}poll choices "<Question>" [<Emoji> "<Option>"]\``)
+			.setDescription(`\`${srvconfig.prefix}poll yesno <Yes/No Question>\`\n\`${srvconfig.prefix}poll choices "<Question>" [<Emoji> "<Option>"]\``)
 			.setFooter('You can add more options by repeating [<Emoji> "<Option>"]');
 		const Poll = new Discord.MessageEmbed()
 			.setColor(3447003)

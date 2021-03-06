@@ -31,7 +31,7 @@ client.settings = new Enmap({
 	autoFetch: true,
 	cloneLevel: 'deep',
 	autoEnsure: {
-	  prefix: "-"
+	  prefix: config.prefix
 	}
 });  
 client.on("guildDelete", guild => {
@@ -49,9 +49,10 @@ for (const file of commandFiles) {
 const cooldowns = new Discord.Collection();
 
 client.on('message', message => {
-	if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+	const srvconfig = client.settings.get(message.guild.id);
+	if (!message.content.startsWith(srvconfig.prefix) || message.author.bot) return;
 
-	const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+	const args = message.content.slice(srvconfig.prefix.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
 
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -62,7 +63,7 @@ client.on('message', message => {
 		const Usage = new Discord.MessageEmbed()
 			.setColor(3447003)
 			.setTitle('Usage')
-			.setDescription(`\`${config.prefix + command.name + ' ' + command.usage}\``);
+			.setDescription(`\`${srvconfig.prefix + command.name + ' ' + command.usage}\``);
 		return message.channel.send(Usage);
 	}
 
@@ -94,7 +95,7 @@ client.on('message', message => {
 			return message.reply({ embed: {
 				color: 15158332,
 				title: messages[random],
-				description: `wait ${timeLeft.toFixed(1)} more seconds before reusing ${config.prefix + command.name}.`,
+				description: `wait ${timeLeft.toFixed(1)} more seconds before reusing ${srvconfig.prefix + command.name}.`,
 			} });
 		}
 	}

@@ -5,6 +5,7 @@ module.exports = {
 	cooldown: 10,
 	guildOnly: false,
 	async execute(message, args, client, sleep, config, Client, Discord) {
+		const srvconfig = client.settings.get(message.guild.id);
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215));
 		let arg = args[0];
@@ -17,19 +18,19 @@ module.exports = {
 			**COMMANDS:**
 			*These commands can be used by anyone*
 			
-			**${config.prefix}suggest <suggestion>**
+			**${srvconfig.prefix}suggest <suggestion>**
 			Suggest something (Automatically goes to #suggestions if it exists)
-			**${config.prefix}poll**
+			**${srvconfig.prefix}poll**
 			Create a poll (Automatically goes to #polls if it exists)
-			**${config.prefix}ping / ${config.prefix}pong**
+			**${srvconfig.prefix}ping / ${srvconfig.prefix}pong**
 			The bot's ping (Pong!)
-			**${config.prefix}boner / ${config.prefix}pp / ${config.prefix}penis / ${config.prefix}erect**
+			**${srvconfig.prefix}boner / ${srvconfig.prefix}pp / ${srvconfig.prefix}penis / ${srvconfig.prefix}erect**
 			See pp size *suspense increases*
-			**${config.prefix}instaboner / ${config.prefix}instapp / ${config.prefix}instapenis / ${config.prefix}instaerect**
+			**${srvconfig.prefix}instaboner / ${srvconfig.prefix}instapp / ${srvconfig.prefix}instapenis / ${srvconfig.prefix}instaerect**
 			See pp size but speedy nyoom
-			**${config.prefix}stats / status [Server]**
+			**${srvconfig.prefix}stats / status [Server]**
 			Check the stats for pup or a Minecraft server
-			**${config.prefix}invite**
+			**${srvconfig.prefix}invite**
 			Invite the bot to your server or join the discord server where the bot's home is!
 			
 			**ADMIN COMMANDS:**
@@ -37,7 +38,7 @@ module.exports = {
 			\`-help admin\`
 			
 			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
-			**Still need help with the bot? Do ${config.prefix}invite!**`
+			**Still need help with the bot? Do ${srvconfig.prefix}invite!**`
 				.replace(/	/, ''));
 		}
 		else if (arg == 'features') {
@@ -58,7 +59,7 @@ module.exports = {
 			\`-help admin\`
 			
 			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
-			**Still need help with the bot? Do ${config.prefix}invite!**`
+			**Still need help with the bot? Do ${srvconfig.prefix}invite!**`
 				.replace(/	/, ''));
 		}
 		else if (arg == 'admin') {
@@ -73,30 +74,33 @@ module.exports = {
 			**ADMIN COMMANDS:**
 			*These commands require the member to have specified permissions*
 
-			**${config.prefix}kick <member id or mention> <reason>**
+			**${srvconfig.prefix}settings [<Setting> <Value>]**
+			Configure the bot
+			*Permission: Administrator*
+			**${srvconfig.prefix}kick <member id or mention> <reason>**
 			Kicks a member
 			*Permission: Kick Members*
-			**${config.prefix}ban <member id or mention> <reason>**
+			**${srvconfig.prefix}ban <member id or mention> <reason>**
 			Bans a member
 			*Permission: Ban Members*
-			**${config.prefix}clear <message amount> / ${config.prefix}purge**
+			**${srvconfig.prefix}clear <message amount> / ${srvconfig.prefix}purge**
 			Clear a lot of messages at once
 			*Permission: Delete Messages*
-			**${config.prefix}react <message id> <emoji>**
+			**${srvconfig.prefix}react <message id> <emoji>**
 			React with the bot
 			*Permission: Send Messages*
-			**${config.prefix}approve <message id> [response] / ${config.prefix}accept**
+			**${srvconfig.prefix}approve <message id> [response] / ${srvconfig.prefix}accept**
 			Approve a suggestion
 			*Permission: Administrator*
-			**${config.prefix}deny <message id> [response] / ${config.prefix}decline**
+			**${srvconfig.prefix}deny <message id> [response] / ${srvconfig.prefix}decline**
 			Deny a suggestion
 			*Permission: Administrator*
-			**${config.prefix}support**
+			**${srvconfig.prefix}support**
 			Walks you through how to setup support tickets in your guild
 			*Permission: Administrator*
 			
 			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
-			**Still need help with the bot? Do ${config.prefix}invite!**`
+			**Still need help with the bot? Do ${srvconfig.prefix}invite!**`
 				.replace(/	/, ''));
 		}
 		else {
@@ -113,7 +117,7 @@ module.exports = {
 			\`-help admin\`
 			
 			**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
-			**Still need help with the bot? Do ${config.prefix}invite!**`
+			**Still need help with the bot? Do ${srvconfig.prefix}invite!**`
 				.replace(/	/, ''));
 		}
 		await message.channel.send(Embed);
