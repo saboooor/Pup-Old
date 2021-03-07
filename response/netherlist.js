@@ -34,25 +34,7 @@ module.exports = {
 		const player = players.filter(word => word.startsWith('PLAYER')).sort().join(', ').replace(/PLAYER • /g, '').replace(/_/g, '\\_');
 		const guest = players.filter(word => word.startsWith('GUEST')).sort().join(', ').replace(/GUEST • /g, '').replace(/_/g, '\\_');
 		const other = players
-			.filter(word => {
-				!word.startsWith('OWNER');
-				!word.startsWith('ADMIN');
-				!word.startsWith('MOD');
-				!word.startsWith('HELPER');
-				!word.startsWith('MVP');
-				!word.startsWith('VIP');
-				!word.startsWith('GOAT');
-				!word.startsWith('WARDEN');
-				!word.startsWith('AXOLOTL');
-				!word.startsWith('HOGLIN');
-				!word.startsWith('STRIDER');
-				!word.startsWith('BLAZE');
-				!word.startsWith('ENDERMAN');
-				!word.startsWith('SKELETON');
-				!word.startsWith('PLAYER');
-				!word.startsWith('GUEST');
-			})
-			.sort().join(', ');
+			.filter(['OWNER', 'ADMIN', 'MOD', 'HELPER', 'MVP', 'VIP', 'GOAT', 'WARDEN', 'AXOLOTL', 'HOGLIN', 'STRIDER', 'BLAZE', 'ENDERMAN', 'SKELETON', 'PLAYER', 'GUEST'].some(word => !message.content.toLowerCase().includes(word))).sort().join(', ');
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle(count)
