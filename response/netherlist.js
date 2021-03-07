@@ -51,29 +51,78 @@ module.exports = {
 			.filter(word => !word.startsWith('PLAYER'))
 			.filter(word => !word.startsWith('GUEST'))
 			.sort();
-		const ownerfinal = owner.join(', ').replace('O', '\n**OWNER:** O').replace(/OWNER • /g, '');
-		const adminfinal = admin.join(', ').replace('A', '\n**ADMIN:** A').replace(/ADMIN • /g, '');
-		const modfinal = mod.join(', ').replace('M', '\n**MOD:** M').replace(/MOD • /g, '');
-		const helperfinal = helper.join(', ').replace('H', '\n**HELPER:** H').replace(/HELPER • /g, '');
-		const mvpfinal = mvp.join(', ').replace('M', '\n**MVP:** M').replace(/MVP • /g, '');
-		const vipfinal = vip.join(', ').replace('V', '\n**VIP:** V').replace(/VIP • /g, '');
-		const goatfinal = goat.join(', ').replace('G', '\n**GOAT:** W').replace(/GOAT • /g, '');
-		const wardenfinal = warden.join(', ').replace('W', '\n**WARDEN:** W').replace(/WARDEN • /g, '');
-		const axolotlfinal = axolotl.join(', ').replace('A', '\n**AXOLOTL:** A').replace(/AXOLOTL • /g, '');
-		const hoglinfinal = hoglin.join(', ').replace('H', '\n**HOGLIN:** H').replace(/HOGLIN • /g, '');
-		const striderfinal = strider.join(', ').replace('S', '\n**STRIDER:** S').replace(/STRIDER • /g, '');
-		const blazefinal = blaze.join(', ').replace('B', '\n**BLAZE:** B').replace(/BLAZE • /g, '');
-		const endermanfinal = enderman.join(', ').replace('E', '\n**ENDERMAN:** E').replace(/ENDERMAN • /g, '');
-		const skeletonfinal = skeleton.join(', ').replace('S', '\n**SKELETON:** S').replace(/SKELETON • /g, '');
-		const playerfinal = player.join(', ').replace('P', '\n**PLAYER:** P').replace(/PLAYER • /g, '');
-		const guestfinal = guest.join(', ').replace('G', '\n**GUEST:** G').replace(/GUEST • /g, '');
-		let otherfinal = `\n**OTHER:** ${other.join(', ')}`;
-		if (!other[0]) otherfinal = '';
-		message.channel.send({ embed: {
-			color: 1752220,
-			title: count,
-			description: `${ownerfinal}${adminfinal}${modfinal}${helperfinal}${mvpfinal}${vipfinal}${goatfinal}${wardenfinal}${axolotlfinal}${hoglinfinal}${striderfinal}${blazefinal}${endermanfinal}${skeletonfinal}${playerfinal}${guestfinal}${otherfinal}`.replace(/_/g, '\\_'),
-		} }).then(msg => {
+		if (owner) {
+			const ownerfinal = owner.join(', ').replace(/OWNER • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Owner', ownerfinal);
+		}
+		if (admin) {
+			const adminfinal = admin.join(', ').replace(/ADMIN • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Admin', adminfinal);
+		}
+		if (mod) {
+			const modfinal = mod.join(', ').replace(/MOD • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Mod', modfinal);
+		}
+		if (helper) {
+			const helperfinal = helper.join(', ').replace(/HELPER • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Helper', helperfinal);
+		}
+		if (mvp) {
+			const mvpfinal = mvp.join(', ').replace(/MVP • /g, '').replace(/_/g, '\\_');
+			Embed.addField('MVP', mvpfinal);
+		}
+		if (vip) {
+			const vipfinal = vip.join(', ').replace(/VIP • /g, '').replace(/_/g, '\\_');
+			Embed.addField('VIP', vipfinal);
+		}
+		if (goat) {
+			const goatfinal = goat.join(', ').replace(/GOAT • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Goat', goatfinal);
+		}
+		if (warden) {
+			const wardenfinal = warden.join(', ').replace(/WARDEN • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Warden', wardenfinal);
+		}
+		if (axolotl) {
+			const axolotlfinal = axolotl.join(', ').replace(/AXOLOTL • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Axolotl', axolotlfinal);
+		}
+		if (hoglin) {
+			const hoglinfinal = hoglin.join(', ').replace(/HOGLIN • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Hoglin', hoglinfinal);
+		}
+		if (strider) {
+			const striderfinal = strider.join(', ').replace(/STRIDER • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Strider', striderfinal);
+		}
+		if (blaze) {
+			const blazefinal = blaze.join(', ').replace(/BLAZE • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Blaze', blazefinal);
+		}
+		if (enderman) {
+			const endermanfinal = enderman.join(', ').replace(/ENDERMAN • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Enderman', endermanfinal);
+		}
+		if (skeleton) {
+			const skeletonfinal = skeleton.join(', ').replace(/SKELETON • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Skeleton', skeletonfinal);
+		}
+		if (player) {
+			const playerfinal = player.join(', ').replace(/PLAYER • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Player', playerfinal);
+		}
+		if (guest) {
+			const guestfinal = guest.join(', ').replace(/GUEST • /g, '').replace(/_/g, '\\_');
+			Embed.addField('Guest', guestfinal);
+		}
+		if (other) {
+			const otherfinal = other.join(', ');
+			Embed.addField('Other', otherfinal);
+		}
+		const Embed = new Discord.MessageEmbed()
+			.setColor(Math.floor(Math.random() * 16777215))
+			.setTitle(count)
+		message.channel.send(Embed).then(msg => {
 			setTimeout(function() {
 				msg.delete();
 			}, 5000);
