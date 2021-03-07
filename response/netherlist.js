@@ -23,6 +23,7 @@ module.exports = {
 		const helper = players.filter(word => word.startsWith('HELPER')).sort();
 		const mvp = players.filter(word => word.startsWith('MVP')).sort();
 		const vip = players.filter(word => word.startsWith('VIP')).sort();
+		const goat = players.filter(word => word.startsWith('GOAT')).sort();
 		const warden = players.filter(word => word.startsWith('WARDEN')).sort();
 		const axolotl = players.filter(word => word.startsWith('AXOLOTL')).sort();
 		const hoglin = players.filter(word => word.startsWith('HOGLIN')).sort();
@@ -39,6 +40,7 @@ module.exports = {
 			.filter(word => !word.startsWith('HELPER'))
 			.filter(word => !word.startsWith('MVP'))
 			.filter(word => !word.startsWith('VIP'))
+			.filter(word => !word.startsWith('GOAT'))
 			.filter(word => !word.startsWith('WARDEN'))
 			.filter(word => !word.startsWith('AXOLOTL'))
 			.filter(word => !word.startsWith('HOGLIN'))
@@ -55,6 +57,7 @@ module.exports = {
 		const helperfinal = helper.join(', ').replace('H', '\n**HELPER:** H').replace(/HELPER • /g, '');
 		const mvpfinal = mvp.join(', ').replace('M', '\n**MVP:** M').replace(/MVP • /g, '');
 		const vipfinal = vip.join(', ').replace('V', '\n**VIP:** V').replace(/VIP • /g, '');
+		const goatfinal = goat.join(', ').replace('G', '\n**GOAT:** W').replace(/GOAT • /g, '');
 		const wardenfinal = warden.join(', ').replace('W', '\n**WARDEN:** W').replace(/WARDEN • /g, '');
 		const axolotlfinal = axolotl.join(', ').replace('A', '\n**AXOLOTL:** A').replace(/AXOLOTL • /g, '');
 		const hoglinfinal = hoglin.join(', ').replace('H', '\n**HOGLIN:** H').replace(/HOGLIN • /g, '');
@@ -69,7 +72,7 @@ module.exports = {
 		message.channel.send({ embed: {
 			color: 1752220,
 			title: count,
-			description: `${ownerfinal}${adminfinal}${modfinal}${helperfinal}${mvpfinal}${vipfinal}${wardenfinal}${axolotlfinal}${hoglinfinal}${striderfinal}${blazefinal}${endermanfinal}${skeletonfinal}${playerfinal}${guestfinal}${otherfinal}`.replace(/_/g, '\\_'),
+			description: `${ownerfinal}${adminfinal}${modfinal}${helperfinal}${mvpfinal}${vipfinal}${goatfinal}${wardenfinal}${axolotlfinal}${hoglinfinal}${striderfinal}${blazefinal}${endermanfinal}${skeletonfinal}${playerfinal}${guestfinal}${otherfinal}`.replace(/_/g, '\\_'),
 		} }).then(msg => {
 			setTimeout(function() {
 				msg.delete();
