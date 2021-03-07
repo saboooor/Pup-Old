@@ -3,9 +3,6 @@ module.exports = {
 	guildOnly: true,
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
-		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
-			return `**${prop}** \`${client.settings.get(message.guild.id)[prop]}\``;
-		});
 		if (args[1]) {
 			const [prop, ...value] = args;
 			client.guilds.cache.forEach(guild => {

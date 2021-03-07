@@ -6,6 +6,13 @@ module.exports = {
 	guildOnly: true,
 	aliases: ['status'],
 	async execute(message, args, client, sleep, config, Client, Discord) {
+		let srvconfig = []
+		if (message.channel.type == 'dm') {
+			srvconfig.adfree = false;
+		}
+		else {
+			srvconfig = client.settings.get(message.guild.id);
+		}
 		const Embed = new Discord.MessageEmbed()
 			.setThumbnail('https://bugs.mojang.com/secure/attachment/99116/unknown_pack.png')
 			.setColor(3447003);
@@ -15,6 +22,17 @@ module.exports = {
 		let serverip = '';
 		let arg = args.join(' ');
 		if (arg) arg = arg.toLowerCase();
+		if (srvconfig.adfree) {
+			if (arg != 'pup') {
+				arg = 'pup';
+			}
+			if (message.guild.id == '661736128373719141') {
+				arg = 'nether depths';
+			}
+			else if (message.guild.id == '711661870926397601') {
+				arg = 'taco haven';
+			}
+		}
 		if (!arg) {
 			id = '5bcaad8d';
 			if (message.guild.id == '661736128373719141') {
@@ -69,7 +87,9 @@ module.exports = {
 			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
 			const pong = await json.json();
 			if (id == '') {
-				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`');
+				let message = '**Server is offline**'
+				if (!srvconfig.adfree) message = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`'
+				if (!pong.online) return reply.edit(message);
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players) {
