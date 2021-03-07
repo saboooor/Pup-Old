@@ -19,7 +19,8 @@ module.exports = {
 			simpreaction: '*Reacts with "SIMP" on messages with simpy words (true/false)*',
 			leavemessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
 			joinmessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
-			adfree: '*Gets rid of all references to other servers (true/false)*'
+			adfree: '*Gets rid of all references to other servers (true/false)*',
+			listsort: '*Sorts DiscordSRV playerlist (true/false)*'
 		}
 		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(message.guild.id)[prop]}\``;

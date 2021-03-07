@@ -14,7 +14,7 @@ module.exports = {
 			}
 			catch(error) {
 				console.error(error);
-				message.channel.send('You might wanna try that again (Error 0)');
+				message.channel.send('You might wanna try that again');
 				return;
 			}
 			message.reply({ embed: {
