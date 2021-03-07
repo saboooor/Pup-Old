@@ -17,7 +17,8 @@ module.exports = {
 			prefix: '*The bot\'s prefix*',
 			slurban: '*Bans people who say slurs (true/false)*',
 			simpreaction: '*Reacts with "SIMP" on messages with simpy words (true/false)*',
-			leavemessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*'
+			leavemessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
+			adfree: '*Gets rid of all references to other servers (true/false)*'
 		}
 		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(message.guild.id)[prop]}\``;

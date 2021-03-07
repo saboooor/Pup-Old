@@ -35,6 +35,7 @@ client.settings = new Enmap({
 	  slurban: true,
 	  simpreaction: true,
 	  leavemessage: false,
+	  adfree: false,
 	}
 });  
 client.on("guildDelete", guild => {
