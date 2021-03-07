@@ -26,7 +26,7 @@ client.once('ready', () => {
 const Enmap = require('enmap');
 client.settings = new Enmap({
 	name: 'settings',
-	fetchAll: true,
+	fetchAll: false,
 	autoFetch: true,
 	cloneLevel: 'deep',
 	autoEnsure: {
@@ -42,12 +42,6 @@ client.settings = new Enmap({
 });
 client.on("guildDelete", guild => {
 	client.settings.delete(guild.id);
-});
-client.pp = new Enmap({
-	name: 'pp',
-	autoEnsure: {
-	  pp: 0
-	}
 });
 
 client.commands = new Discord.Collection();
