@@ -1,12 +1,11 @@
 // Prerequisite:
 // Set DiscordChatChannelListCommandExpiration in the DiscordSRV config.yml to 0 to prevent 'Unknown Message' from showing in the console cuz of SurvivalChat trying to delete a message that got deleted already
-// We'll be using line 2 of the code for the expiration instead
+// We'll be using line 61 instead
 //
-// How to add a new rank (In this case the new rank would be Warden which should be added to acorn for 4000 votes just sayin):
-// 1. add const warden = players.filter(word => word.startsWith('[Warden]')).sort(); anywhere in the first list of the constants (Order doesn't matter but it would be good anyways)
-// 2. add .filter(word => !word.startsWith('[Warden]')) anywhere in the list of lines that start with '.filter' (Order doesn't matter but it would be good anyways)
-// 3. add const warden = warden.join(', ').replace("[", ".[").replace(".", "\nWarden: ").replace(/\[Warden\] /g, ""); anywhere in the second list of the constants (Order doesn't matter but it would be good anyways)
-// 4. add ${warden} to the line that starts with 'message.channel.send' (Order doesn't matter but it would be good anyways)
+// How to add a new rank (In this case the new rank would be Warden)
+// 1. add const warden = players.filter(word => word.startsWith('[Warden]')).sort().join(', ').replace(/\[Warden\] /g, '').replace(/_/g, '\\_'); in the list of the constants
+// 2. add 'Warden' anywhere in the list of ranks in the other const
+// 3. add if (warden) Embed.addField('**Warden**', warden); in the list of if statements (ORDER MATTERS)
 //
 // Code:
 module.exports = {
