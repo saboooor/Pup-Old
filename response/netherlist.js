@@ -5,8 +5,8 @@
 // How to add a new rank (In this case the new rank would be Warden which should be added to acorn for 4000 votes just sayin):
 // 1. add const warden = players.filter(word => word.startsWith('[Warden]')).sort(); anywhere in the first list of the constants (Order doesn't matter but it would be good anyways)
 // 2. add .filter(word => !word.startsWith('[Warden]')) anywhere in the list of lines that start with '.filter' (Order doesn't matter but it would be good anyways)
-// 3. add const wardenfinal = warden.join(', ').replace("[", ".[").replace(".", "\nWarden: ").replace(/\[Warden\] /g, ""); anywhere in the second list of the constants (Order doesn't matter but it would be good anyways)
-// 4. add ${wardenfinal} to the line that starts with 'message.channel.send' (Order doesn't matter but it would be good anyways)
+// 3. add const warden = warden.join(', ').replace("[", ".[").replace(".", "\nWarden: ").replace(/\[Warden\] /g, ""); anywhere in the second list of the constants (Order doesn't matter but it would be good anyways)
+// 4. add ${warden} to the line that starts with 'message.channel.send' (Order doesn't matter but it would be good anyways)
 //
 // Code:
 module.exports = {
@@ -17,22 +17,22 @@ module.exports = {
 		message.delete();
 		const count = message.content.split(/\n+/)[0];
 		const players = message.content.replace(`${count}\n\`\`\`\n`, '').replace('\n```', '').split(/, /);
-		const owner = players.filter(word => word.startsWith('OWNER')).sort();
-		const admin = players.filter(word => word.startsWith('ADMIN')).sort();
-		const mod = players.filter(word => word.startsWith('MOD')).sort();
-		const helper = players.filter(word => word.startsWith('HELPER')).sort();
-		const mvp = players.filter(word => word.startsWith('MVP')).sort();
-		const vip = players.filter(word => word.startsWith('VIP')).sort();
-		const goat = players.filter(word => word.startsWith('GOAT')).sort();
-		const warden = players.filter(word => word.startsWith('WARDEN')).sort();
-		const axolotl = players.filter(word => word.startsWith('AXOLOTL')).sort();
-		const hoglin = players.filter(word => word.startsWith('HOGLIN')).sort();
-		const strider = players.filter(word => word.startsWith('STRIDER')).sort();
-		const blaze = players.filter(word => word.startsWith('BLAZE')).sort();
-		const enderman = players.filter(word => word.startsWith('ENDERMAN')).sort();
-		const skeleton = players.filter(word => word.startsWith('SKELETON')).sort();
-		const player = players.filter(word => word.startsWith('PLAYER')).sort();
-		const guest = players.filter(word => word.startsWith('GUEST')).sort();
+		const owner = players.filter(word => word.startsWith('OWNER')).sort().join(', ').replace(/OWNER • /g, '').replace(/_/g, '\\_');
+		const admin = players.filter(word => word.startsWith('ADMIN')).sort().join(', ').replace(/ADMIN • /g, '').replace(/_/g, '\\_');
+		const mod = players.filter(word => word.startsWith('MOD')).sort().join(', ').replace(/MOD • /g, '').replace(/_/g, '\\_');
+		const helper = players.filter(word => word.startsWith('HELPER')).sort().join(', ').replace(/HELPER • /g, '').replace(/_/g, '\\_');
+		const mvp = players.filter(word => word.startsWith('MVP')).sort().join(', ').replace(/MVP • /g, '').replace(/_/g, '\\_');
+		const vip = players.filter(word => word.startsWith('VIP')).sort().join(', ').replace(/VIP • /g, '').replace(/_/g, '\\_');
+		const goat = players.filter(word => word.startsWith('GOAT')).sort().join(', ').replace(/GOAT • /g, '').replace(/_/g, '\\_');
+		const warden = players.filter(word => word.startsWith('WARDEN')).sort().join(', ').replace(/WARDEN • /g, '').replace(/_/g, '\\_');
+		const axolotl = players.filter(word => word.startsWith('AXOLOTL')).sort().join(', ').replace(/AXOLOTL • /g, '').replace(/_/g, '\\_');
+		const hoglin = players.filter(word => word.startsWith('HOGLIN')).sort().join(', ').replace(/HOGLIN • /g, '').replace(/_/g, '\\_');
+		const strider = players.filter(word => word.startsWith('STRIDER')).sort().join(', ').replace(/STRIDER • /g, '').replace(/_/g, '\\_');
+		const blaze = players.filter(word => word.startsWith('BLAZE')).sort().join(', ').replace(/BLAZE • /g, '').replace(/_/g, '\\_');
+		const enderman = players.filter(word => word.startsWith('ENDERMAN')).sort().join(', ').replace(/ENDERMAN • /g, '').replace(/_/g, '\\_');
+		const skeleton = players.filter(word => word.startsWith('SKELETON')).sort().join(', ').replace(/SKELETON • /g, '').replace(/_/g, '\\_');
+		const player = players.filter(word => word.startsWith('PLAYER')).sort().join(', ').replace(/PLAYER • /g, '').replace(/_/g, '\\_');
+		const guest = players.filter(word => word.startsWith('GUEST')).sort().join(', ').replace(/GUEST • /g, '').replace(/_/g, '\\_');
 		const other = players
 			.filter(word => {
 				!word.startsWith('OWNER');
@@ -52,44 +52,27 @@ module.exports = {
 				!word.startsWith('PLAYER');
 				!word.startsWith('GUEST');
 			})
-			.sort();
+			.sort().join(', ');
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle(count)
-		const ownerfinal = owner.join(', ').replace(/OWNER • /g, '').replace(/_/g, '\\_');
-		if (ownerfinal) Embed.addField('**Owner**', ownerfinal);
-		const adminfinal = admin.join(', ').replace(/ADMIN • /g, '').replace(/_/g, '\\_');
-		if (adminfinal) Embed.addField('**Admin**', adminfinal);
-		const modfinal = mod.join(', ').replace(/MOD • /g, '').replace(/_/g, '\\_');
-		if (modfinal) Embed.addField('**Mod**', modfinal);
-		const helperfinal = helper.join(', ').replace(/HELPER • /g, '').replace(/_/g, '\\_');
-		if (helperfinal) Embed.addField('**Helper**', helperfinal);
-		const mvpfinal = mvp.join(', ').replace(/MVP • /g, '').replace(/_/g, '\\_');
-		if (mvpfinal) Embed.addField('**MVP**', mvpfinal);
-		const vipfinal = vip.join(', ').replace(/VIP • /g, '').replace(/_/g, '\\_');
-		if (vipfinal) Embed.addField('**VIP**', vipfinal);
-		const goatfinal = goat.join(', ').replace(/GOAT • /g, '').replace(/_/g, '\\_');
-		if (goatfinal) Embed.addField('**Goat**', goatfinal);
-		const wardenfinal = warden.join(', ').replace(/WARDEN • /g, '').replace(/_/g, '\\_');
-		if (wardenfinal) Embed.addField('**Warden**', wardenfinal);
-		const axolotlfinal = axolotl.join(', ').replace(/AXOLOTL • /g, '').replace(/_/g, '\\_');
-		if (axolotlfinal) Embed.addField('**Axolotl**', axolotlfinal);
-		const hoglinfinal = hoglin.join(', ').replace(/HOGLIN • /g, '').replace(/_/g, '\\_');
-		if (hoglinfinal) Embed.addField('**Hoglin**', hoglinfinal);
-		const striderfinal = strider.join(', ').replace(/STRIDER • /g, '').replace(/_/g, '\\_');
-		if (striderfinal) Embed.addField('**Strider**', striderfinal);
-		const blazefinal = blaze.join(', ').replace(/BLAZE • /g, '').replace(/_/g, '\\_');
-		if (blazefinal) Embed.addField('**Blaze**', blazefinal);
-		const endermanfinal = enderman.join(', ').replace(/ENDERMAN • /g, '').replace(/_/g, '\\_');
-		if (endermanfinal) Embed.addField('**Enderman**', endermanfinal);
-		const skeletonfinal = skeleton.join(', ').replace(/SKELETON • /g, '').replace(/_/g, '\\_');
-		if (skeletonfinal) Embed.addField('**Skeleton**', skeletonfinal);
-		const playerfinal = player.join(', ').replace(/PLAYER • /g, '').replace(/_/g, '\\_');
-		if (playerfinal) Embed.addField('**Player**', playerfinal);
-		const guestfinal = guest.join(', ').replace(/GUEST • /g, '').replace(/_/g, '\\_');
-		if (guestfinal) Embed.addField('**Guest**', guestfinal);
-		const otherfinal = other.join(', ');
-		if (otherfinal) Embed.addField('**Other**', otherfinal);
+		if (owner) Embed.addField('**Owner**', owner);
+		if (admin) Embed.addField('**Admin**', admin);
+		if (mod) Embed.addField('**Mod**', mod);
+		if (helper) Embed.addField('**Helper**', helper);
+		if (mvp) Embed.addField('**MVP**', mvp);
+		if (vip) Embed.addField('**VIP**', vip);
+		if (goat) Embed.addField('**Goat**', goat);
+		if (warden) Embed.addField('**Warden**', warden);
+		if (axolotl) Embed.addField('**Axolotl**', axolotl);
+		if (hoglin) Embed.addField('**Hoglin**', hoglin);
+		if (strider) Embed.addField('**Strider**', strider);
+		if (blaze) Embed.addField('**Blaze**', blaze);
+		if (enderman) Embed.addField('**Enderman**', enderman);
+		if (skeleton) Embed.addField('**Skeleton**', skeleton);
+		if (player) Embed.addField('**Player**', player);
+		if (guest) Embed.addField('**Guest**', guest);
+		if (other) Embed.addField('**Other**', other);
 		message.channel.send(Embed).then(msg => {
 			setTimeout(function() {
 				msg.delete();
