@@ -56,71 +56,71 @@ module.exports = {
 			.setTitle(count)
 		if (owner) {
 			const ownerfinal = owner.join(', ').replace(/OWNER • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Owner', ownerfinal);
+			Embed.addField('Owner', ownerfinal + 'test');
 		}
 		if (admin) {
 			const adminfinal = admin.join(', ').replace(/ADMIN • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Admin', adminfinal);
+			Embed.addField('Admin', adminfinal + 'test');
 		}
 		if (mod) {
 			const modfinal = mod.join(', ').replace(/MOD • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Mod', modfinal);
+			Embed.addField('Mod', modfinal + 'test');
 		}
 		if (helper) {
 			const helperfinal = helper.join(', ').replace(/HELPER • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Helper', helperfinal);
+			Embed.addField('Helper', helperfinal + 'test');
 		}
 		if (mvp) {
 			const mvpfinal = mvp.join(', ').replace(/MVP • /g, '').replace(/_/g, '\\_');
-			Embed.addField('MVP', mvpfinal);
+			Embed.addField('MVP', mvpfinal + 'test');
 		}
 		if (vip) {
 			const vipfinal = vip.join(', ').replace(/VIP • /g, '').replace(/_/g, '\\_');
-			Embed.addField('VIP', vipfinal);
+			Embed.addField('VIP', vipfinal + 'test');
 		}
 		if (goat) {
 			const goatfinal = goat.join(', ').replace(/GOAT • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Goat', goatfinal);
+			Embed.addField('Goat', goatfinal + 'test');
 		}
 		if (warden) {
 			const wardenfinal = warden.join(', ').replace(/WARDEN • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Warden', wardenfinal);
+			Embed.addField('Warden', wardenfinal) + 'test';
 		}
 		if (axolotl) {
 			const axolotlfinal = axolotl.join(', ').replace(/AXOLOTL • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Axolotl', axolotlfinal);
+			Embed.addField('Axolotl', axolotlfinal + 'test');
 		}
 		if (hoglin) {
 			const hoglinfinal = hoglin.join(', ').replace(/HOGLIN • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Hoglin', hoglinfinal);
+			Embed.addField('Hoglin', hoglinfinal + 'test');
 		}
 		if (strider) {
 			const striderfinal = strider.join(', ').replace(/STRIDER • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Strider', striderfinal);
+			Embed.addField('Strider', striderfinal + 'test');
 		}
 		if (blaze) {
 			const blazefinal = blaze.join(', ').replace(/BLAZE • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Blaze', blazefinal);
+			Embed.addField('Blaze', blazefinal + 'test');
 		}
 		if (enderman) {
 			const endermanfinal = enderman.join(', ').replace(/ENDERMAN • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Enderman', endermanfinal);
+			Embed.addField('Enderman', endermanfinal + 'test');
 		}
 		if (skeleton) {
 			const skeletonfinal = skeleton.join(', ').replace(/SKELETON • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Skeleton', skeletonfinal);
+			Embed.addField('Skeleton', skeletonfinal + 'test');
 		}
 		if (player) {
 			const playerfinal = player.join(', ').replace(/PLAYER • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Player', playerfinal);
+			Embed.addField('Player', playerfinal + 'test');
 		}
 		if (guest) {
 			const guestfinal = guest.join(', ').replace(/GUEST • /g, '').replace(/_/g, '\\_');
-			Embed.addField('Guest', guestfinal);
+			Embed.addField('Guest', guestfinal + 'test');
 		}
 		if (other) {
 			const otherfinal = other.join(', ');
-			Embed.addField('Other', otherfinal);
+			Embed.addField('Other', otherfinal + 'test');
 		}
 		message.channel.send(Embed).then(msg => {
 			setTimeout(function() {
