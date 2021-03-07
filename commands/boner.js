@@ -4,7 +4,7 @@ module.exports = {
 	cooldown: 10,
 	guildOnly: false,
 	async execute(message, args, client, sleep, config, Client, Discord) {
-		if (client.pp.get('0').pp == 1) return message.reply('Command is currently in use! We keep this command limited to one at a time to maximize performance.')
+		if (client.pp.get('0', 'pp') == 1) return message.reply('Command is currently in use! We keep this command limited to one at a time to maximize performance.')
 		client.pp.set('0', 1, 'pp');
 		const srvconfig = client.settings.get(message.guild.id);
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
