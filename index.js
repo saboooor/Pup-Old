@@ -136,7 +136,7 @@ client.on('message', message => {
 	else {
 		srvconfig = client.settings.get(message.guild.id);
 	}
-	if (message.isMentioned(client.user)) {
+	if (message.isMemberMentioned(client.user)) {
 		message.reply(`My prefix is ${srvconfig.prefix}`);
 	}	
 	if(message.content.startsWith('**Online players (')) {
