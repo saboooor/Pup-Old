@@ -4,7 +4,6 @@ const config = require('./config.json');
 const nodeactyl = require('nodeactyl');
 const fetch = require('node-fetch');
 const Client = nodeactyl.Client;
-client.pp = '0';
 
 function sleep(milliseconds) {
 	const date = Date.now();
@@ -24,6 +23,7 @@ client.once('ready', () => {
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
 });
 
+client.pp = '0';
 const Enmap = require('enmap');
 client.settings = new Enmap({
 	name: 'settings',
