@@ -51,6 +51,9 @@ module.exports = {
 			.filter(word => !word.startsWith('PLAYER'))
 			.filter(word => !word.startsWith('GUEST'))
 			.sort();
+		const Embed = new Discord.MessageEmbed()
+			.setColor(Math.floor(Math.random() * 16777215))
+			.setTitle(count)
 		if (owner) {
 			const ownerfinal = owner.join(', ').replace(/OWNER • /g, '').replace(/_/g, '\\_');
 			Embed.addField('Owner', ownerfinal);
@@ -119,9 +122,6 @@ module.exports = {
 			const otherfinal = other.join(', ');
 			Embed.addField('Other', otherfinal);
 		}
-		const Embed = new Discord.MessageEmbed()
-			.setColor(Math.floor(Math.random() * 16777215))
-			.setTitle(count)
 		message.channel.send(Embed).then(msg => {
 			setTimeout(function() {
 				msg.delete();
