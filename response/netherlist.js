@@ -55,39 +55,39 @@ module.exports = {
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle(count)
 		const ownerfinal = owner.join(', ').replace(/OWNER • /g, '').replace(/_/g, '\\_');
-		if (ownerfinal) Embed.addField('Owner', ownerfinal + 'test');
+		if (ownerfinal) Embed.addField('Owner', ownerfinal);
 		const adminfinal = admin.join(', ').replace(/ADMIN • /g, '').replace(/_/g, '\\_');
-		if (adminfinal) Embed.addField('Admin', adminfinal + 'test');
+		if (adminfinal) Embed.addField('Admin', adminfinal);
 		const modfinal = mod.join(', ').replace(/MOD • /g, '').replace(/_/g, '\\_');
-		if (modfinal) Embed.addField('Mod', modfinal + 'test');
+		if (modfinal) Embed.addField('Mod', modfinal);
 		const helperfinal = helper.join(', ').replace(/HELPER • /g, '').replace(/_/g, '\\_');
-		if (helperfinal) Embed.addField('Helper', helperfinal + 'test');
+		if (helperfinal) Embed.addField('Helper', helperfinal);
 		const mvpfinal = mvp.join(', ').replace(/MVP • /g, '').replace(/_/g, '\\_');
-		if (mvpfinal) Embed.addField('MVP', mvpfinal + 'test');
+		if (mvpfinal) Embed.addField('MVP', mvpfinal);
 		const vipfinal = vip.join(', ').replace(/VIP • /g, '').replace(/_/g, '\\_');
-		if (vipfinal) Embed.addField('VIP', vipfinal + 'test');
+		if (vipfinal) Embed.addField('VIP', vipfinal);
 		const goatfinal = goat.join(', ').replace(/GOAT • /g, '').replace(/_/g, '\\_');
-		if (goatfinal) Embed.addField('Goat', goatfinal + 'test');
+		if (goatfinal) Embed.addField('Goat', goatfinal);
 		const wardenfinal = warden.join(', ').replace(/WARDEN • /g, '').replace(/_/g, '\\_');
-		if (wardenfinal) Embed.addField('Warden', wardenfinal) + 'test';
+		if (wardenfinal) Embed.addField('Warden', wardenfinal);
 		const axolotlfinal = axolotl.join(', ').replace(/AXOLOTL • /g, '').replace(/_/g, '\\_');
-		if (axolotlfinal) Embed.addField('Axolotl', axolotlfinal + 'test');
+		if (axolotlfinal) Embed.addField('Axolotl', axolotlfinal);
 		const hoglinfinal = hoglin.join(', ').replace(/HOGLIN • /g, '').replace(/_/g, '\\_');
-		if (hoglinfinal) Embed.addField('Hoglin', hoglinfinal + 'test');
+		if (hoglinfinal) Embed.addField('Hoglin', hoglinfinal);
 		const striderfinal = strider.join(', ').replace(/STRIDER • /g, '').replace(/_/g, '\\_');
-		if (striderfinal) Embed.addField('Strider', striderfinal + 'test');
+		if (striderfinal) Embed.addField('Strider', striderfinal);
 		const blazefinal = blaze.join(', ').replace(/BLAZE • /g, '').replace(/_/g, '\\_');
-		if (blazefinal) Embed.addField('Blaze', blazefinal + 'test');
+		if (blazefinal) Embed.addField('Blaze', blazefinal);
 		const endermanfinal = enderman.join(', ').replace(/ENDERMAN • /g, '').replace(/_/g, '\\_');
-		if (endermanfinal) Embed.addField('Enderman', endermanfinal + 'test');
+		if (endermanfinal) Embed.addField('Enderman', endermanfinal);
 		const skeletonfinal = skeleton.join(', ').replace(/SKELETON • /g, '').replace(/_/g, '\\_');
-		if (skeletonfinal) Embed.addField('Skeleton', skeletonfinal + 'test');
+		if (skeletonfinal) Embed.addField('Skeleton', skeletonfinal);
 		const playerfinal = player.join(', ').replace(/PLAYER • /g, '').replace(/_/g, '\\_');
-		if (playerfinal) Embed.addField('Player', playerfinal + 'test');
+		if (playerfinal) Embed.addField('Player', playerfinal);
 		const guestfinal = guest.join(', ').replace(/GUEST • /g, '').replace(/_/g, '\\_');
-		if (guestfinal) Embed.addField('Guest', guestfinal + 'test');
+		if (guestfinal) Embed.addField('Guest', guestfinal);
 		const otherfinal = other.join(', ');
-		if (otherfinal) Embed.addField('Other', otherfinal + 'test');
+		if (otherfinal) Embed.addField('Other', otherfinal);
 		message.channel.send(Embed).then(msg => {
 			setTimeout(function() {
 				msg.delete();
