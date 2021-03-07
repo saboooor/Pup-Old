@@ -34,7 +34,7 @@ module.exports = {
 		const player = players.filter(word => word.startsWith('PLAYER')).sort().join(', ').replace(/PLAYER • /g, '').replace(/_/g, '\\_');
 		const guest = players.filter(word => word.startsWith('GUEST')).sort().join(', ').replace(/GUEST • /g, '').replace(/_/g, '\\_');
 		const other = players
-			.filter(['OWNER', 'ADMIN', 'MOD', 'HELPER', 'MVP', 'VIP', 'GOAT', 'WARDEN', 'AXOLOTL', 'HOGLIN', 'STRIDER', 'BLAZE', 'ENDERMAN', 'SKELETON', 'PLAYER', 'GUEST'].some(word => !message.content.toLowerCase().includes(word))).sort().join(', ');
+			.filter(word => ['OWNER', 'ADMIN', 'MOD', 'HELPER', 'MVP', 'VIP', 'GOAT', 'WARDEN', 'AXOLOTL', 'HOGLIN', 'STRIDER', 'BLAZE', 'ENDERMAN', 'SKELETON', 'PLAYER', 'GUEST'].some(a => word.startsWith(a))).sort().join(', ');
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle(count)
