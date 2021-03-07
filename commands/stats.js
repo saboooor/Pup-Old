@@ -22,7 +22,7 @@ module.exports = {
 		let serverip = '';
 		let arg = args.join(' ');
 		if (arg) arg = arg.toLowerCase();
-		if (srvconfig.adfree) {
+		if (srvconfig.adfree == 'true') {
 			if (arg != 'pup') {
 				arg = 'pup';
 			}
