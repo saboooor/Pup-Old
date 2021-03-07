@@ -1,9 +1,10 @@
 module.exports = {
 	name: 'settings',
+	aliases: ['setting'],
 	guildOnly: true,
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
-			return `**${prop}** \`${client.settings.get(message.guild.id)[prop]}\``;
+			return `**${prop}**\n\`${client.settings.get(message.guild.id)[prop]}\`\n${prop}desc`;
 		});
 		if (args[1]) {
 			if (!message.member.hasPermission('ADMINISTRATOR')) {
@@ -21,7 +22,7 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle('Settings')
-			.setDescription(`${srvconfig.join("\n")}`);
+			.setDescription(`${srvconfig.join("\n")}\n\n**Usage**\`${srvconfig.prefix}settings [<Setting> <Value>]\``);
 		message.channel.send(Embed);
 	},
 };

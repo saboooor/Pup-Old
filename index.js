@@ -34,7 +34,7 @@ client.settings = new Enmap({
 	  prefix: config.prefix,
 	  slurban: true,
 	  simpreaction: true,
-	  leavemessage: '**{USER MENTION} ({USER TAG})** left',
+	  leavemessage: false,
 	}
 });  
 client.on("guildDelete", guild => {
