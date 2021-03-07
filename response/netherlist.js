@@ -34,22 +34,24 @@ module.exports = {
 		const player = players.filter(word => word.startsWith('PLAYER')).sort();
 		const guest = players.filter(word => word.startsWith('GUEST')).sort();
 		const other = players
-			.filter(word => !word.startsWith('OWNER'))
-			.filter(word => !word.startsWith('ADMIN'))
-			.filter(word => !word.startsWith('MOD'))
-			.filter(word => !word.startsWith('HELPER'))
-			.filter(word => !word.startsWith('MVP'))
-			.filter(word => !word.startsWith('VIP'))
-			.filter(word => !word.startsWith('GOAT'))
-			.filter(word => !word.startsWith('WARDEN'))
-			.filter(word => !word.startsWith('AXOLOTL'))
-			.filter(word => !word.startsWith('HOGLIN'))
-			.filter(word => !word.startsWith('STRIDER'))
-			.filter(word => !word.startsWith('BLAZE'))
-			.filter(word => !word.startsWith('ENDERMAN'))
-			.filter(word => !word.startsWith('SKELETON'))
-			.filter(word => !word.startsWith('PLAYER'))
-			.filter(word => !word.startsWith('GUEST'))
+			.filter(word => {
+				!word.startsWith('OWNER');
+				!word.startsWith('ADMIN');
+				!word.startsWith('MOD');
+				!word.startsWith('HELPER');
+				!word.startsWith('MVP');
+				!word.startsWith('VIP');
+				!word.startsWith('GOAT');
+				!word.startsWith('WARDEN');
+				!word.startsWith('AXOLOTL');
+				!word.startsWith('HOGLIN');
+				!word.startsWith('STRIDER');
+				!word.startsWith('BLAZE');
+				!word.startsWith('ENDERMAN');
+				!word.startsWith('SKELETON');
+				!word.startsWith('PLAYER');
+				!word.startsWith('GUEST');
+			})
 			.sort();
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
