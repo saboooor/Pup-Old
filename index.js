@@ -141,7 +141,7 @@ client.on('message', message => {
 	}	
 	if(message.content.startsWith('**Online players (')) {
 		if (message.channel.guild.id == '711661870926397601') {
-			client.response.get('tacolist').execute(message);
+			client.response.get('tacolist').execute(message, Discord);
 			return;
 		}
 		client.response.get('list').execute(message);

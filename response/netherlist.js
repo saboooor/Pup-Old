@@ -4,7 +4,7 @@
 //
 // How to add a new rank (In this case the new rank would be Warden)
 // 1. add const warden = players.filter(word => word.startsWith('[Warden]')).sort().join(', ').replace(/\[Warden\] /g, '').replace(/_/g, '\\_'); in the list of the constants
-// 2. add 'Warden' anywhere in the list of ranks in the other const
+// 2. add '[Warden]' anywhere in the list of ranks in the other const
 // 3. add if (warden) Embed.addField('**Warden**', warden); in the list of if statements (ORDER MATTERS)
 //
 // Code:
