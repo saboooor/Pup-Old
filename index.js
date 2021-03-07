@@ -37,7 +37,8 @@ client.settings = new Enmap({
 	  leavemessage: 'false',
 	  joinmessage: 'false',
 	  adfree: 'false',
-	  listsort: 'true'
+	  listsort: 'true',
+	  maxppsize: '35'
 	}
 });  
 client.on("guildDelete", guild => {
