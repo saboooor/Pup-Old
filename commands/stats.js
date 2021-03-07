@@ -13,7 +13,7 @@ module.exports = {
 		const panel = 'https://panel.birdflop.com';
 		let id = '';
 		let serverip = '';
-		let arg = args[0];
+		let arg = args.join(' ');
 		if (arg) arg = arg.toLowerCase();
 		if (!arg) {
 			id = '5bcaad8d';
@@ -26,14 +26,14 @@ module.exports = {
 				serverip = 'tacohaven.club';
 			}
 		}
-		else if (arg == 'pb') {
+		else if (arg == 'pup') {
 			id = '5bcaad8d';
 		}
-		else if (arg == 'th') {
+		else if (arg == 'taco haven') {
 			id = 'd68c84e1';
 			serverip = 'tacohaven.club';
 		}
-		else if (arg == 'nd') {
+		else if (arg == 'nether depths') {
 			id = '50dc31e4';
 			serverip = 'play.netherdepths.com';
 		}
@@ -69,7 +69,7 @@ module.exports = {
 			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
 			const pong = await json.json();
 			if (id == '') {
-				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`PB, TH, ND`');
+				if (!pong.online) return reply.edit('**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`');
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players) {

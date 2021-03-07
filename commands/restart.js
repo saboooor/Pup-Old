@@ -3,16 +3,16 @@ module.exports = {
 	guildOnly: false,
 	async execute(message, args, client, sleep, config, Client, Discord) {
 		let id = '5bcaad8d';
-		let arg = args[0];
+		let arg = args.join(' ');
 		if (arg !== undefined) arg = arg.toLowerCase();
 		if (arg === undefined) {
 			if (message.guild.id == '661736128373719141') id = '50dc31e4';
 			else if (message.guild.id == '711661870926397601') id = 'd68c84e1';
 		}
-		else if (arg == 'pb') {id = '5bcaad8d';}
-		else if (arg == 'th') {id = 'd68c84e1';}
-		else if (arg == 'nd') {id = '50dc31e4';}
-		else {return message.channel.send('**Invalid server**\nList of servers:\n`PB, TH, ND`');}
+		else if (arg == 'pup') {id = '5bcaad8d';}
+		else if (arg == 'taco haven') {id = 'd68c84e1';}
+		else if (arg == 'nether depths') {id = '50dc31e4';}
+		else {return message.channel.send('**Invalid server**\nList of servers:\n`Pup, Taco Haven, Nether Depths`');}
 		const guilds = client.guilds.cache;
 		try {
 			if (id == '5bcaad8d') if (message.member.id != '249638347306303499') return message.reply('You can\'t do that!');
