@@ -22,7 +22,7 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle('Settings')
-			.setDescription(srvconfig.join("\n"))
+			.setDescription(srvconfig.join(''))
 			.addField('Usage', `\`${client.settings.get(message.guild.id).prefix}settings [<Setting> <Value>]\``);
 		message.channel.send(Embed);
 	},
