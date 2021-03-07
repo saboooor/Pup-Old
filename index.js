@@ -128,6 +128,17 @@ for (const file of responseFiles) {
 }
 
 client.on('message', message => {
+	let srvconfig = []
+	if (message.channel.type == 'dm') {
+		srvconfig.simpreaction = true;
+		srvconfig.slurban = false;
+	}
+	else {
+		srvconfig = client.settings.get(message.guild.id);
+	}
+	if (message.isMentioned(client.user)) {
+		message.reply(`My prefix is ${srvconfig.prefix}`);
+	}	
 	if(message.content.startsWith('**Online players (')) {
 		if (message.channel.guild.id == '711661870926397601') {
 			client.response.get('tacolist').execute(message);
@@ -157,20 +168,11 @@ client.on('message', message => {
 	}
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', ' sloppy ', 'sloppy ', ' sloppy', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (message.author.bot) return;
-		let srvconfig = []
-		if (message.channel.type == 'dm') {
-			srvconfig.simpreaction = true;
-		}
-		else {
-			srvconfig = client.settings.get(message.guild.id);
-		}
 		if (!srvconfig.simpreaction) return;
 		client.response.get('simp').execute(message);
 	}
 	if(['nigger', 'nibba', 'fag', 'faggot', 'faguette', 'fagget', 'nibber', 'nigga'].some(word => message.content.toLowerCase().replace(/‎/g, '').replace(/­/g, '').includes(word))) {
-		if (message.channel.type == 'dm') return;
 		if (message.author.bot) return;
-		let srvconfig = client.settings.get(message.guild.id);
 		if (!srvconfig.slurban) return;
 		client.response.get('badword').execute(message);
 	}
