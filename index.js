@@ -137,7 +137,7 @@ client.on('message', message => {
 		srvconfig = client.settings.get(message.guild.id);
 	}
 	if (message.mentions.has(client.user)) {
-		message.reply(`My prefix is ${srvconfig.prefix}`);
+		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}	
 	if(message.content.startsWith('**Online players (')) {
 		if (message.channel.guild.id == '711661870926397601') {
