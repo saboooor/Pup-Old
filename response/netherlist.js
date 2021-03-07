@@ -12,7 +12,7 @@
 module.exports = {
 	name: 'netherlist',
 	description: '',
-	execute(message) {
+	execute(message, Discord) {
 		if (message.author.id !== '661797951223627787') return;
 		message.delete();
 		const count = message.content.split(/\n+/)[0];

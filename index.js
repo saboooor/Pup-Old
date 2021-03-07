@@ -137,7 +137,7 @@ client.on('message', message => {
 	}
 	if(message.content.includes('PLAYERS ONLINE**')) {
 		if (message.channel.guild.id == '661736128373719141') {
-			client.response.get('netherlist').execute(message);
+			client.response.get('netherlist').execute(message, Discord);
 			return;
 		}
 	}
