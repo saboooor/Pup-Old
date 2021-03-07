@@ -11,20 +11,20 @@ module.exports = {
 			if(!client.settings.has(message.guild.id, prop)) {
 				return message.reply("Invalid setting!");
 			}
-			client.settings.set(message.guild.id, value.join(" "), prop);
+			client.settings.set(message.guild.id, value.join(" ").replace(/"/g, ''), prop);
 		}
-		let desc = {
+		const desc = {
 			prefix: '*The bot\'s prefix*',
 			slurban: '*Bans people who say slurs (true/false)*',
 			simpreaction: '*Reacts with "SIMP" on messages with simpy words (true/false)*',
 			leavemessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*'
 		}
-		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
+		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(message.guild.id)[prop]}\``;
 		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
-			.setTitle('Settings')
+			.setTitle('Bot Settings')
 			.setDescription(srvconfig.join('\n'))
 			.addField('Usage', `\`${client.settings.get(message.guild.id).prefix}settings [<Setting> <Value>]\``);
 		message.channel.send(Embed);
