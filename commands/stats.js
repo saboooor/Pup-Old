@@ -88,7 +88,7 @@ module.exports = {
 			const pong = await json.json();
 			if (id == '') {
 				let message = '**Server is offline**'
-				if (!srvconfig.adfree) message = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`'
+				if (srvconfig.adfree == 'false') message = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`'
 				if (!pong.online) return reply.edit(message);
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);

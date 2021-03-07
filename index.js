@@ -32,10 +32,10 @@ client.settings = new Enmap({
 	cloneLevel: 'deep',
 	autoEnsure: {
 	  prefix: config.prefix,
-	  slurban: true,
-	  simpreaction: true,
-	  leavemessage: false,
-	  adfree: false,
+	  slurban: 'true',
+	  simpreaction: 'true',
+	  leavemessage: 'false',
+	  adfree: 'false',
 	}
 });  
 client.on("guildDelete", guild => {
@@ -131,8 +131,8 @@ for (const file of responseFiles) {
 client.on('message', message => {
 	let srvconfig = []
 	if (message.channel.type == 'dm') {
-		srvconfig.simpreaction = true;
-		srvconfig.slurban = false;
+		srvconfig.simpreaction = 'true';
+		srvconfig.slurban = 'false';
 	}
 	else {
 		srvconfig = client.settings.get(message.guild.id);
@@ -169,12 +169,12 @@ client.on('message', message => {
 	}
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', ' sloppy ', 'sloppy ', ' sloppy', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (message.author.bot) return;
-		if (!srvconfig.simpreaction) return;
+		if (srvconfig.simpreaction == 'false') return;
 		client.response.get('simp').execute(message);
 	}
 	if(['nigger', 'nibba', 'fag', 'faggot', 'faguette', 'fagget', 'nibber', 'nigga'].some(word => message.content.toLowerCase().replace(/‎/g, '').replace(/­/g, '').includes(word))) {
 		if (message.author.bot) return;
-		if (!srvconfig.slurban) return;
+		if (srvconfig.slurban == 'false') return;
 		client.response.get('badword').execute(message);
 	}
 	if(message.content.toLowerCase().includes('what')) {
@@ -269,7 +269,7 @@ client.on('message', message => {
 
 client.on('guildMemberRemove', (member) => {
 	let srvconfig = client.settings.get(member.guild.id);
-	if (!srvconfig.leavemessage) return;
+	if (srvconfig.leavemessage == 'false') return;
 	member.guild.systemChannel.send(srvconfig.leavemessage.replace(/{USER MENTION}/g, client.users.cache.get(member.id)).replace(/{USER TAG}/g, client.users.cache.get(member.id).tag));
 });
 
