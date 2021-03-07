@@ -14,10 +14,10 @@ module.exports = {
 			client.settings.set(message.guild.id, value.join(" "), prop);
 		}
 		let desc = {
-			prefix: '',
-			slurban: '',
-			simpreaction: '',
-			leavemessage: ''
+			prefix: '*The bot\'s prefix*',
+			slurban: '*Bans people who say slurs (true/false)*',
+			simpreaction: '*Reacts with "SIMP" on messages with simpy words (true/false)*',
+			leavemessage: '*Can be either false or the message text itself. Variables: {USER MENTION} {USER TAG}*'
 		}
 		let srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}**\n\`${client.settings.get(message.guild.id)[prop]}\`\n${desc[prop]}`;
