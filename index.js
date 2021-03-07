@@ -4,6 +4,7 @@ const config = require('./config.json');
 const nodeactyl = require('nodeactyl');
 const fetch = require('node-fetch');
 const Client = nodeactyl.Client;
+client.pp = '0';
 
 function sleep(milliseconds) {
 	const date = Date.now();
