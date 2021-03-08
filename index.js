@@ -3,28 +3,15 @@ const Discord = require('discord.js');
 const config = require('./config.json');
 const nodeactyl = require('nodeactyl');
 const fetch = require('node-fetch');
+const Enmap = require('enmap');
 const Client = nodeactyl.Client;
-
-function sleep(milliseconds) {
-	const date = Date.now();
-	let currentDate = null;
-	do {
-		currentDate = Date.now();
-	} while (currentDate - date < milliseconds);
-}
-
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 client.login(config.token);
-
 client.once('ready', () => {
 	console.log('I am running');
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
-	client.users.cache.get('249638347306303499').send('ey *cunt* i started');
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
 });
-
-client.pp = '0';
-const Enmap = require('enmap');
 client.settings = new Enmap({
 	name: 'settings',
 	fetchAll: false,
@@ -44,6 +31,10 @@ client.settings = new Enmap({
 client.on("guildDelete", guild => {
 	client.settings.delete(guild.id);
 });
+
+function sleep(ms) {
+	return new Promise(res => setTimeout(res, ms));
+}
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
