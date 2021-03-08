@@ -13,7 +13,7 @@ module.exports = {
 		const pp = await message.channel.send(Embed);
 		const shaft = [];
 		for (let step = 0; step < random; step++) {
-			sleep(100);
+			await sleep(100);
 			Embed.setDescription('8' + shaft.join('') + 'D');
 			await pp.edit (Embed);
 			shaft.push('=');
