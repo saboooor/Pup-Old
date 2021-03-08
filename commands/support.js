@@ -2,7 +2,7 @@ module.exports = {
 	name: 'support',
 	cooldown: 10,
 	guildOnly: true,
-	async execute(message, args, client, sleep, config, Client, Discord) {
+	async execute(message, args, client, config, Client, Discord) {
 		await message.delete();
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))

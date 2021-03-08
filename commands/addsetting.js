@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'addsetting',
 	guildOnly: true,
-	async execute(message, args, client, sleep, config, Client, Discord) {
+	async execute(message, args, client, config, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		if (args[1]) {
 			const [prop, ...value] = args;

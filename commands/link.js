@@ -2,7 +2,7 @@ module.exports = {
 	name: 'link',
 	cooldown: 10,
 	guildOnly: false,
-	async execute(message, args, client, sleep, config, Client, Discord) {
+	async execute(message, args, client, config, Client, Discord) {
 		let e = [];
 		if (message.guild.id == '661736128373719141') e = ['Warden', '661797951223627787', 'Nether Depths'];
 		if (message.guild.id == '711661870926397601') e = ['Taco\'s Turtle Bot', '743741294190395402', 'Taco Haven'];

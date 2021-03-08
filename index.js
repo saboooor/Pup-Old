@@ -32,10 +32,6 @@ client.on("guildDelete", guild => {
 	client.settings.delete(guild.id);
 });
 
-function sleep(ms) {
-	return new Promise(res => setTimeout(res, ms));
-}
-
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -106,7 +102,7 @@ client.on('message', message => {
 
 	try {
 		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(`**COMMAND: ${message.author.tag} >** ${message.content}`);
-		command.execute(message, args, client, sleep, config, Client, Discord);
+		command.execute(message, args, client, config, Client, Discord);
 	}
 	catch (error) {
 		console.error(error);

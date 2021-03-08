@@ -1,9 +1,12 @@
+function sleep(ms) {
+	return new Promise(res => setTimeout(res, ms));
+}
 module.exports = {
 	name: 'boner',
 	aliases: ['pp', 'penis', 'erect'],
 	cooldown: 10,
 	guildOnly: false,
-	async execute(message, args, client, sleep, config, Client, Discord) {
+	async execute(message, args, client, config, Client, Discord) {
 		const srvconfig = client.settings.get(message.guild.id);
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
 		const Embed = new Discord.MessageEmbed()

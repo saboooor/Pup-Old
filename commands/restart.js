@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'restart',
 	guildOnly: false,
-	async execute(message, args, client, sleep, config, Client, Discord) {
+	async execute(message, args, client, config, Client, Discord) {
 		let id = '5bcaad8d';
 		let arg = args.join(' ');
 		if (arg !== undefined) arg = arg.toLowerCase();
