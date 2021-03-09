@@ -59,25 +59,6 @@ client.on('message', message => {
 
 	if (!command) return;
 
-	if (command.args && args.length < command.argamnt) {
-		const Usage = new Discord.MessageEmbed()
-			.setColor(3447003)
-			.setTitle('Usage')
-			.setDescription(`\`${srvconfig.prefix + command.name + ' ' + command.usage}\``);
-		return message.channel.send(Usage);
-	}
-
-	if (command.guildOnly && message.channel.type === 'dm') {
-		return message.reply('You can only execute this command in a Discord Server!');
-	}
-
-	if (command.permissions) {
-		const authorPerms = message.channel.permissionsFor(message.author);
-		if (!authorPerms || !authorPerms.has(command.permissions)) {
-			return message.reply('You can\'t do that!');
-		}
-	}
-
 	if (!cooldowns.has(command.name)) {
 		cooldowns.set(command.name, new Discord.Collection());
 	}
@@ -100,8 +81,37 @@ client.on('message', message => {
 		}
 	}
 
+	if (command.args && args.length < command.argamnt) {
+		const Usage = new Discord.MessageEmbed()
+			.setColor(3447003)
+			.setTitle('Usage')
+			.setDescription(`\`${srvconfig.prefix + command.name + ' ' + command.usage}\``);
+		return message.channel.send(Usage);
+	}
+
+	const commandLogEmbed = new Discord.MessageEmbed()
+		.setColor(Math.floor(Math.random() * 16777215))
+		.setTitle('Command executed!')
+		.setAuthor(message.author.tag, message.author.avatarURL())
+
+	if (message.channel.type !== 'dm') {
+		commandLogEmbed.addField('**Guild:**', message.guild.name).addField('**Channel:**', message.channel.name);
+	}
+	else if (command.guildOnly) {
+		return message.reply('You can only execute this command in a Discord Server!');
+	}
+	
+	commandLogEmbed.addField('**Command:**', message.content);
+
+	if (command.permissions) {
+		const authorPerms = message.channel.permissionsFor(message.author);
+		if (!authorPerms || !authorPerms.has(command.permissions)) {
+			return message.reply('You can\'t do that!');
+		}
+	}
+
 	try {
-		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(`**COMMAND: ${message.author.tag} >** ${message.content}`);
+		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(commandLogEmbed);
 		command.execute(message, args, client, config, Client, Discord);
 	}
 	catch (error) {
@@ -194,6 +204,20 @@ for (const file of reactionFiles) {
 }
 
 client.on('messageReactionAdd', async (reaction, user) => {
+	const command = message.channel.name;
+
+	if (!client.reaction.has(command)) return;
+
+	try {
+		client.reaction.get(command).execute(reaction, user, client, config, message);
+	}
+	catch (error) {
+		console.error(error);
+		console.log('there was an error trying to execute that command!');
+	}
+});
+
+client.on('messageReactionAdd', async (reaction, user) => {
 	let message = reaction.message;
 	if (reaction.message.partial) {
 		await reaction.message.fetch()
@@ -227,17 +251,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			return;
 		}
 	}
-	const command = message.channel.name;
-
-	if (!client.reaction.has(command)) return;
-
-	try {
-		client.reaction.get(command).execute(reaction, user, client, config, message);
-	}
-	catch (error) {
-		console.error(error);
-		console.log('there was an error trying to execute that command!');
-	}
 });
 
 client.on('message', message => {
@@ -267,8 +280,7 @@ client.on('guildMemberAdd', (member) => {
 	let srvconfig = client.settings.get(member.guild.id);
 	if (srvconfig.joinmessage == 'false') return;
 	member.guild.systemChannel.send(srvconfig.joinmessage.replace(/{USER MENTION}/g, client.users.cache.get(member.id)).replace(/{USER TAG}/g, client.users.cache.get(member.id).tag));
-	if (member.guild.id != '661736128373719141') return;
-	client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);
+	if (member.guild.id == '661736128373719141') return client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);
 });
 
 let lastUpdated = Date.now() - 270000;
