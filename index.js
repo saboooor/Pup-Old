@@ -273,8 +273,11 @@ client.on('guildMemberAdd', (member) => {
 
 let lastUpdated = Date.now() - 270000;
 async function updateCount(global, vc) {
-	if (Date.now() - lastUpdated > 300000) {
-		const json = await fetch('https://api.mcsrvstat.us/2/play.netherdepths.com');
+	if (Date.now() - lastUpdated > 325000) {
+		const json = await fetch('https://api.mcsrvstat.us/2/play.netherdepths.com').catch(error => {
+			console.log('Couldn\'t connect to API!\n' + error);
+			return;
+		});
 		const pong = await json.json();
 		if (!pong.online) return;
 		if (!pong.players) return;
