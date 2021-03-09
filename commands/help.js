@@ -6,7 +6,7 @@ module.exports = {
 	guildOnly: false,
 	async execute(message, args, client, config, Client, Discord) {
 		let srvconfig = [];
-		if (message.guild.id) {
+		if (message.guild) {
 			srvconfig = client.settings.get(message.guild.id);
 		}
 		else {
