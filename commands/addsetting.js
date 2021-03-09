@@ -6,16 +6,16 @@ module.exports = {
 		if (args[1]) {
 			const [prop, ...value] = args;
 			client.guilds.cache.forEach(guild => {
-				client.settings.set(guild.id, value.join(" "), prop);
+				client.settings.set(guild.id, value.join(' '), prop);
 			});
 		}
-		srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
+		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}** \`${client.settings.get(message.guild.id)[prop]}\``;
 		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
 			.setTitle('Settings')
-			.setDescription(`${srvconfig.join("\n")}`);
+			.setDescription(`${srvconfig.join('\n')}`);
 		message.channel.send(Embed);
 	},
 };

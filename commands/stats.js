@@ -6,7 +6,7 @@ module.exports = {
 	guildOnly: true,
 	aliases: ['status'],
 	async execute(message, args, client, config, Client, Discord) {
-		let srvconfig = []
+		let srvconfig = [];
 		if (message.channel.type == 'dm') {
 			srvconfig.adfree = false;
 		}
@@ -87,9 +87,9 @@ module.exports = {
 			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
 			const pong = await json.json();
 			if (id == '') {
-				let message = '**Server is offline**'
-				if (srvconfig.adfree == 'false') message = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`'
-				if (!pong.online) return reply.edit(message);
+				let noadmsg = '**Server is offline**';
+				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`';
+				if (!pong.online) return reply.edit(noadmsg);
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players) {

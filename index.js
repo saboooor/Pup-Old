@@ -27,10 +27,10 @@ client.settings = new Enmap({
 		joinmessage: 'false',
 		adfree: 'false',
 		listsort: 'true',
-		maxppsize: '35'
-	}
+		maxppsize: '35',
+	},
 });
-client.on("guildDelete", guild => {
+client.on('guildDelete', guild => {
 	client.settings.delete(guild.id);
 });
 
@@ -45,7 +45,7 @@ for (const file of commandFiles) {
 
 client.on('message', message => {
 	let srvconfig = {
-		'prefix': '-'
+		'prefix': '-',
 	};
 	if (message.guild) srvconfig = client.settings.get(message.guild.id);
 	if (!message.content.startsWith(srvconfig.prefix) || message.author.bot) return;
@@ -88,7 +88,7 @@ client.on('message', message => {
 	const commandLogEmbed = new Discord.MessageEmbed()
 		.setColor(Math.floor(Math.random() * 16777215))
 		.setTitle('Command executed!')
-		.setAuthor(message.author.tag, message.author.avatarURL())
+		.setAuthor(message.author.tag, message.author.avatarURL());
 
 	if (message.channel.type !== 'dm') {
 		commandLogEmbed.addField('**Guild:**', message.guild.name).addField('**Channel:**', message.channel.name);
@@ -105,7 +105,7 @@ client.on('message', message => {
 			return message.reply('You can\'t do that!');
 		}
 	}
-	
+
 	function clean(text) {
 		if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 		else {return text;}
@@ -134,18 +134,18 @@ for (const file of responseFiles) {
 client.on('message', message => {
 	let srvconfig = {
 		'simpreaction': 'true',
-		'slurban': 'false'
-	}
+		'slurban': 'false',
+	};
 	if (message.guild) srvconfig = client.settings.get(message.guild.id);
 	if (message.mentions.has(client.user)) {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
-	}	
+	}
 	if(message.content.startsWith('**Online players (')) {
 		if (message.channel.guild.id == '711661870926397601') {
 			client.response.get('tacolist').execute(message, Discord);
 			return;
 		}
-		client.response.get('list').execute(message);
+		client.response.get('list').execute(message, Discord, client);
 	}
 	if(message.content.includes('PLAYERS ONLINE**')) {
 		if (message.channel.guild.id == '661736128373719141') {
@@ -209,7 +209,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 	if (!client.reaction.has(command)) return;
 
 	try {
-		client.reaction.get(command).execute(reaction, user, client, config, message);
+		client.reaction.get(command).execute(reaction, user, client, config, reaction.message);
 	}
 	catch (error) {
 		console.error(error);
@@ -271,13 +271,13 @@ client.on('message', message => {
 });
 
 client.on('guildMemberRemove', (member) => {
-	let srvconfig = client.settings.get(member.guild.id);
+	const srvconfig = client.settings.get(member.guild.id);
 	if (srvconfig.leavemessage == 'false') return;
 	member.guild.systemChannel.send(srvconfig.leavemessage.replace(/{USER MENTION}/g, client.users.cache.get(member.id)).replace(/{USER TAG}/g, client.users.cache.get(member.id).tag));
 });
 
 client.on('guildMemberAdd', (member) => {
-	let srvconfig = client.settings.get(member.guild.id);
+	const srvconfig = client.settings.get(member.guild.id);
 	if (srvconfig.joinmessage == 'false') return;
 	member.guild.systemChannel.send(srvconfig.joinmessage.replace(/{USER MENTION}/g, client.users.cache.get(member.id)).replace(/{USER TAG}/g, client.users.cache.get(member.id).tag));
 	if (member.guild.id == '661736128373719141') return client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);

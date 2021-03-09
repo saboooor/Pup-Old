@@ -10,7 +10,7 @@ module.exports = {
 			srvconfig = client.settings.get(message.guild.id);
 		}
 		else {
-			srvconfig.prefix = '-'
+			srvconfig.prefix = '-';
 		}
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215));

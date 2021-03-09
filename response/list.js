@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'list',
 	description: '',
-	execute(message) {
+	execute(message, Discord, client) {
 		if (message.author.id == '765287593762881616') return;
 		const srvconfig = client.settings.get(message.guild.id);
 		if (srvconfig.listsort == 'false') return;

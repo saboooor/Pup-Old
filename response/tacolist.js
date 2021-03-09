@@ -37,7 +37,7 @@ module.exports = {
 		const other = players.filter(word => !['[Owner]', '[Head Admin]', '[Admin]', '[Mod]', '[Helper]', '[Trainee]', '[VIP]', '[Dev]', '[Retired]', '[Taco\'s Builder]', '[Taco]', '[Cheese]', '[Guacamole]', '[Beans]', '[Onion]', '[Tomato]', '[Lettuce]', '[Beef]'].some(a => word.startsWith(a))).sort().join(', ');
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
-			.setTitle(count)
+			.setTitle(count);
 		if (owner) Embed.addField('**Owner**', owner);
 		if (headadmin) Embed.addField('**Head Admin**', headadmin);
 		if (admin) Embed.addField('**Admin**', admin);
