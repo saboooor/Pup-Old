@@ -6,12 +6,14 @@ const fetch = require('node-fetch');
 const Enmap = require('enmap');
 const Client = nodeactyl.Client;
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+
 client.login(config.token);
 client.once('ready', () => {
 	console.log('I am running');
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
 });
+
 client.settings = new Enmap({
 	name: 'settings',
 	fetchAll: false,
@@ -33,14 +35,13 @@ client.on("guildDelete", guild => {
 });
 
 client.commands = new Discord.Collection();
+const cooldowns = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
-
-const cooldowns = new Discord.Collection();
 
 client.on('message', message => {
 	let srvconfig = [];
@@ -54,19 +55,15 @@ client.on('message', message => {
 
 	const args = message.content.slice(srvconfig.prefix.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
-
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-
 	if (!command) return;
 
 	if (!cooldowns.has(command.name)) {
 		cooldowns.set(command.name, new Discord.Collection());
 	}
-
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
 	const cooldownAmount = (command.cooldown || 3) * 1000;
-
 	if (timestamps.has(message.author.id)) {
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 		const random = Math.floor(Math.random() * 5);
@@ -80,6 +77,8 @@ client.on('message', message => {
 			} });
 		}
 	}
+
+	if (!command.argamnt) command.argamnt = 1;
 
 	if (command.args && args.length < command.argamnt) {
 		const Usage = new Discord.MessageEmbed()
@@ -100,7 +99,7 @@ client.on('message', message => {
 	else if (command.guildOnly) {
 		return message.reply('You can only execute this command in a Discord Server!');
 	}
-	
+
 	commandLogEmbed.addField('**Command:**', message.content);
 
 	if (command.permissions) {
@@ -109,12 +108,19 @@ client.on('message', message => {
 			return message.reply('You can\'t do that!');
 		}
 	}
+	
+	function clean(text) {
+		if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
+		else {return text;}
+	}
 
 	try {
 		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(commandLogEmbed);
 		command.execute(message, args, client, config, Client, Discord);
 	}
 	catch (error) {
+		commandLogEmbed.setTitle('COMMAND FAILED').addField('**Error:**', clean(error))
+		client.users.cache.get('249638347306303499').send(commandLogEmbed);
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}

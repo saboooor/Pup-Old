@@ -3,7 +3,6 @@ module.exports = {
 	aliases: ['accept'],
 	guildOnly: true,
 	args: true,
-	argamnt: 1,
 	permissions: 'ADMINISTRATOR',
 	usage: '<Message ID> [Response]',
 	async execute(message, args, client, config, Client, Discord) {

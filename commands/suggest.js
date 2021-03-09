@@ -3,7 +3,6 @@ module.exports = {
 	cooldown: 10,
 	guildOnly: true,
 	args: true,
-	argamnt: 1,
 	usage: '<Suggestion>',
 	async execute(message, args, client, config, Client, Discord) {
 		let channel = message.guild.channels.cache.find(c => c.name.includes('suggestions'));

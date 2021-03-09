@@ -3,7 +3,6 @@ module.exports = {
 	aliases: ['purge'],
 	guildOnly: true,
 	args: true,
-	argamnt: 1,
 	usage: '<Amount of messages>',
 	permissions: 'MANAGE_MESSAGES',
 	async execute(message, args, client, config, Client, Discord) {
