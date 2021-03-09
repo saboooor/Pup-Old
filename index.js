@@ -20,14 +20,14 @@ client.settings = new Enmap({
 	autoFetch: true,
 	cloneLevel: 'deep',
 	autoEnsure: {
-	  prefix: config.prefix,
-	  slurban: 'true',
-	  simpreaction: 'true',
-	  leavemessage: 'false',
-	  joinmessage: 'false',
-	  adfree: 'false',
-	  listsort: 'true',
-	  maxppsize: '35'
+		prefix: config.prefix,
+		slurban: 'true',
+		simpreaction: 'true',
+		leavemessage: 'false',
+		joinmessage: 'false',
+		adfree: 'false',
+		listsort: 'true',
+		maxppsize: '35'
 	}
 });
 client.on("guildDelete", guild => {
@@ -44,13 +44,10 @@ for (const file of commandFiles) {
 }
 
 client.on('message', message => {
-	let srvconfig = [];
-	if (message.guild) {
-		srvconfig = client.settings.get(message.guild.id);
-	}
-	else {
-		srvconfig.prefix = '-'
-	}
+	let srvconfig = {
+		'prefix': '-'
+	};
+	if (message.guild) srvconfig = client.settings.get(message.guild.id);
 	if (!message.content.startsWith(srvconfig.prefix) || message.author.bot) return;
 
 	const args = message.content.slice(srvconfig.prefix.length).trim().split(/ +/);
@@ -119,7 +116,7 @@ client.on('message', message => {
 		command.execute(message, args, client, config, Client, Discord);
 	}
 	catch (error) {
-		commandLogEmbed.setTitle('COMMAND FAILED').addField('**Error:**', clean(error))
+		commandLogEmbed.setTitle('COMMAND FAILED').addField('**Error:**', clean(error));
 		client.users.cache.get('249638347306303499').send(commandLogEmbed);
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
@@ -135,14 +132,11 @@ for (const file of responseFiles) {
 }
 
 client.on('message', message => {
-	let srvconfig = []
-	if (message.channel.type == 'dm') {
-		srvconfig.simpreaction = 'true';
-		srvconfig.slurban = 'false';
+	let srvconfig = {
+		'simpreaction': 'true',
+		'slurban': 'false'
 	}
-	else {
-		srvconfig = client.settings.get(message.guild.id);
-	}
+	if (message.guild) srvconfig = client.settings.get(message.guild.id);
 	if (message.mentions.has(client.user)) {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}	
@@ -210,7 +204,7 @@ for (const file of reactionFiles) {
 }
 
 client.on('messageReactionAdd', async (reaction, user) => {
-	const command = message.channel.name;
+	const command = reaction.message.channel.name;
 
 	if (!client.reaction.has(command)) return;
 
