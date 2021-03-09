@@ -1,16 +1,17 @@
+function isEven(value) {
+	if (value % 2 == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 module.exports = {
 	name: 'poll',
 	cooldown: 10,
 	guildOnly: true,
 	async execute(message, args, client, config, Client, Discord) {
-		function isEven(value) {
-			if (value % 2 == 0) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
+		const srvconfig = client.settings.get(message.guild.id);
 		const Usage = new Discord.MessageEmbed()
 			.setColor(3447003)
 			.setTitle('Usage')

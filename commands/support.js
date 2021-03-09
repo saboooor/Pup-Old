@@ -3,6 +3,7 @@ module.exports = {
 	cooldown: 10,
 	guildOnly: true,
 	async execute(message, args, client, config, Client, Discord) {
+		const srvconfig = client.settings.get(message.guild.id);
 		await message.delete();
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
