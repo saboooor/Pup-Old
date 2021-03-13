@@ -137,7 +137,7 @@ client.on('message', message => {
 		'slurban': 'false',
 	};
 	if (message.guild) srvconfig = client.settings.get(message.guild.id);
-	if (message.mentions.has(client.user)) {
+	if (message.content.includes(client.user.id)) {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
 	if(message.content.startsWith('**Online players (')) {
