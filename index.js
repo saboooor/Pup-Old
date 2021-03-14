@@ -7,15 +7,11 @@ const fetch = require('node-fetch');
 const Enmap = require('enmap');
 const Client = nodeactyl.Client;
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
-require('moment-duration-format');
-const moment = require('moment');
 
 client.login(config.token);
 client.once('ready', () => {
-	const now = Date.now();
-	const hr = now.getHours();
-	const time = moment.duration(now).format('H:mm:ss');
-	const timer = (now - start) / 1000;
+	const hr = new Date().getHours();
+	const timer = (Date.now() - start) / 1000;
 	console.log(`[${hr} INFO]: Done (${timer}s)! I am running`);
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
