@@ -8,6 +8,7 @@ const Enmap = require('enmap');
 const Client = nodeactyl.Client;
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 require('moment-duration-format');
+const moment = require('moment');
 
 client.login(config.token);
 client.once('ready', () => {
