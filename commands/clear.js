@@ -1,3 +1,6 @@
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'clear',
 	aliases: ['purge'],
@@ -16,5 +19,8 @@ module.exports = {
 			if (consolechannel === undefined) return;
 			consolechannel.send('clearchat');
 		}
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Cleared ${args[0]} messages from #${message.channel.name} in ${message.guild.name}`);
 	},
 };

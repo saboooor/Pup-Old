@@ -119,6 +119,9 @@ client.on('message', message => {
 	}
 
 	try {
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: ${message.author.tag} issued command: ${message.content}`);
 		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(commandLogEmbed);
 		command.execute(message, args, client, config, Client, Discord);
 	}

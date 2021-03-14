@@ -1,3 +1,6 @@
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'addsetting',
 	guildOnly: true,
@@ -7,6 +10,9 @@ module.exports = {
 			const [prop, ...value] = args;
 			client.guilds.cache.forEach(guild => {
 				client.settings.set(guild.id, value.join(' '), prop);
+				const rn = new Date();
+				const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+				console.log(`[${time} INFO]: Added setting: ${prop} = ${value}`);
 			});
 		}
 		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {

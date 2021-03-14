@@ -10,8 +10,7 @@ module.exports = {
 			client.users.cache.find(u => u.id === args[0].replace('<@', '').replace('!', '').replace('>', '')).send(args.join(' ').replace(args[0], ''));
 		}
 		catch(error) {
-			console.log(error);
-			message.reply('ur supposed to use a discord user mention or id dumbass');
+			message.reply('ur supposed to use a discord user mention or id');
 		}
 	},
 };
