@@ -10,9 +10,10 @@ const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 
 client.login(config.token);
 client.once('ready', () => {
-	const hr = new Date().getHours();
+	const rn = new Date();
+	const time = `${rn.getHours()}:${rn.getMinutes()}:${rn.getSeconds()}`;
 	const timer = (Date.now() - start) / 1000;
-	console.log(`[${hr} INFO]: Done (${timer}s)! I am running`);
+	console.log(`[${time} INFO]: Done (${timer}s)! I am running`);
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
 });
