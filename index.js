@@ -7,16 +7,17 @@ const fetch = require('node-fetch');
 const Enmap = require('enmap');
 const Client = nodeactyl.Client;
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 
 client.login(config.token);
 client.once('ready', () => {
-	function minTwoDigits(n) {
-		return (n < 10 ? '0' : '') + n;
-	}
 	const rn = new Date();
 	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 	const timer = (Date.now() - start) / 1000;
-	console.log(`[${time} INFO]: Done (${timer}s)! I am running`);
+	console.log(`[${time} INFO]: Done (${timer}s)! I am running!`);
+	console.error(`[${time} ERROR]: ERROR TEST!!`);
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
 });
@@ -219,8 +220,9 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		client.reaction.get(command).execute(reaction, user, client, config, reaction.message);
 	}
 	catch (error) {
-		console.error(error);
-		console.log('there was an error trying to execute that command!');
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.error(`[${time} ERROR]: ${error}`);
 	}
 });
 
