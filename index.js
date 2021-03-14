@@ -1,3 +1,4 @@
+const start = Date.now();
 const fs = require('fs');
 const Discord = require('discord.js');
 const config = require('./config.json');
@@ -9,8 +10,10 @@ const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 
 client.login(config.token);
 client.once('ready', () => {
-	const time = Date.now().format('H:mm:ss');
-	console.log(`[${time} INFO]: Done (44.631s)! I am running`);
+	const now = Date.now();
+	const time = now.format('H:mm:ss');
+	const timer = now - start.format('s');
+	console.log(`[${time} INFO]: Done (${timer}s)! I am running`);
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
 });
