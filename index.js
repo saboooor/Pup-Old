@@ -331,11 +331,11 @@ try {
 	const rn = new Date();
 	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 	const timer = (Date.now() - start) / 1000;
-	console.log(`[${time} INFO]: Done (${timer}s)! Website webserver started!`);
 	http.createServer(function(req, res) {
 		res.writeHead(200);
 		res.end('pp man\n');
 	}).listen(40265);
+	console.log(`[${time} INFO]: Done (${timer}s)! Website webserver started!`);
 }
 catch (error) {
 	const rn = new Date();
@@ -346,11 +346,11 @@ try {
 	const rn = new Date();
 	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 	const timer = (Date.now() - start) / 1000;
-	console.log(`[${time} INFO]: Done (${timer}s)! Dashboard webserver started!`);
 	http.createServer(function(req, res) {
 		res.writeHead(200);
 		res.end('Pup dashboard coming soon!\n');
 	}).listen(40033);
+	console.log(`[${time} INFO]: Done (${timer}s)! Dashboard webserver started!`);
 }
 catch (error) {
 	const rn = new Date();
