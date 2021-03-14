@@ -10,8 +10,11 @@ const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 
 client.login(config.token);
 client.once('ready', () => {
+	function minTwoDigits(n) {
+		return (n < 10 ? '0' : '') + n;
+	}
 	const rn = new Date();
-	const time = `${rn.getHours()}:${rn.getMinutes()}:${rn.getSeconds()}`;
+	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 	const timer = (Date.now() - start) / 1000;
 	console.log(`[${time} INFO]: Done (${timer}s)! I am running`);
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
