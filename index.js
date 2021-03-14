@@ -325,3 +325,9 @@ async function updateCount(global, vc) {
 client.on('message', message => {
 	if (message.author.id == '661797951223627787') updateCount('776992487537377311', '808188940728664084');
 });
+
+const http = require('http');
+http.createServer(function(req, res) {
+	res.writeHead(200);
+	res.end('pp man\n');
+}).listen(40265);
