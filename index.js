@@ -13,8 +13,8 @@ const moment = require('moment');
 client.login(config.token);
 client.once('ready', () => {
 	const now = Date.now();
-	const time = now.format('H:mm:ss');
-	const timer = now - start.format('s');
+	const time = moment.duration(now).format('H:mm:ss');
+	const timer = moment.duration(now - start).format('s');
 	console.log(`[${time} INFO]: Done (${timer}s)! I am running`);
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
