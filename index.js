@@ -290,6 +290,7 @@ async function updateCount(global, vc) {
 			console.log('Couldn\'t connect to API!\n' + error);
 			return;
 		});
+		if (!json) return;
 		const pong = await json.json();
 		if (!pong.online) return;
 		if (!pong.players) return;
