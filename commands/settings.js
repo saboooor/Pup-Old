@@ -11,9 +11,7 @@ module.exports = {
 				if (args[1] > 75) return message.reply('You can\'t set maxppsize to a number over 75!');
 			}
 			if (['slurban', 'simpreaction', 'adfree', 'listsort'].some(word => args[0].toLowerCase().includes(word))) {
-				if (args[0].toLowerCase() != 'false') {
-					if (args[0].toLowerCase() != 'true') return message.reply('You can only set this as true or false!');
-				}
+				if (!['true', 'false'].some(word => args[1].toLowerCase().includes(word))) return message.reply('You can only set this as true or false!');
 			}
 			const [prop, ...value] = args;
 			if(!client.settings.has(message.guild.id, prop)) {
