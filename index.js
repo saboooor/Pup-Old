@@ -325,20 +325,3 @@ async function updateCount(global, vc) {
 client.on('message', message => {
 	if (message.author.id == '661797951223627787') updateCount('776992487537377311', '808188940728664084');
 });
-
-const http = require('http');
-try {
-	const rn = new Date();
-	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-	const timer = (Date.now() - start) / 1000;
-	http.createServer(function(req, res) {
-		res.writeHead(200);
-		res.end('Pup dashboard coming soon!\n');
-	}).listen(40033);
-	console.log(`[${time} INFO]: Done (${timer}s)! Dashboard webserver started!`);
-}
-catch (error) {
-	const rn = new Date();
-	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-	console.error(`[${time} ERROR]: ${error}`);
-}
