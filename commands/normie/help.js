@@ -34,6 +34,8 @@ The bot's ping (Pong!)
 See pp size *suspense increases*
 **${srvconfig.prefix}instaboner / ${srvconfig.prefix}instapp / ${srvconfig.prefix}instapenis / ${srvconfig.prefix}instaerect**
 See pp size but speedy nyoom
+**${srvconfig.prefix}react <message id> <emoji>**
+React with the bot
 **${srvconfig.prefix}stats / status [Server]**
 Check the stats for pup or a Minecraft server
 **${srvconfig.prefix}invite**
@@ -102,9 +104,6 @@ Bans a member
 **${srvconfig.prefix}clear <message amount> / ${srvconfig.prefix}purge**
 Clear a lot of messages at once
 *Permission: Delete Messages*
-**${srvconfig.prefix}react <message id> <emoji>**
-React with the bot
-*Permission: Send Messages*
 **${srvconfig.prefix}approve <message id> [response] / ${srvconfig.prefix}accept**
 Approve a suggestion
 *Permission: Administrator*
