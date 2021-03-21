@@ -39,6 +39,10 @@ Check the stats for pup or a Minecraft server
 **${srvconfig.prefix}invite**
 Invite the bot to your server or join the discord server where the bot's home is!
 
+**NSFW COMMANDS:**
+*NSFW commands :flushed:*
+\`${srvconfig.prefix}help nsfw\`
+
 **ADMIN COMMANDS:**
 *These commands require the member to have specified permissions*
 \`${srvconfig.prefix}help admin\`
@@ -59,6 +63,10 @@ Invite the bot to your server or join the discord server where the bot's home is
 *These commands can be used by anyone*
 \`${srvconfig.prefix}help commands\`
 
+**NSFW COMMANDS:**
+*NSFW commands :flushed:*
+\`${srvconfig.prefix}help nsfw\`
+
 **ADMIN COMMANDS:**
 *These commands require the member to have specified permissions*
 \`${srvconfig.prefix}help admin\`
@@ -74,6 +82,10 @@ Invite the bot to your server or join the discord server where the bot's home is
 **COMMANDS:**
 *These commands can be used by anyone*
 \`${srvconfig.prefix}help commands\`
+
+**NSFW COMMANDS:**
+*NSFW commands :flushed:*
+\`${srvconfig.prefix}help nsfw\`
 
 **ADMIN COMMANDS:**
 *These commands require the member to have specified permissions*
@@ -114,6 +126,10 @@ Walks you through how to setup support tickets in your guild
 **COMMANDS:**
 *These commands can be used by anyone*
 \`${srvconfig.prefix}help commands\`
+
+**NSFW COMMANDS:**
+*NSFW commands :flushed:*
+\`${srvconfig.prefix}help nsfw\`
 
 **ADMIN COMMANDS:**
 *These commands require the member to have specified permissions*
