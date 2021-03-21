@@ -118,6 +118,27 @@ Walks you through how to setup support tickets in your guild
 **Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 **Still need help with the bot? Do ${srvconfig.prefix}invite!**`);
 		}
+		else if (arg == 'nsfw') {
+			Embed.setDescription(`**BOT FEATURES:**
+*This is what the bot can do other than commands*
+\`${srvconfig.prefix}help features\`
+
+**COMMANDS:**
+*These commands can be used by anyone*
+\`${srvconfig.prefix}help commands\`
+
+**NSFW COMMANDS:**
+*NSFW commands :flushed:*
+
+**${srvconfig.prefix}hentai**
+
+**ADMIN COMMANDS:**
+*These commands require the member to have specified permissions*
+\`${srvconfig.prefix}help admin\`
+
+**Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
+**Still need help with the bot? Do ${srvconfig.prefix}invite!**`);
+		}
 		else {
 			Embed.setDescription(`**BOT FEATURES:**
 *This is what the bot can do other than commands*
