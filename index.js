@@ -5,10 +5,14 @@ const config = require('./config.json');
 const nodeactyl = require('nodeactyl');
 const fetch = require('node-fetch');
 const Enmap = require('enmap');
+const { SSL_OP_EPHEMERAL_RSA } = require('constants');
 const Client = nodeactyl.Client;
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
+}
+function sleep(ms) {
+	return new Promise(res => setTimeout(res, ms));
 }
 
 client.login(config.token);
@@ -258,6 +262,7 @@ client.on('message', message => {
 			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
 		});
 		Client.restartServer('5bcaad8d').catch();
+		sleep(1000);
 		Client.killServer('5bcaad8d').catch();
 	}
 });
