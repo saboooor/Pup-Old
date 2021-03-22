@@ -133,7 +133,7 @@ client.on('message', message => {
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 		console.log(`[${time} INFO]: ${message.author.tag} issued command: ${message.content}`);
 		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(commandLogEmbed);
-		command.execute(message, args, client, client.config, Client, Discord);
+		command.execute(message, args, client, Client, Discord);
 	}
 	catch (error) {
 		commandLogEmbed.setTitle('COMMAND FAILED').addField('**Error:**', clean(error));
@@ -230,22 +230,22 @@ client.on('messageReactionAdd', async (reaction, user) => {
 	if (reaction.emoji.name === '🎫') {
 		if (message.embeds[0].title !== 'Need help? No problem!') return;
 		reaction.users.remove(user.id);
-		client.commands.get('ticket').execute(message, null, client, client.config, user, Discord, reaction);
+		client.commands.get('ticket').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
 	if (reaction.emoji.name === '⛔') {
 		reaction.users.remove(user.id);
-		await client.commands.get('delete').execute(message, null, client, client.config, user, Discord, reaction);
+		await client.commands.get('delete').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
 	if (reaction.emoji.name === '🔓') {
 		reaction.users.remove(user.id);
-		await client.commands.get('open').execute(message, null, client, client.config, user, Discord, reaction);
+		await client.commands.get('open').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
 	if (reaction.emoji.name === '🔒') {
 		reaction.users.remove(user.id);
-		client.commands.get('close').execute(message, null, client, client.config, user, Discord, reaction);
+		client.commands.get('close').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
 });

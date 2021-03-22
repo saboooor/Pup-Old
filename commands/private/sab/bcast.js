@@ -6,7 +6,7 @@ module.exports = {
 	guildOnly: false,
 	args: true,
 	usage: '<Message>',
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		client.guilds.cache.forEach(guild => {
 			guild.owner.send(`**PUP BROADCAST**

@@ -10,7 +10,7 @@ module.exports = {
 	name: 'poll',
 	cooldown: 10,
 	guildOnly: true,
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		const srvconfig = client.settings.get(message.guild.id);
 		const Usage = new Discord.MessageEmbed()
 			.setColor(3447003)
@@ -28,8 +28,8 @@ module.exports = {
 			const poll = args.join(' ').replace(args[0] + ' ', '');
 			Poll.setDescription(poll);
 			const msg = await channel.send(Poll);
-			await msg.react(config.yes);
-			await msg.react(config.no);
+			await msg.react(client.config.yes);
+			await msg.react(client.config.no);
 		}
 		else if (args[0].toLowerCase() == 'choices') {
 			message.channel.send('Keep in mind that this poll option is still a work in progress. Please DM or ping @saboor#6969 to report any bugs.');

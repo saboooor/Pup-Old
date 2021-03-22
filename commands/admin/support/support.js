@@ -2,7 +2,7 @@ module.exports = {
 	name: 'support',
 	cooldown: 10,
 	guildOnly: true,
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		const srvconfig = client.settings.get(message.guild.id);
 		await message.delete();
 		const Embed = new Discord.MessageEmbed()

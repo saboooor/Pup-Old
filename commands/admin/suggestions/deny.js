@@ -5,7 +5,7 @@ module.exports = {
 	args: true,
 	permissions: 'ADMINISTRATOR',
 	usage: '<Message ID> [Response]',
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		await message.delete();
 		const approving = await message.channel.messages.fetch({ around: args[0], limit: 1 });
 		const fetchedMsg = approving.first();

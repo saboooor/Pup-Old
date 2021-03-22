@@ -5,7 +5,7 @@ module.exports = {
 	name: 'open',
 	guildOnly: true,
 	aliases: ['reopen'],
-	async execute(message, args, client, config, Client, Discord, reaction) {
+	async execute(message, args, client, Client, Discord, reaction) {
 		if (reaction) {
 			if (message.author.id != client.user.id) return;
 			message.author = Client;

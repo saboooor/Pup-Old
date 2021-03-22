@@ -4,7 +4,7 @@ module.exports = {
 	guildOnly: true,
 	args: true,
 	usage: '<Suggestion>',
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		let channel = message.guild.channels.cache.find(c => c.name.includes('suggestions'));
 		if (channel === undefined) channel = message.channel;
 		const suggestion = args.join(' ');
@@ -14,7 +14,7 @@ module.exports = {
 			.setTitle('Suggestion')
 			.setDescription(suggestion);
 		const msg = await channel.send(Embed);
-		await msg.react(config.yes);
-		await msg.react(config.no);
+		await msg.react(client.config.yes);
+		await msg.react(client.config.no);
 	},
 };

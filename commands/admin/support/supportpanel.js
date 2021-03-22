@@ -2,7 +2,7 @@ module.exports = {
 	name: 'supportpanel',
 	cooldown: 10,
 	guildOnly: true,
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		await message.delete();
 		if (!message.member.permissions.has('ADMINISTRATOR')) return;
 		const Embed = new Discord.MessageEmbed()

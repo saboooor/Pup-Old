@@ -4,7 +4,7 @@ module.exports = {
 	aliases: ['commands'],
 	cooldown: 10,
 	guildOnly: false,
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		let srvconfig = [];
 		if (message.guild) {
 			srvconfig = client.settings.get(message.guild.id);

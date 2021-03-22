@@ -3,7 +3,7 @@ module.exports = {
 	aliases: ['instapp', 'instapenis', 'instaerect'],
 	cooldown: 10,
 	guildOnly: false,
-	execute(message, args, client, config, Client, Discord) {
+	execute(message, args, client, Client, Discord) {
 		const srvconfig = client.settings.get(message.guild.id);
 		const hard = Math.round(Math.random());
 		let hardtxt = 'soft';

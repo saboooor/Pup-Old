@@ -4,7 +4,7 @@ function minTwoDigits(n) {
 module.exports = {
 	name: 'restart',
 	guildOnly: false,
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		let id = '5bcaad8d';
 		let arg = args.join(' ');
 		if (arg !== undefined) arg = arg.toLowerCase();
@@ -25,7 +25,7 @@ module.exports = {
 		catch (e) {
 			return message.reply('You can\'t do that!');
 		}
-		Client.login('https://panel.birdflop.com', config.panelapikey, (logged_in, err) => {
+		Client.login('https://panel.birdflop.com', client.config.panelapikey, (logged_in, err) => {
 			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
 		});
 		if (id == '5bcaad8d') {

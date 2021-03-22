@@ -2,7 +2,7 @@
 module.exports = {
 	name: 'information',
 	description: '',
-	async execute(reaction, user, client, config, message) {
+	async execute(reaction, user, client, message) {
 		if (message.id != '694041796073881601') return;
 		function checkign(reaction, user, voteoption, command) {
 			reaction.users.remove(user.id);

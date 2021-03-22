@@ -8,7 +8,7 @@ module.exports = {
 	name: 'stats',
 	guildOnly: true,
 	aliases: ['status'],
-	async execute(message, args, client, config, Client, Discord) {
+	async execute(message, args, client, Client, Discord) {
 		let srvconfig = [];
 		if (message.channel.type == 'dm') {
 			srvconfig.adfree = false;
@@ -63,7 +63,7 @@ module.exports = {
 		}
 		if (id !== '') {
 			Embed.setThumbnail(message.guild.iconURL());
-			Client.login(panel, config.panelapikey, (logged_in, err) => {
+			Client.login(panel, client.config.panelapikey, (logged_in, err) => {
 				if (logged_in == false) return message.reply(`Something went wrong\n${err}`);
 			});
 			const rn = new Date();
