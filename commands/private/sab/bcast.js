@@ -1,3 +1,6 @@
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'bcast',
 	guildOnly: false,
