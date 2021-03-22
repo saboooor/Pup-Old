@@ -5,7 +5,6 @@ module.exports = {
 	async execute(message, args, client, config, Client, Discord) {
 		await message.delete();
 		if (!message.member.permissions.has('ADMINISTRATOR')) return;
-		if (!message.channel.name.includes('support')) return message.reply('This command is only executable in the support channel!');
 		const Embed = new Discord.MessageEmbed()
 			.setColor(3447003)
 			.setTitle('Need help? No problem!')
