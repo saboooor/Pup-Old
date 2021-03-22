@@ -11,11 +11,7 @@ module.exports = {
 		client.guilds.cache.forEach(guild => {
 			guild.owner.send(`**PUP BROADCAST**
 ${args.join(' ')}
-*This message was sent to all owners that have Pup in their guild*`).catch(error => {
-	const rn = new Date();
-	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-	console.error(`[${time} ERROR]: ${error}`);
-})
+*This message was sent to all owners that have Pup in their guild*`)
 		});		
 	},
 };
