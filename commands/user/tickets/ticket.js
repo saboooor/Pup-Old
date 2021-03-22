@@ -10,6 +10,7 @@ module.exports = {
 			if (message.author.id != config.botid) return;
 			message.author = Client;
 		}
+		if (client.settings.get(message.guild.id).tickets == 'false') return message.reply('Tickets are disabled!');
 		const parent = message.guild.channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
 		const role = message.guild.roles.cache.find(r => r.name.toLowerCase().includes('staff'));
 		const channel = message.guild.channels.cache.find(c => c.name.toLowerCase() == `ticket-${message.author.username.toLowerCase().replace(' ', '-')}`);

@@ -225,8 +225,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 				message = fullmessage;
 			});
 	}
-	if (!message.guild) return;
-	if (client.settings.get(message.guild.id).tickets == 'false') return message.reply('Tickets are disabled!');
 	if (message.channel.type == 'dm') return;
 	if (user.bot) return;
 	if (reaction.emoji.name === '🎫') {
