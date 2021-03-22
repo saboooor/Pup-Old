@@ -20,7 +20,7 @@ module.exports = {
 		message.channel.updateOverwrite(user, { VIEW_CHANNEL: false });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`Ticket Closed by ${message.author.username}`);
+			.setDescription(`Ticket Closed by ${message.author.username}\nMake sure to remove people from this ticket with ${srvconfig.prefix}remove if you've added them with ${srvconfig.prefix}add!`);
 		message.channel.send(Embed);
 		const srvconfig = client.settings.get(message.guild.id);
 		Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete\``);

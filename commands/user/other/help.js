@@ -30,10 +30,10 @@ Suggest something (Automatically goes to #suggestions if it exists)
 Creates a poll (Automatically goes to #polls if it exists)
 **${srvconfig.prefix}ticket <message>**
 Creates a ticket (Alias: ${srvconfig.prefix}new)
-**${srvconfig.prefix}close**
-Closes a ticket
-**${srvconfig.prefix}open**
-Opens a ticket
+**${srvconfig.prefix}open / close**
+Opens and closes a ticket
+**${srvconfig.prefix}add / remove <User Mention or ID>**
+Adds and removes people from a ticket
 **${srvconfig.prefix}delete**
 Deletes a ticket
 **${srvconfig.prefix}ping**
