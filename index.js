@@ -39,7 +39,7 @@ client.settings = new Enmap({
 		adfree: 'false',
 		listsort: 'true',
 		maxppsize: '35',
-		tickets: 'true'
+		tickets: 'true',
 	},
 });
 client.on('guildDelete', guild => {
@@ -61,10 +61,13 @@ for (const folder of commandFolders) {
 }
 
 client.on('message', message => {
-	let srvconfig = {
-		'prefix': '-',
-	};
-	if (message.guild) srvconfig = client.settings.get(message.guild.id);
+	let srvconfig = [];
+	if (message.guild) {
+		srvconfig = client.settings.get(message.guild.id);
+	}
+	else {
+		srvconfig.prefix = '-';
+	}
 	if (!message.content.startsWith(srvconfig.prefix) || message.author.bot) return;
 
 	const args = message.content.slice(srvconfig.prefix.length).trim().split(/ +/);
@@ -153,11 +156,8 @@ for (const file of responseFiles) {
 }
 
 client.on('message', message => {
-	let srvconfig = {
-		'simpreaction': 'true',
-		'slurban': 'false',
-	};
-	if (message.guild) srvconfig = client.settings.get(message.guild.id);
+	if (!message.guild) return;
+	const srvconfig = client.settings.get(message.guild.id);
 	if (message.content.includes(client.user.id)) {
 		if (message.author.bot) return;
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
