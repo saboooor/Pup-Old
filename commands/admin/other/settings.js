@@ -10,7 +10,7 @@ module.exports = {
 			if (args[0] == 'maxppsize') {
 				if (args[1] > 75) return message.reply('You can\'t set maxppsize to a number over 75!');
 			}
-			if (['slurban', 'simpreaction', 'adfree', 'listsort'].some(word => args[0].toLowerCase().includes(word))) {
+			if (['slurban', 'simpreaction', 'adfree', 'listsort', 'tickets'].some(word => args[0].toLowerCase().includes(word))) {
 				if (!['true', 'false'].some(word => args[1].toLowerCase().includes(word))) return message.reply('You can only set this as true or false!');
 			}
 			const [prop, ...value] = args;
@@ -28,6 +28,7 @@ module.exports = {
 			adfree: '*Gets rid of all references to other servers (true/false)*',
 			listsort: '*Sorts DiscordSRV playerlist (true/false)*',
 			maxppsize: '*Maximum pp size in pp and instapp commands*',
+			tickets: '*Enables tickets (true/false)*'
 		};
 		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(message.guild.id)[prop]}\``;
