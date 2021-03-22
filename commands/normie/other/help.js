@@ -27,17 +27,25 @@ module.exports = {
 **${srvconfig.prefix}suggest <suggestion>**
 Suggest something (Automatically goes to #suggestions if it exists)
 **${srvconfig.prefix}poll**
-Create a poll (Automatically goes to #polls if it exists)
-**${srvconfig.prefix}ping / ${srvconfig.prefix}pong**
-The bot's ping (Pong!)
-**${srvconfig.prefix}boner / ${srvconfig.prefix}pp / ${srvconfig.prefix}penis / ${srvconfig.prefix}erect**
-See pp size *suspense increases*
-**${srvconfig.prefix}instaboner / ${srvconfig.prefix}instapp / ${srvconfig.prefix}instapenis / ${srvconfig.prefix}instaerect**
-See pp size but speedy nyoom
+Creates a poll (Automatically goes to #polls if it exists)
+**${srvconfig.prefix}ticket <message>**
+Creates a ticket (Alias: ${srvconfig.prefix}new)
+**${srvconfig.prefix}close**
+Closes a ticket
+**${srvconfig.prefix}open**
+Opens a ticket
+**${srvconfig.prefix}delete**
+Deletes a ticket
+**${srvconfig.prefix}ping**
+The bot's ping (Pong!) (Alias: ${srvconfig.prefix}pong)
+**${srvconfig.prefix}boner**
+See pp size *suspense increases* (Aliases: ${srvconfig.prefix}pp, ${srvconfig.prefix}penis, ${srvconfig.prefix}erect)
+**${srvconfig.prefix}instaboner**
+See pp size but speedy nyoom (Aliases: ${srvconfig.prefix}instapp, ${srvconfig.prefix}instapenis, ${srvconfig.prefix}instaerect)
 **${srvconfig.prefix}react <message id> <emoji>**
 React with the bot
-**${srvconfig.prefix}stats / status [Server]**
-Check the stats for pup or a Minecraft server
+**${srvconfig.prefix}stats [Server]**
+Check the stats for pup or a Minecraft server (Alias: ${srvconfig.prefix}status)
 **${srvconfig.prefix}invite**
 Invite the bot to your server or join the discord server where the bot's home is!
 
@@ -101,14 +109,14 @@ Kicks a member
 **${srvconfig.prefix}ban <member id or mention> <reason>**
 Bans a member
 *Permission: Ban Members*
-**${srvconfig.prefix}clear <message amount> / ${srvconfig.prefix}purge**
-Clear a lot of messages at once
+**${srvconfig.prefix}clear <message amount>**
+Clear a lot of messages at once (Alias: ${srvconfig.prefix}purge)
 *Permission: Delete Messages*
-**${srvconfig.prefix}approve <message id> [response] / ${srvconfig.prefix}accept**
-Approve a suggestion
+**${srvconfig.prefix}approve <message id> [response]**
+Approve a suggestion (Alias: ${srvconfig.prefix}accept)
 *Permission: Administrator*
-**${srvconfig.prefix}deny <message id> [response] / ${srvconfig.prefix}decline**
-Deny a suggestion
+**${srvconfig.prefix}deny <message id> [response]**
+Deny a suggestion (Alias: ${srvconfig.prefix}decline)
 *Permission: Administrator*
 **${srvconfig.prefix}support**
 Walks you through how to setup support tickets in your guild
