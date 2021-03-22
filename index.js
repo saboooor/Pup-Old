@@ -154,6 +154,7 @@ client.on('message', message => {
 	};
 	if (message.guild) srvconfig = client.settings.get(message.guild.id);
 	if (message.content.includes(client.user.id)) {
+		if (message.author.bot) return;
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
 	if(message.content.startsWith('**Online players (')) {
@@ -211,29 +212,6 @@ client.on('message', message => {
 	}
 });
 
-client.reaction = new Discord.Collection();
-const reactionFiles = fs.readdirSync('./reaction').filter(file => file.endsWith('.js'));
-
-for (const file of reactionFiles) {
-	const reaction = require(`./reaction/${file}`);
-	client.reaction.set(reaction.name, reaction);
-}
-
-client.on('messageReactionAdd', async (reaction, user) => {
-	const command = reaction.message.channel.name;
-
-	if (!client.reaction.has(command)) return;
-
-	try {
-		client.reaction.get(command).execute(reaction, user, client, config, reaction.message);
-	}
-	catch (error) {
-		const rn = new Date();
-		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-		console.error(`[${time} ERROR]: ${error}`);
-	}
-});
-
 client.on('messageReactionAdd', async (reaction, user) => {
 	let message = reaction.message;
 	if (reaction.message.partial) {
@@ -244,29 +222,26 @@ client.on('messageReactionAdd', async (reaction, user) => {
 	}
 	if (message.channel.type == 'dm') return;
 	if (user.bot) return;
-	if (message.channel.name.includes('closed-')) {
-		if (message.author.id != config.botid) return;
-		if (message.channel.topic === null) return;
-		if (!message.channel.topic.includes('#')) return;
-		if (reaction.emoji.name === '⛔') {
-			await message.channel.delete();
-			return;
-		}
-		if (reaction.emoji.name === '🔓') {
-			await client.reaction.get('reopen').execute(reaction, user, client, config, message);
-			return;
-		}
+	if (reaction.emoji.name === '🎫') {
+		if (message.embeds[0].title !== 'Need help? No problem!') return;
+		reaction.users.remove(user.id);
+		client.commands.get('ticket').execute(message, null, client, config, user, Discord, reaction);
+		return;
 	}
-	if (message.channel.name.includes('ticket-')) {
-		if (message.author.id != config.botid) return;
-		if (message.channel.topic === null) return;
-		if (!message.channel.topic.includes('#')) return;
-		if (reaction.emoji.name === '🔒') {
-			await message.reactions.removeAll();
-			await message.react('🔒');
-			client.reaction.get('close').execute(reaction, user, client, config, message);
-			return;
-		}
+	if (reaction.emoji.name === '⛔') {
+		reaction.users.remove(user.id);
+		await client.commands.get('delete').execute(message, null, client, config, user, Discord, reaction);
+		return;
+	}
+	if (reaction.emoji.name === '🔓') {
+		reaction.users.remove(user.id);
+		await client.commands.get('open').execute(message, null, client, config, user, Discord, reaction);
+		return;
+	}
+	if (reaction.emoji.name === '🔒') {
+		reaction.users.remove(user.id);
+		client.commands.get('close').execute(message, null, client, config, user, Discord, reaction);
+		return;
 	}
 });
 
