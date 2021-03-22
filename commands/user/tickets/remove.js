@@ -5,7 +5,7 @@ module.exports = {
 	usage: '<User Mention or ID>',
 	async execute(message, args, client, config, Client, Discord, reaction) {
 		if (reaction) {
-			if (message.author.id != config.botid) return;
+			if (message.author.id != client.user.id) return;
 			message.author = Client;
 		}
 		if (client.settings.get(message.guild.id).tickets == 'false') return message.reply('Tickets are disabled!');

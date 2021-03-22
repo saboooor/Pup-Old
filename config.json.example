@@ -1,8 +1,7 @@
 {
     "token": "[Put the bot's token here]",
+    "prefix": "[Put the default prefix here]",
     "panelapikey": "[Put the API key of the Pterodactyl panel here]",
-    "botid": "[Put the bot's user ID here]",
-    "prefix": "[Put the prefix of commands here]",
     "yes": "[Put the emoji ID for yes here]",
     "no": "[Put the emoji ID for no here]"
 }
