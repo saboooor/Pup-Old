@@ -28,7 +28,7 @@ module.exports = {
 			adfree: '*Gets rid of all references to other servers (true/false)*',
 			listsort: '*Sorts DiscordSRV playerlist (true/false)*',
 			maxppsize: '*Maximum pp size in pp and instapp commands*',
-			tickets: '*Enables tickets (true/false)*'
+			tickets: '*Enables tickets (true/false)*',
 		};
 		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(message.guild.id)[prop]}\``;

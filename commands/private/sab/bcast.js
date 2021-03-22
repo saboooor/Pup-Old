@@ -11,7 +11,7 @@ module.exports = {
 		client.guilds.cache.forEach(guild => {
 			guild.owner.send(`**PUP BROADCAST**
 ${args.join(' ')}
-*This message was sent to all owners that have Pup in their guild*`)
-		});		
+*This message was sent to all owners that have Pup in their guild*`);
+		});
 	},
 };
