@@ -1,13 +1,13 @@
 const start = Date.now();
 const fs = require('fs');
 const Discord = require('discord.js');
-const config = require('./config.json');
 const nodeactyl = require('nodeactyl');
 const fetch = require('node-fetch');
 const Enmap = require('enmap');
 const { SSL_OP_EPHEMERAL_RSA } = require('constants');
 const Client = nodeactyl.Client;
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+client.config = require('./config.json');
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
@@ -15,7 +15,7 @@ function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
 
-client.login(config.token);
+client.login(client.config.token);
 client.once('ready', () => {
 	const rn = new Date();
 	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
@@ -31,7 +31,7 @@ client.settings = new Enmap({
 	autoFetch: true,
 	cloneLevel: 'deep',
 	autoEnsure: {
-		prefix: config.prefix,
+		prefix: client.config.prefix,
 		slurban: 'true',
 		simpreaction: 'true',
 		leavemessage: 'false',
@@ -133,7 +133,7 @@ client.on('message', message => {
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 		console.log(`[${time} INFO]: ${message.author.tag} issued command: ${message.content}`);
 		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(commandLogEmbed);
-		command.execute(message, args, client, config, Client, Discord);
+		command.execute(message, args, client, client.config, Client, Discord);
 	}
 	catch (error) {
 		commandLogEmbed.setTitle('COMMAND FAILED').addField('**Error:**', clean(error));
@@ -230,22 +230,22 @@ client.on('messageReactionAdd', async (reaction, user) => {
 	if (reaction.emoji.name === '🎫') {
 		if (message.embeds[0].title !== 'Need help? No problem!') return;
 		reaction.users.remove(user.id);
-		client.commands.get('ticket').execute(message, null, client, config, user, Discord, reaction);
+		client.commands.get('ticket').execute(message, null, client, client.config, user, Discord, reaction);
 		return;
 	}
 	if (reaction.emoji.name === '⛔') {
 		reaction.users.remove(user.id);
-		await client.commands.get('delete').execute(message, null, client, config, user, Discord, reaction);
+		await client.commands.get('delete').execute(message, null, client, client.config, user, Discord, reaction);
 		return;
 	}
 	if (reaction.emoji.name === '🔓') {
 		reaction.users.remove(user.id);
-		await client.commands.get('open').execute(message, null, client, config, user, Discord, reaction);
+		await client.commands.get('open').execute(message, null, client, client.config, user, Discord, reaction);
 		return;
 	}
 	if (reaction.emoji.name === '🔒') {
 		reaction.users.remove(user.id);
-		client.commands.get('close').execute(message, null, client, config, user, Discord, reaction);
+		client.commands.get('close').execute(message, null, client, client.config, user, Discord, reaction);
 		return;
 	}
 });
@@ -259,7 +259,7 @@ client.on('message', message => {
 		if (message.channel.id != '812082273393704960') return;
 		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
 		message.channel.send('Updating to latest commit...');
-		Client.login('https://panel.birdflop.com', config.panelapikey, (logged_in, err) => {
+		Client.login('https://panel.birdflop.com', client.config.panelapikey, (logged_in, err) => {
 			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
 		});
 		Client.restartServer('5bcaad8d').catch();
