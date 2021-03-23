@@ -161,16 +161,12 @@ client.on('message', message => {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
 	if(message.content.startsWith('**Online players (')) {
-		if (message.channel.guild.id == '711661870926397601') {
-			client.response.get('tacolist').execute(message, Discord);
-			return;
-		}
+		client.response.get('list').execute(message, Discord);
+		return;
 	}
 	if(message.content.includes('PLAYERS ONLINE**')) {
-		if (message.channel.guild.id == '661736128373719141') {
-			client.response.get('netherlist').execute(message, Discord);
-			return;
-		}
+		client.response.get('list').execute(message, Discord);
+		return;
 	}
 	if(message.content.toLowerCase() == '**no online players**') {
 		message.delete();
