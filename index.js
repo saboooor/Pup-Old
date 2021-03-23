@@ -44,7 +44,7 @@ client.on('guildDelete', guild => {
 });
 
 client.commands = new Discord.Collection();
-const cooldowns = new Discord.Collection();
+client.cooldowns = new Discord.Collection();
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
 	const commandFolders2 = fs.readdirSync(`./commands/${folder}`);
@@ -72,13 +72,16 @@ client.on('message', message => {
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	if (!command) return;
 
+	const { cooldowns } = client;
+
 	if (!cooldowns.has(command.name)) {
 		cooldowns.set(command.name, new Discord.Collection());
-		console.log('test');
 	}
+
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
 	const cooldownAmount = (command.cooldown || 3) * 1000;
+
 	if (timestamps.has(message.author.id)) {
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 		const random = Math.floor(Math.random() * 5);
@@ -92,6 +95,9 @@ client.on('message', message => {
 			} });
 		}
 	}
+	
+	timestamps.set(message.author.id, now);
+	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 	if (!command.argamnt) command.argamnt = 1;
 
