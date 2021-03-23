@@ -34,7 +34,6 @@ client.settings = new Enmap({
 		leavemessage: 'false',
 		joinmessage: 'false',
 		adfree: 'false',
-		listsort: 'true',
 		maxppsize: '35',
 		tickets: 'true',
 	},
