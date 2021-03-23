@@ -2,6 +2,7 @@ module.exports = {
 	name: 'settings',
 	aliases: ['setting'],
 	guildOnly: true,
+	cooldown: 1000,
 	async execute(message, args, client, Client, Discord) {
 		if (args[1]) {
 			if (!message.member.hasPermission('ADMINISTRATOR')) {

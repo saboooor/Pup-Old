@@ -83,6 +83,7 @@ client.on('message', message => {
 		const random = Math.floor(Math.random() * 5);
 		const messages = ['Do I look like Usain Bolt to u?', 'BRUH IM JUST A DOG SLOW DOWN', 'can u not', 'leave me alone ;-;'];
 		if (now < expirationTime) {
+			console.log('test');
 			const timeLeft = (expirationTime - now) / 1000;
 			return message.reply({ embed: {
 				color: 15158332,
@@ -153,7 +154,21 @@ for (const file of responseFiles) {
 }
 
 client.on('message', message => {
-	if (!message.guild) return;
+	if (message.channel.type == 'dm') {
+		if (message.author.bot) return;
+		client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
+		return;
+	}
+	else if (message.webhookID) {
+		if (message.channel.id != '812082273393704960') return;
+		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
+		message.channel.send('Updating to latest commit...');
+		Client.login('https://panel.birdflop.com', client.config.panelapikey, (logged_in, err) => {
+			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
+		});
+		Client.restartServer('5bcaad8d').catch();
+		Client.killServer('5bcaad8d').catch();
+	}
 	const srvconfig = client.settings.get(message.guild.id);
 	if (message.content.includes(client.user.id)) {
 		if (message.author.bot) return;
@@ -199,24 +214,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		reaction.users.remove(user.id);
 		client.commands.get('close').execute(message, null, client, user, Discord, reaction);
 		return;
-	}
-});
-
-client.on('message', message => {
-	if (message.channel.type == 'dm') {
-		if (message.author.bot) return;
-		client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
-	}
-	else if (message.webhookID) {
-		if (message.channel.id != '812082273393704960') return;
-		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
-		message.channel.send('Updating to latest commit...');
-		Client.login('https://panel.birdflop.com', client.config.panelapikey, (logged_in, err) => {
-			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
-		});
-		Client.restartServer('5bcaad8d').catch();
-		sleep(1000);
-		Client.killServer('5bcaad8d').catch();
 	}
 });
 
