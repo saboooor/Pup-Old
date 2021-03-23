@@ -13,8 +13,8 @@ module.exports = {
 	description: '',
 	async execute(message, Discord) {
 		if (message.author.id !== '743741294190395402') return;
-		const list = await message.channel.messages.fetch({ limit: 2 })
-		list.first().delete();
+		const list = await message.channel.messages.fetch({ limit: 5 })
+		list.find(msg => msg.content.toLowerCase() == 'list').delete();
 		message.delete();
 		const count = message.content.split(/\n+/)[0];
 		const players = message.content.replace(`${count}\n\`\`\`\n`, '').replace('\n```', '').split(/, /);
