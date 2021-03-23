@@ -1,6 +1,3 @@
-client.sleep(ms) = function() {
-	return new Promise(res => setTimeout(res, ms));
-}
 // Prerequisite:
 // Set DiscordChatChannelListCommandExpiration in the DiscordSRV config.yml to 0 to prevent 'Unknown Message' from showing in the console cuz of the discordsrv bot trying to delete a message that got deleted already
 // We'll be using line 106 instead
@@ -103,7 +100,7 @@ module.exports = {
 			if (other) Embed.addField('**Other**', other);
 		}
 		const msg = await message.channel.send(Embed)
-		client.sleep(8000);
+		sleep(8000);
 		msg.delete();
 	},
 };

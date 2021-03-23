@@ -13,7 +13,6 @@ function minTwoDigits(n) {
 function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
-
 client.login(client.config.token);
 client.once('ready', () => {
 	const rn = new Date();
@@ -161,11 +160,11 @@ client.on('message', message => {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
 	if(message.content.startsWith('**Online players (')) {
-		client.response.get('list').execute(message, Discord);
+		client.response.get('list').execute(message, Discord, sleep);
 		return;
 	}
 	if(message.content.includes('PLAYERS ONLINE**')) {
-		client.response.get('list').execute(message, Discord);
+		client.response.get('list').execute(message, Discord, sleep);
 		return;
 	}
 	if(message.content.toLowerCase() == '**no online players**') {
