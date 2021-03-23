@@ -11,8 +11,7 @@
 module.exports = {
 	name: 'list',
 	async execute(message, Discord) {
-		if (message.author.id !== '743741294190395402') return;
-		else if (message.author.id !== '661797951223627787') return;
+		if (message.author.id !== '743741294190395402' && message.author.id !== '661797951223627787') return;
 		const list = await message.channel.messages.fetch({ limit: 5 })
 		list.find(msg => msg.content.toLowerCase() == 'list').delete();
 		message.delete();
