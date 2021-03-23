@@ -159,40 +159,14 @@ client.on('message', message => {
 		if (message.author.bot) return;
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
-	if(message.content.startsWith('**Online players (')) {
-		client.response.get('list').execute(message, Discord, sleep);
-		return;
-	}
-	if(message.content.includes('PLAYERS ONLINE**')) {
-		client.response.get('list').execute(message, Discord, sleep);
-		return;
-	}
-	if(message.content.toLowerCase() == '**no online players**') {
-		message.delete();
-		message.channel.send({ embed: {
-			color: 1752220,
-			title: message.content,
-		} }).then(msg => {
-			setTimeout(function() {
-				msg.delete();
-			}, 5000);
-		});
-	}
+	if(message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', ' sloppy ', 'sloppy ', ' sloppy', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (message.author.bot) return;
 		if (srvconfig.simpreaction == 'false') return;
 		client.response.get('simp').execute(message);
 	}
-	if(message.content.toLowerCase().includes('what')) {
-		if(message.content.toLowerCase().includes('ip')) {
-			client.response.get('whatip').execute(message);
-		}
-	}
-	if(message.content.toLowerCase().includes('pup')) {
-		if(['bad', 'gross', 'shit', 'dum'].some(word => message.content.toLowerCase().includes(word))) {
-			client.response.get('pupbad').execute(message);
-		}
-	}
+	if(message.content.toLowerCase().includes('what') && message.content.toLowerCase().includes('ip')) client.response.get('whatip').execute(message);
+	if(message.content.toLowerCase().includes('pup') && ['bad', 'gross', 'shit', 'dum'].some(word => message.content.toLowerCase().includes(word))) client.response.get('pupbad').execute(message);
 });
 
 client.on('messageReactionAdd', async (reaction, user) => {

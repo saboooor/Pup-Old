@@ -1,6 +1,6 @@
 // Prerequisite:
 // Set DiscordChatChannelListCommandExpiration in the DiscordSRV config.yml to 0 to prevent 'Unknown Message' from showing in the console cuz of the discordsrv bot trying to delete a message that got deleted already
-// We'll be using line 106 instead
+// We'll be using line 102 instead
 //
 // How to add a new rank (In this case the new rank would be Warden)
 // 1. add const warden = players.filter(word => word.startsWith('[Warden]')).sort().join(', ').replace(/\[Warden\] /g, '').replace(/_/g, '\\_'); in the list of the constants
@@ -10,10 +10,10 @@
 // Code:
 module.exports = {
 	name: 'list',
-	async execute(message, Discord) {
+	async execute(message, Discord, sleep) {
 		if (message.author.id !== '743741294190395402' && message.author.id !== '661797951223627787') return;
-		const list = await message.channel.messages.fetch({ limit: 5 })
-		list.find(msg => msg.content.toLowerCase() == 'list').delete();
+		let list = await message.channel.messages.fetch({ limit: 4 })
+		list = await list.find(msg => msg.content.toLowerCase() == 'list')
 		message.delete();
 		const count = message.content.split(/\n+/)[0];
 		const players = message.content.replace(`${count}\n\`\`\`\n`, '').replace('\n```', '').split(/, /);
@@ -101,5 +101,6 @@ module.exports = {
 		const msg = await message.channel.send(Embed)
 		sleep(8000);
 		msg.delete();
+		list.delete();
 	},
 };
