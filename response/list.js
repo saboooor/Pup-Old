@@ -99,7 +99,7 @@ module.exports = {
 			if (other) Embed.addField('**Other**', other);
 		}
 		const msg = await message.channel.send(Embed)
-		sleep(8000);
+		await sleep(8000);
 		msg.delete();
 		list.delete();
 	},
