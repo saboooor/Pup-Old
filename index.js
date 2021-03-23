@@ -79,11 +79,11 @@ client.on('message', message => {
 	const timestamps = cooldowns.get(command.name);
 	const cooldownAmount = (command.cooldown || 3) * 1000;
 	if (timestamps.has(message.author.id)) {
+		console.log('test');
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 		const random = Math.floor(Math.random() * 5);
 		const messages = ['Do I look like Usain Bolt to u?', 'BRUH IM JUST A DOG SLOW DOWN', 'can u not', 'leave me alone ;-;'];
 		if (now < expirationTime) {
-			console.log('test');
 			const timeLeft = (expirationTime - now) / 1000;
 			return message.reply({ embed: {
 				color: 15158332,
