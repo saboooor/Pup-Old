@@ -11,9 +11,10 @@
 module.exports = {
 	name: 'tacolist',
 	description: '',
-	execute(message, Discord) {
+	async execute(message, Discord) {
 		if (message.author.id !== '743741294190395402') return;
-		message.channel.messages.fetch({ limit: 1 }).first().delete();
+		const list = await message.channel.messages.fetch({ limit: 1 })
+		list.first().delete();
 		message.delete();
 		const count = message.content.split(/\n+/)[0];
 		const players = message.content.replace(`${count}\n\`\`\`\n`, '').replace('\n```', '').split(/, /);
