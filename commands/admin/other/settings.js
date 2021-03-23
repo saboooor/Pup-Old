@@ -10,7 +10,7 @@ module.exports = {
 			if (args[0] == 'maxppsize') {
 				if (args[1] > 75) return message.reply('You can\'t set maxppsize to a number over 75!');
 			}
-			if (['slurban', 'simpreaction', 'adfree', 'listsort', 'tickets'].some(word => args[0].toLowerCase().includes(word))) {
+			if (['simpreaction', 'adfree', 'listsort', 'tickets'].some(word => args[0].toLowerCase().includes(word))) {
 				if (!['true', 'false'].some(word => args[1].toLowerCase().includes(word))) return message.reply('You can only set this as true or false!');
 			}
 			const [prop, ...value] = args;
@@ -21,7 +21,6 @@ module.exports = {
 		}
 		const desc = {
 			prefix: '*The bot\'s prefix (You can use double quotes (") to include spaces)*',
-			slurban: '*Bans people who say slurs (true/false)*',
 			simpreaction: '*Reacts with "SIMP" on messages with simpy words (true/false)*',
 			leavemessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
 			joinmessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',

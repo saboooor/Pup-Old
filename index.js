@@ -4,7 +4,6 @@ const Discord = require('discord.js');
 const nodeactyl = require('nodeactyl');
 const fetch = require('node-fetch');
 const Enmap = require('enmap');
-const { SSL_OP_EPHEMERAL_RSA } = require('constants');
 const Client = nodeactyl.Client;
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 client.config = require('./config.json');
@@ -32,7 +31,6 @@ client.settings = new Enmap({
 	cloneLevel: 'deep',
 	autoEnsure: {
 		prefix: client.config.prefix,
-		slurban: 'true',
 		simpreaction: 'true',
 		leavemessage: 'false',
 		joinmessage: 'false',
@@ -193,11 +191,6 @@ client.on('message', message => {
 		if (message.author.bot) return;
 		if (srvconfig.simpreaction == 'false') return;
 		client.response.get('simp').execute(message);
-	}
-	if(['nigger', 'nibba', 'fag', 'faggot', 'faguette', 'fagget', 'nibber', 'nigga'].some(word => message.content.toLowerCase().replace(/‎/g, '').replace(/­/g, '').includes(word))) {
-		if (message.author.bot) return;
-		if (srvconfig.slurban == 'false') return;
-		client.response.get('badword').execute(message);
 	}
 	if(message.content.toLowerCase().includes('what')) {
 		if(message.content.toLowerCase().includes('ip')) {
