@@ -13,6 +13,7 @@ module.exports = {
 	description: '',
 	execute(message, Discord) {
 		if (message.author.id !== '661797951223627787') return;
+		message.channel.messages.fetch({ limit: 1 }).first().delete();
 		message.delete();
 		const count = message.content.split(/\n+/)[0];
 		const players = message.content.replace(`${count}\n\`\`\`\n`, '').replace('\n```', '').split(/, /);

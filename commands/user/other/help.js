@@ -66,8 +66,6 @@ Invite the bot to your server or join the discord server where the bot's home is
 
 - Support tickets
 - Suggestions
-- Slur Autoban
-- More (DM me if you want me to do something that I don't already do!)
 
 **COMMANDS:**
 *These commands can be used by anyone*

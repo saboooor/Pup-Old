@@ -165,7 +165,6 @@ client.on('message', message => {
 			client.response.get('tacolist').execute(message, Discord);
 			return;
 		}
-		client.response.get('list').execute(message, Discord, client);
 	}
 	if(message.content.includes('PLAYERS ONLINE**')) {
 		if (message.channel.guild.id == '661736128373719141') {
@@ -184,9 +183,6 @@ client.on('message', message => {
 			}, 5000);
 		});
 	}
-	if(message.content.toLowerCase() == 'list') {
-		client.response.get('list2').execute(message);
-	}
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', ' sloppy ', 'sloppy ', ' sloppy', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (message.author.bot) return;
 		if (srvconfig.simpreaction == 'false') return;
@@ -200,12 +196,6 @@ client.on('message', message => {
 	if(message.content.toLowerCase().includes('pup')) {
 		if(['bad', 'gross', 'shit', 'dum'].some(word => message.content.toLowerCase().includes(word))) {
 			client.response.get('pupbad').execute(message);
-		}
-	}
-	if(message.mentions.roles.size > 0) {
-		const role = message.mentions.roles.find(r => r.name.toLowerCase().includes('alerts'));
-		if (role !== undefined) {
-			client.response.get('tada').execute(message);
 		}
 	}
 });

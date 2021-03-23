@@ -25,7 +25,6 @@ module.exports = {
 			leavemessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
 			joinmessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
 			adfree: '*Gets rid of all references to other servers (true/false)*',
-			listsort: '*Sorts DiscordSRV playerlist (true/false)*',
 			maxppsize: '*Maximum pp size in pp and instapp commands*',
 			tickets: '*Enables tickets (true/false)*',
 		};
