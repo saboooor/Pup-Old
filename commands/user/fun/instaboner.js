@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'instaboner',
 	aliases: ['instapp', 'instapenis', 'instaerect'],
-	cooldown: 10,
+	cooldown: 1,
 	guildOnly: false,
 	execute(message, args, client, Client, Discord) {
 		const srvconfig = client.settings.get(message.guild.id);

@@ -8,6 +8,7 @@ module.exports = {
 	argamnt: 2,
 	usage: '<User Mention> <Reason>',
 	permissions: 'KICK_MEMBERS',
+	cooldown: 5,
 	async execute(message, args, client, Client, Discord) {
 		if (!message.mentions.users.first()) return message.reply('ur supposed to use a discord user mention dumbass');
 		const user = message.mentions.users.first();

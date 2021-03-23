@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'supportpanel',
-	cooldown: 10,
+	cooldown: 30,
 	guildOnly: true,
 	async execute(message, args, client, Client, Discord) {
 		await message.delete();

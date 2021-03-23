@@ -8,6 +8,7 @@ module.exports = {
 	name: 'stats',
 	guildOnly: true,
 	aliases: ['status'],
+	cooldown: 5,
 	async execute(message, args, client, Client, Discord) {
 		let srvconfig = [];
 		if (message.channel.type == 'dm') {

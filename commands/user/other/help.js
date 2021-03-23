@@ -2,7 +2,7 @@
 module.exports = {
 	name: 'help',
 	aliases: ['commands'],
-	cooldown: 10,
+	cooldown: 2,
 	guildOnly: false,
 	async execute(message, args, client, Client, Discord) {
 		let srvconfig = [];
