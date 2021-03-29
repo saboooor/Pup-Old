@@ -33,7 +33,7 @@ module.exports = {
 		}
 		const sike = Math.round(Math.random() * 10);
 		if (sike == 5) {
-			Embed.setDescription('SIKE').setFooter('u have no pp');
+			Embed.setDescription('SIKE').setFooter(`${nick} has no pp`);
 			pp.edit(Embed);
 			return;
 		}

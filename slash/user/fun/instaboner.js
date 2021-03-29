@@ -27,7 +27,7 @@ module.exports = {
 			.setColor(Math.round(Math.random() * 16777215))
 			.setTitle(`${nick}'s ${hardtxt} pp size`);
 		if (Math.round(Math.random() * 10) == 5) {
-			Embed.setDescription('SIKE').setFooter('u have no pp');
+			Embed.setDescription('SIKE').setFooter(`${nick} has no pp`);
 			await client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
