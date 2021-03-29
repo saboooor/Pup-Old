@@ -145,7 +145,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 	try {
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-		console.log(`[${time} INFO]: ${interaction.member.user.username}#${interaction.member.user.discriminator} issued slash command: ${command.name}`);
+		console.log(`[${time} INFO]: ${interaction.member.user.username}#${interaction.member.user.discriminator} issued slash command: /${command.name}`);
 		client.users.cache.get('249638347306303499').send(commandLogEmbed);
 		command.execute(interaction, args, client, null, Discord);
 	}
