@@ -10,9 +10,18 @@ module.exports = {
 	async execute(message, args, client, Client, Discord) {
 		const srvconfig = client.settings.get(message.guild.id);
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
+		let nick = message.member.displayName;
+		if (args) {
+			nick = args.join(' ');
+			if (nick.startsWith('<@') && nick.endsWith('>')) {
+				let mention = nick.slice(2, -1);
+				if (mention.startsWith('!')) mention = mention.slice(1);
+				nick = client.users.cache.get(mention).username;
+			}
+		}
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))
-			.setTitle(`${message.member.displayName}'s pp size`)
+			.setTitle(`${nick}'s pp size`)
 			.setDescription('Calculating...');
 		const pp = await message.channel.send(Embed);
 		const shaft = [];
