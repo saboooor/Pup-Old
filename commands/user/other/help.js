@@ -39,10 +39,10 @@ Adds and removes people from a ticket
 Deletes a ticket
 **${srvconfig.prefix}ping**
 The bot's ping (Pong!) (Alias: ${srvconfig.prefix}pong)
-**${srvconfig.prefix}boner**
-See pp size *suspense increases* (Aliases: ${srvconfig.prefix}pp, ${srvconfig.prefix}penis, ${srvconfig.prefix}erect)
-**${srvconfig.prefix}instaboner**
-See pp size but speedy nyoom (Aliases: ${srvconfig.prefix}instapp, ${srvconfig.prefix}instapenis, ${srvconfig.prefix}instaerect)
+**${srvconfig.prefix}boner [someone]**
+See your or someone's pp size *suspense increases* (Aliases: ${srvconfig.prefix}pp, ${srvconfig.prefix}penis, ${srvconfig.prefix}erect)
+**${srvconfig.prefix}instaboner [someone]**
+See your or someone's pp size but speedy nyoom (Aliases: ${srvconfig.prefix}instapp, ${srvconfig.prefix}instapenis, ${srvconfig.prefix}instaerect)
 **${srvconfig.prefix}react <message id> <emoji>**
 React with the bot
 **${srvconfig.prefix}stats [Server]**
