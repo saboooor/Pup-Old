@@ -94,7 +94,7 @@ client.on('message', message => {
 			} });
 		}
 	}
-	
+
 	timestamps.set(message.author.id, now);
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
