@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'support',
+	description: 'Get help on how to set up tickets',
 	cooldown: 30,
 	guildOnly: true,
 	async execute(message, args, client, Client, Discord) {

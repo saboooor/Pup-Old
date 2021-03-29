@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'invite',
+	description: 'Get pup invite links',
 	cooldown: 10,
 	guildOnly: false,
 	async execute(message, args, client, Client, Discord) {

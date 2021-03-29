@@ -3,6 +3,7 @@ function sleep(ms) {
 }
 module.exports = {
 	name: 'boner',
+	description: 'See your pp grow',
 	aliases: ['pp', 'penis', 'erect'],
 	cooldown: 10,
 	guildOnly: false,

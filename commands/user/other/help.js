@@ -1,6 +1,7 @@
 /* eslint-disable no-control-regex */
 module.exports = {
 	name: 'help',
+	description: 'Get help with pup',
 	aliases: ['commands'],
 	cooldown: 2,
 	guildOnly: false,

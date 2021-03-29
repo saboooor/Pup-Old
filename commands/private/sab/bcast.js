@@ -3,6 +3,7 @@ function minTwoDigits(n) {
 }
 module.exports = {
 	name: 'bcast',
+	description: 'Broadcast a message to all guild owners',
 	guildOnly: false,
 	args: true,
 	usage: '<Message>',

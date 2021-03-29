@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'suggest',
+	description: 'Suggest something',
 	cooldown: 10,
 	guildOnly: true,
 	args: true,

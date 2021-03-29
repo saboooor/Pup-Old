@@ -3,6 +3,7 @@ function sleep(ms) {
 }
 module.exports = {
 	name: 'close',
+	description: 'Close a ticket',
 	guildOnly: true,
 	async execute(message, args, client, Client, Discord, reaction) {
 		if (reaction) {

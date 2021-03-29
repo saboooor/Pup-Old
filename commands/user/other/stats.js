@@ -6,6 +6,7 @@ function minTwoDigits(n) {
 }
 module.exports = {
 	name: 'stats',
+	description: 'Get stats of Pup or a Minecraft server',
 	guildOnly: true,
 	aliases: ['status'],
 	cooldown: 5,

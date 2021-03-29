@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'instaboner',
+	description: 'See your pp grow FAST',
 	aliases: ['instapp', 'instapenis', 'instaerect'],
 	cooldown: 1,
 	guildOnly: false,

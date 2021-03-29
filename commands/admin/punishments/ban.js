@@ -3,6 +3,7 @@ function minTwoDigits(n) {
 }
 module.exports = {
 	name: 'ban',
+	description: 'Ban someone with a reason',
 	guildOnly: true,
 	args: true,
 	argamnt: 2,

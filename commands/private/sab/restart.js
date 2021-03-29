@@ -3,6 +3,7 @@ function minTwoDigits(n) {
 }
 module.exports = {
 	name: 'restart',
+	description: 'Restart pup or a server',
 	guildOnly: false,
 	async execute(message, args, client, Client, Discord) {
 		let id = '5bcaad8d';

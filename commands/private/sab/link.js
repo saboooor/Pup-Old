@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'link',
+	description: 'Get help on DiscordSRV linking',
 	cooldown: 10,
 	guildOnly: false,
 	async execute(message, args, client, Client, Discord) {

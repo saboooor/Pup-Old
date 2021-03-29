@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'settings',
+	description: 'Configure the bot in this guild',
 	aliases: ['setting'],
 	guildOnly: true,
 	cooldown: 1,

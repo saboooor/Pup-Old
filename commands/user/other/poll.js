@@ -8,6 +8,7 @@ function isEven(value) {
 }
 module.exports = {
 	name: 'poll',
+	description: 'Create a poll',
 	cooldown: 10,
 	guildOnly: true,
 	async execute(message, args, client, Client, Discord) {

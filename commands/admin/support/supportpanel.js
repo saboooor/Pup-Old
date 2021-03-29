@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'supportpanel',
+	description: 'Send the support ticket embed',
 	cooldown: 30,
 	guildOnly: true,
 	async execute(message, args, client, Client, Discord) {

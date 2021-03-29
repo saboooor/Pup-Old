@@ -3,6 +3,7 @@ function minTwoDigits(n) {
 }
 module.exports = {
 	name: 'removesetting',
+	description: 'Remove a guild setting',
 	guildOnly: true,
 	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
@@ -13,8 +14,8 @@ module.exports = {
 			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 			console.log(`[${time} INFO]: Removed setting: ${prop}`);
 		});
-		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
-			return `**${prop}** \`${client.settings.get(message.guild.id)[prop]}\``;
+		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop2 => {
+			return `**${prop2}** \`${client.settings.get(message.guild.id)[prop2]}\``;
 		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))

@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'dm',
+	description: 'DM someone with the bot',
 	guildOnly: false,
 	args: true,
 	argamnt: 2,
