@@ -7,7 +7,8 @@ module.exports = {
 	cooldown: 10,
 	guildOnly: false,
 	async execute(interaction, args, client, Client, Discord) {
-		const random = Math.round(Math.random() * 25);
+		const srvconfig = client.settings.get(interaction.guild_id);
+		const random = Math.round(Math.random() * srvconfig.maxppsize);
 		let nick = interaction.member.user.username;
 		if (interaction.member.nick !== null) nick = interaction.member.nick;
 		const Embed = new Discord.MessageEmbed()
