@@ -6,6 +6,11 @@ module.exports = {
 	description: 'See your pp grow',
 	cooldown: 10,
 	guildOnly: false,
+	options: [{
+		type: 3,
+		name: 'someone',
+		description: 'Pick someone for the bot to calculate the pp size of',
+	}],
 	async execute(interaction, args, client, Client, Discord) {
 		const srvconfig = client.settings.get(interaction.guild_id);
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
