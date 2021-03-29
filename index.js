@@ -111,7 +111,8 @@ client.on('message', message => {
 	const commandLogEmbed = new Discord.MessageEmbed()
 		.setColor(Math.floor(Math.random() * 16777215))
 		.setTitle('Command executed!')
-		.setAuthor(message.author.tag, message.author.avatarURL());
+		.setAuthor(message.author.tag, message.author.avatarURL())
+		.addField('**Type:**', 'Legacy');
 
 	if (message.channel.type !== 'dm') {
 		commandLogEmbed.addField('**Guild:**', message.guild.name).addField('**Channel:**', message.channel.name);
@@ -137,7 +138,7 @@ client.on('message', message => {
 	try {
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-		console.log(`[${time} INFO]: ${message.author.tag} issued command: ${message.content}`);
+		console.log(`[${time} INFO]: ${message.author.tag} issued legacy command: ${message.content}`);
 		if (message.author.id !== '249638347306303499') client.users.cache.get('249638347306303499').send(commandLogEmbed);
 		command.execute(message, args, client, Client, Discord);
 	}
