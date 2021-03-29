@@ -374,5 +374,11 @@ async function updateCount(global, vc) {
 }
 
 client.on('message', message => {
-	if (message.author.id == '661797951223627787') updateCount('776992487537377311', '808188940728664084');
+	if (message.author.id == '661797951223627787') {
+		updateCount('776992487537377311', '808188940728664084').catch(error => {
+			const rn = new Date();
+			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+			console.error(`[${time} ERROR]: ${error}`);
+		});
+	}
 });
