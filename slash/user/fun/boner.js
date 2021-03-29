@@ -16,7 +16,14 @@ module.exports = {
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
 		let nick = interaction.member.user.username;
 		if (interaction.member.nick !== null) nick = interaction.member.nick;
-		if (args) nick = args[0].value;
+		if (args) {
+			nick = args[0].value;
+			if (nick.startsWith('<@') && nick.endsWith('>')) {
+				let mention = nick.slice(2, -1);
+				if (mention.startsWith('!')) mention = mention.slice(1);
+				nick = client.users.cache.get(mention).username;
+			}
+		}
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))
 			.setTitle(`${nick}'s pp size`)
