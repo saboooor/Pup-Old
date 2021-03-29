@@ -13,7 +13,25 @@ function minTwoDigits(n) {
 function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
+function clean(text) {
+	if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
+	else {return text;}
+}
 client.login(client.config.token);
+client.slashcommands = new Discord.Collection();
+client.cooldowns = new Discord.Collection();
+const slashcommandFolders = fs.readdirSync('./slash');
+for (const folder of slashcommandFolders) {
+	const slashcommandFolders2 = fs.readdirSync(`./slash/${folder}`);
+	for (const folder2 of slashcommandFolders2) {
+		const slashcommandFiles = fs.readdirSync(`./slash/${folder}/${folder2}`).filter(file => file.endsWith('.js'));
+		for (const file of slashcommandFiles) {
+			const slashcommand = require(`./slash/${folder}/${folder2}/${file}`);
+			client.slashcommands.set(slashcommand.name, slashcommand);
+		}
+	}
+}
+
 client.once('ready', () => {
 	const rn = new Date();
 	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
@@ -21,6 +39,15 @@ client.once('ready', () => {
 	console.log(`[${time} INFO]: Done (${timer}s)! I am running!`);
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
 	client.channels.cache.get('812082273393704960').send('Started Successfully!');
+	client.slashcommands.forEach(command => {
+		client.api.applications(client.user.id).guilds('746125698644705524').commands.post({
+			data: {
+				name: command.name,
+				description: command.description,
+				options: command.options,
+			},
+		});
+	});
 });
 
 client.settings = new Enmap({
@@ -42,8 +69,96 @@ client.on('guildDelete', guild => {
 	client.settings.delete(guild.id);
 });
 
+client.ws.on('INTERACTION_CREATE', async interaction => {
+	const command = client.slashcommands.get(interaction.data.name.toLowerCase());
+	const args = interaction.data.options;
+	if (!command) return;
+	const { cooldowns } = client;
+	if (!cooldowns.has(command.name)) {
+		cooldowns.set(command.name, new Discord.Collection());
+	}
+
+	const now = Date.now();
+	const timestamps = cooldowns.get(command.name);
+	const cooldownAmount = (command.cooldown || 3) * 1000;
+
+	if (timestamps.has(interaction.member.user.id)) {
+		const expirationTime = timestamps.get(interaction.member.user.id) + cooldownAmount;
+		const random = Math.floor(Math.random() * 4);
+		const messages = ['Do I look like Usain Bolt to u?', 'BRUH IM JUST A DOG SLOW DOWN', 'can u not', 'leave me alone ;-;'];
+		if (now < expirationTime) {
+			const timeLeft = (expirationTime - now) / 1000;
+			const Embed = new Discord.MessageEmbed()
+				.setColor(Math.round(Math.random() * 16777215))
+				.setTitle(messages[random])
+				.setDescription(`wait ${timeLeft.toFixed(1)} more seconds before reusing /${command.name}.`);
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						embeds: [Embed],
+					},
+				},
+			});
+		}
+	}
+
+	timestamps.set(interaction.member.user.id, now);
+	setTimeout(() => timestamps.delete(interaction.member.user.id), cooldownAmount);
+
+	const commandLogEmbed = new Discord.MessageEmbed()
+		.setColor(Math.floor(Math.random() * 16777215))
+		.setTitle('Command executed!')
+		.setAuthor(`${interaction.member.user.username}#${interaction.member.user.discriminator}`, `https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}.webp`)
+		.addField('**Type:**', 'Slash');
+
+	if (client.channels.cache.get(interaction.channel_id).type !== 'dm') {
+		commandLogEmbed.addField('**Guild:**', client.guilds.cache.get(interaction.guild_id).name).addField('**Channel:**', client.channels.cache.get(interaction.channel_id).name);
+	}
+	else if (command.guildOnly) {
+		return client.api.interactions(interaction.id, interaction.token).callback.post({
+			data: {
+				type: 4,
+				data: {
+					content: 'You can only execute this command in a Discord Server!',
+				},
+			},
+		});
+	}
+
+	commandLogEmbed.addField('**Command:**', command.name);
+
+	if (command.permissions) {
+		const authorPerms = client.channels.cache.get(interaction.channel_id).permissionsFor(interaction.member);
+		if (!authorPerms || !authorPerms.has(command.permissions)) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'You can\'t do that!',
+					},
+				},
+			});
+		}
+	}
+
+	try {
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: ${interaction.member.user.username}#${interaction.member.user.discriminator} issued slash command: ${command.name}`);
+		client.users.cache.get('249638347306303499').send(commandLogEmbed);
+		command.execute(interaction, args, client, null, Discord);
+	}
+	catch (error) {
+		commandLogEmbed.setTitle('COMMAND FAILED').addField('**Error:**', clean(error));
+		client.users.cache.get('249638347306303499').send(commandLogEmbed);
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.error(`[${time} ERROR]: ${error}`);
+	}
+});
+
 client.commands = new Discord.Collection();
-client.cooldowns = new Discord.Collection();
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
 	const commandFolders2 = fs.readdirSync(`./commands/${folder}`);
@@ -87,11 +202,11 @@ client.on('message', message => {
 		const messages = ['Do I look like Usain Bolt to u?', 'BRUH IM JUST A DOG SLOW DOWN', 'can u not', 'leave me alone ;-;'];
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
-			return message.reply({ embed: {
-				color: 15158332,
-				title: messages[random],
-				description: `wait ${timeLeft.toFixed(1)} more seconds before reusing ${srvconfig.prefix + command.name}.`,
-			} });
+			const Embed = new Discord.MessageEmbed()
+				.setColor(Math.round(Math.random() * 16777215))
+				.setTitle(messages[random])
+				.setDescription(`wait ${timeLeft.toFixed(1)} more seconds before reusing /${command.name}.`);
+			return message.reply(Embed);
 		}
 	}
 
@@ -130,11 +245,6 @@ client.on('message', message => {
 		}
 	}
 
-	function clean(text) {
-		if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
-		else {return text;}
-	}
-
 	try {
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
@@ -150,7 +260,6 @@ client.on('message', message => {
 		console.error(`[${time} ERROR]: ${error}`);
 	}
 });
-
 client.response = new Discord.Collection();
 const responseFiles = fs.readdirSync('./response').filter(file => file.endsWith('.js'));
 
@@ -263,6 +372,7 @@ async function updateCount(global, vc) {
 		}
 	}
 }
+
 client.on('message', message => {
 	if (message.author.id == '661797951223627787') updateCount('776992487537377311', '808188940728664084');
 });

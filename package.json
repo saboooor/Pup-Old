@@ -1,7 +1,7 @@
 {
   "name": "pup",
-  "version": "1.0.0",
-  "description": "pup bot go brr",
+  "version": "1.5.2",
+  "description": "Pup bot go brr",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/saboooor/Pup.git"
@@ -10,7 +10,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
