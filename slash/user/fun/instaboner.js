@@ -2,7 +2,6 @@ module.exports = {
 	name: 'instaboner',
 	description: 'See your pp grow FAST',
 	cooldown: 1,
-	guildOnly: false,
 	options: [{
 		type: 3,
 		name: 'someone',

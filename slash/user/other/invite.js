@@ -2,7 +2,6 @@ module.exports = {
 	name: 'invite',
 	description: 'Get pup invite links',
 	cooldown: 10,
-	guildOnly: false,
 	async execute(interaction, args, client, Client, Discord) {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))

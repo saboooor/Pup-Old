@@ -5,7 +5,6 @@ module.exports = {
 	name: 'boner',
 	description: 'See your pp grow',
 	cooldown: 10,
-	guildOnly: false,
 	options: [{
 		type: 3,
 		name: 'someone',

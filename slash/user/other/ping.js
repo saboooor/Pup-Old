@@ -2,7 +2,6 @@ module.exports = {
 	name: 'ping',
 	description: 'Pong!',
 	cooldown: 2,
-	guildOnly: false,
 	execute(interaction, args, client, Client, Discord) {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215))
