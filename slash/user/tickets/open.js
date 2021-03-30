@@ -53,7 +53,14 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
 			.setDescription(`Ticket Opened by ${interaction.member.user.username}`);
-		client.channels.cache.get(interaction.channel_id).send(Embed);
+		client.api.interactions(interaction.id, interaction.token).callback.post({
+			data: {
+				type: 4,
+				data: {
+					embeds: [Embed],
+				},
+			},
+		});
 		return;
 	},
 };
