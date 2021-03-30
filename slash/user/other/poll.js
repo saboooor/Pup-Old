@@ -180,18 +180,6 @@ module.exports = {
 			});
 			const combine = [];
 			emojis.forEach(emoji => {
-				if (!emoji.includes(':')) {
-					return client.api.interactions(interaction.id, interaction.token).callback.post({
-						data: {
-							type: 4,
-							data: {
-								content: 'This is not a valid emoji!',
-							},
-						},
-					}).catch(error => {
-						return;
-					});
-				}
 				combine.push('\n');
 				combine.push(emoji);
 				combine.push(' ');
@@ -212,7 +200,7 @@ module.exports = {
 							content: `**Poll created! Check <#${channel.id}>**`,
 						},
 					},
-				});
+				}).catch(error => {return});
 			}
 			else {
 				await client.api.interactions(interaction.id, interaction.token).callback.post({
@@ -222,7 +210,7 @@ module.exports = {
 							embeds: [Poll],
 						},
 					},
-				});
+				}).catch(error => {return});
 				const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
 				const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
 				emojis.forEach(emoji => {
