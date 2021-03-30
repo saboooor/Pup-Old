@@ -36,7 +36,9 @@ client.once('ready', () => {
 	const rn = new Date();
 	const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
-	client.channels.cache.get('812082273393704960').send('Started Successfully!');
+	client.channels.cache.get('812082273393704960').messages.fetch({ limit: 1 }).then(msg => {
+		if (msg.content !== 'Started Successfully!') msg.channel.send('Started Successfully!');
+	});
 	client.slashcommands.forEach(async command => {
 		const commands = await client.api.applications(client.user.id).guilds('746125698644705524').commands.get();
 		if (commands.find(c => c.name == command.name) && commands.find(c => c.description == command.description)) return;
