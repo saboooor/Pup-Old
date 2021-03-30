@@ -34,7 +34,7 @@ module.exports = {
 		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: false });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`${message.author.username} removed ${user} from the ticket`);
+			.setDescription(`${interaction.member.user.username} removed ${user} from the ticket`);
 		await client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
