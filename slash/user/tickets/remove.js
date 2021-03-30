@@ -29,7 +29,7 @@ module.exports = {
 					},
 				},
 			});
-		};
+		}
 		user = client.users.cache.get(args[0].value);
 		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: false });
 		const Embed = new Discord.MessageEmbed()

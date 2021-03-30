@@ -29,7 +29,7 @@ module.exports = {
 					},
 				},
 			});
-		};
+		}
 		if (client.channels.cache.get(interaction.channel_id).name.includes('closed-')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
