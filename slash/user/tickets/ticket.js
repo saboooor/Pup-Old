@@ -79,7 +79,14 @@ module.exports = {
 				},
 			],
 		}).catch(error => console.error(error));
-		const msg = await message.reply(`Ticket created at <#${ticket.id}>!`);
+		await client.api.interactions(interaction.id, interaction.token).callback.post({
+			data: {
+				type: 4,
+				data: {
+					content: `Ticket created at <#${ticket.id}>!`,
+				},
+			},
+		});
 		await sleep(1000);
 		const srvconfig = client.settings.get(interaction.guild_id);
 		const Embed = new Discord.MessageEmbed()
