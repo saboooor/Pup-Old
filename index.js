@@ -39,12 +39,12 @@ client.once('ready', () => {
 		if (mesg.content !== 'Started Successfully!') client.channels.cache.get('812082273393704960').send('Started Successfully!');
 	});
 	client.slashcommands.forEach(async command => {
-		const commands = await client.api.applications(client.user.id).guilds('811354612547190794').commands.get();
+		const commands = await client.api.applications(client.user.id).guilds('746125698644705524').commands.get();
 		if (commands.find(c => c.name == command.name) && commands.find(c => c.description == command.description)) return;
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 		console.log(`[${time} INFO]: Detected ${command.name} has some changes! Updating command...`);
-		client.api.applications(client.user.id).guilds('811354612547190794').commands.post({
+		client.api.applications(client.user.id).guilds('746125698644705524').commands.post({
 			data: {
 				name: command.name,
 				description: command.description,
