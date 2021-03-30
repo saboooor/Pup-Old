@@ -177,7 +177,8 @@ Walks you through how to setup support tickets in your guild
 4. You're done!`);
 		}
 		else if (arg == 'supportpanel') {
-			if (!client.channels.cache.get(interaction.channel_id).permissionsFor(interaction.member).has('ADMINISTRATOR')) return;
+			const authorPerms = await client.channels.cache.get(interaction.channel_id).permissionsFor(interaction.member);
+			if (!authorPerms.has('ADMINISTRATOR')) return;
 			Embed.setDescription('Created support panel! You can now delete this message, otherwise it\'ll be deleted in 10 seconds');
 			const Panel = new Discord.MessageEmbed()
 				.setColor(3447003)
