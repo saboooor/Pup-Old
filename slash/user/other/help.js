@@ -177,9 +177,7 @@ Walks you through how to setup support tickets in your guild
 4. You're done!`);
 		}
 		else if (arg == 'supportpanel') {
-			console.log(interaction.member);
-			const authorPerms = await client.members.get(interaction.member.user.id);
-			if (!authorPerms.has('ADMINISTRATOR')) return;
+			if (!client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.member.user.id).permissions.has('ADMINISTRATOR')) return;
 			Embed.setDescription('Created support panel! You can now delete this message, otherwise it\'ll be deleted in 10 seconds');
 			const Panel = new Discord.MessageEmbed()
 				.setColor(3447003)
@@ -199,7 +197,7 @@ Walks you through how to setup support tickets in your guild
 		});
 		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
 		const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
-		sleep(10000);
+		await sleep(10000);
 		pp.delete();
 	},
 };
