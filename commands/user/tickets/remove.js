@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'remove',
-	description: 'Remove someone from a ticket',
+	description: 'Remove someone from a ticket.',
 	guildOnly: true,
 	args: true,
 	usage: '<User Mention or ID>',

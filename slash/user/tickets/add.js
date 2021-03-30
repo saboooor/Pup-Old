@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'add',
-	description: 'Add someone to a ticket',
+	description: 'Add someone to a ticket.',
 	guildOnly: true,
 	options: [{
 		type: 6,
