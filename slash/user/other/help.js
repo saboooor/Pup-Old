@@ -1,7 +1,9 @@
-/* eslint-disable no-control-regex */
+function sleep(ms) {
+	return new Promise(res => setTimeout(res, ms));
+}
 module.exports = {
 	name: 'help',
-	description: 'Get help with Pup',
+	description: 'Get help with Pup!',
 	cooldown: 2,
 	guildOnly: false,
 	options: [{
@@ -24,6 +26,14 @@ module.exports = {
 		{
 			name: 'admin',
 			value: 'admin',
+		},
+		{
+			name: 'support',
+			value: 'support',
+		},
+		{
+			name: 'supportpanel (ADMIN ONLY)',
+			value: 'supportpanel',
 		}],
 	}],
 	async execute(interaction, args, client, Client, Discord) {
@@ -131,7 +141,7 @@ Approve a suggestion (Alias: /accept)
 **/deny <message id> [response]**
 Deny a suggestion (Alias: /decline)
 *Permission: Administrator*
-**/support**
+**/help support**
 Walks you through how to setup support tickets in your guild
 *Permission: Administrator*
 
@@ -159,6 +169,24 @@ Walks you through how to setup support tickets in your guild
 **Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 **Still need help with the bot? Do /invite!**`);
 		}
+		else if (arg == 'support') {
+			Embed.setDescription(`**How to create support tickets:**
+1. Create a channel category that contains the word "tickets"
+2. Create a role that contains the word "staff"
+3. Execute \`/help supportpanel\` in your support channel
+4. You're done!`);
+		}
+		else if (arg == 'supportpanel') {
+			if (!interaction.member.permissions.has('ADMINISTRATOR')) return;
+			Embed.setDescription('Created support panel! You can now delete this message, otherwise it\'ll be deleted in 10 seconds');
+			const Panel = new Discord.MessageEmbed()
+				.setColor(3447003)
+				.setTitle('Need help? No problem!')
+				.setDescription('React with 🎫 to open a ticket!')
+				.setFooter(`${client.guilds.cache.get(interaction.guild_id).name} Support`, client.guilds.cache.get(interaction.guild_id).iconURL());
+			const msg = await client.channels.cache.get(interaction.channel_id).send(Panel);
+			await msg.react('🎫');
+		}
 		await client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
@@ -167,5 +195,9 @@ Walks you through how to setup support tickets in your guild
 				},
 			},
 		});
+		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
+		const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
+		sleep(10000);
+		pp.delete();
 	},
 };
