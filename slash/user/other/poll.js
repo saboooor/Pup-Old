@@ -132,24 +132,40 @@ module.exports = {
 		description: 'The tenth option',
 	}],
 	async execute(interaction, args, client, Client, Discord) {
+		const channel = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.includes('polls'));
 		const Poll = new Discord.MessageEmbed()
 			.setColor(3447003)
 			.setTitle('Poll')
 			.setAuthor(interaction.member.user.username, `https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}.webp`);
 		if (args[0].value.toLowerCase() == 'yesno') {
 			Poll.setDescription(args[1].value);
-			await client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
+			if (channel) {
+				const pp = await channel.send(Poll);
+				await pp.react(client.config.yes);
+				await pp.react(client.config.no);
+				await client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
-						embeds: [Poll],
+						type: 4,
+						data: {
+							content: `**Poll created! Check <#${channel.id}>**`,
+						},
 					},
-				},
-			});
-			const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
-			const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
-			await pp.react(client.config.yes);
-			await pp.react(client.config.no);
+				});
+			}
+			else {
+				await client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							embeds: [Poll],
+						},
+					},
+				});
+				const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
+				const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
+				await pp.react(client.config.yes);
+				await pp.react(client.config.no);
+			}
 		}
 		else if (args[0].value.toLowerCase() == 'choices') {
 			const emojis = [];
@@ -182,23 +198,39 @@ module.exports = {
 				combine.push(options[emojis.indexOf(emoji)]);
 			});
 			Poll.setDescription(`${args[1].value}${combine.join('')}`);
-			await client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						embeds: [Poll],
-					},
-				},
-			}).catch(error => {
-				return;
-			});
-			const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
-			const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
-			emojis.forEach(emoji => {
-				pp.react(emoji).catch(error => {
-					return;
+			if (channel) {
+				const pp = await channel.send(Poll);
+				emojis.forEach(emoji => {
+					pp.react(emoji).catch(error => {
+						return;
+					});
 				});
-			});
+				await client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							content: `**Poll created! Check <#${channel.id}>**`,
+						},
+					},
+				});
+			}
+			else {
+				await client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							embeds: [Poll],
+						},
+					},
+				});
+				const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
+				const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
+				emojis.forEach(emoji => {
+					pp.react(emoji).catch(error => {
+						return;
+					});
+				});
+			}
 		}
 	},
 };
