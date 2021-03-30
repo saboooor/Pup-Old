@@ -30,7 +30,7 @@ module.exports = {
 				},
 			});
 		};
-		if (message.channel.name.includes('closed-')) {
+		if (client.channels.cache.get(interaction.channel_id).name.includes('closed-')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -40,7 +40,7 @@ module.exports = {
 				},
 			});
 		}
-		if (!message.channel.name.includes('ticket-')) {
+		if (!client.channels.cache.get(interaction.channel_id).name.includes('ticket-')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
@@ -50,7 +50,7 @@ module.exports = {
 			},
 		});}
 		user = client.users.cache.get(args[0].value);
-		message.channel.updateOverwrite(user, { VIEW_CHANNEL: true });
+		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: true });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
 			.setDescription(`${interaction.member.user.username} added ${user} to the ticket`);
