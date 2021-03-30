@@ -12,8 +12,8 @@ module.exports = {
 	name: 'list',
 	async execute(message, Discord, sleep) {
 		if (message.author.id !== '743741294190395402' && message.author.id !== '661797951223627787') return;
-		let list = await message.channel.messages.fetch({ limit: 4 })
-		list = await list.find(msg => msg.content.toLowerCase() == 'list')
+		let list = await message.channel.messages.fetch({ limit: 4 });
+		list = await list.find(msg => msg.content.toLowerCase() == 'list');
 		message.delete();
 		const count = message.content.split(/\n+/)[0];
 		const players = message.content.replace(`${count}\n\`\`\`\n`, '').replace('\n```', '').split(/, /);
@@ -98,7 +98,7 @@ module.exports = {
 			if (guest) Embed.addField('**Guest**', guest);
 			if (other) Embed.addField('**Other**', other);
 		}
-		const msg = await message.channel.send(Embed)
+		const msg = await message.channel.send(Embed);
 		await sleep(8000);
 		msg.delete();
 		list.delete();
