@@ -30,16 +30,6 @@ module.exports = {
 				},
 			});
 		};
-		if (!client.channels.cache.get(interaction.channel_id).name.includes('ticket-') || !client.channels.cache.get(interaction.channel_id).name.includes('closed-')) {
-			return client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: 'This is not a valid ticket!',
-					},
-				},
-			});
-		}
 		user = client.users.cache.get(args[0].value);
 		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: false });
 		const Embed = new Discord.MessageEmbed()
