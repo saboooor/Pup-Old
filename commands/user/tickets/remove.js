@@ -2,24 +2,57 @@ module.exports = {
 	name: 'remove',
 	description: 'Remove someone from a ticket',
 	guildOnly: true,
-	args: true,
-	usage: '<User Mention or ID>',
-	async execute(message, args, client, Client, Discord, reaction) {
-		if (reaction) {
-			if (message.author.id != client.user.id) return;
-			message.author = Client;
+	options: [{
+		type: 6,
+		name: 'user',
+		description: 'User to add to ticket',
+		required: true,
+	}],
+	async execute(interaction, args, client, Client, Discord) {
+		if (client.settings.get(interaction.guild_id).tickets == 'false') {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'Tickets are disabled!',
+					},
+				},
+			});
 		}
-		if (client.settings.get(message.guild.id).tickets == 'false') return message.reply('Tickets are disabled!');
-		let user = await client.users.cache.find(u => message.channel.topic.includes(u.id));
-		if (!user) return message.reply('This is not a valid ticket!');
-		if (message.channel.name.includes('closed-')) return message.reply('This ticket is closed!');
-		if (!message.channel.name.includes('ticket-')) return message.reply('This is not a valid ticket!');
-		user = client.users.cache.find(u => u.id === args[0].replace('<@', '').replace('!', '').replace('>', ''));
-		message.channel.updateOverwrite(user, { VIEW_CHANNEL: false });
+		let user = await client.users.cache.find(u => client.channels.cache.get(interaction.channel_id).topic.includes(u.id));
+		if (!user) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'This is not a valid ticket!',
+					},
+				},
+			});
+		};
+		if (!client.channels.cache.get(interaction.channel_id).name.includes('ticket-') || !client.channels.cache.get(interaction.channel_id).name.includes('closed-')) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'This is not a valid ticket!',
+					},
+				},
+			});
+		}
+		user = client.users.cache.get(args[0].value);
+		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: false });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
 			.setDescription(`${message.author.username} removed ${user} from the ticket`);
-		message.channel.send(Embed);
+		await client.api.interactions(interaction.id, interaction.token).callback.post({
+			data: {
+				type: 4,
+				data: {
+					embeds: [Embed],
+				},
+			},
+		});
 		return;
 	},
 };
