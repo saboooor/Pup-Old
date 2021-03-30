@@ -37,7 +37,7 @@ module.exports = {
 				},
 			});
 		}
-		client.channels.cache.get(interaction.channel_id).setName(message.channel.name.replace('ticket', 'closed'));
+		client.channels.cache.get(interaction.channel_id).setName(client.channels.cache.get(interaction.channel_id).name.replace('ticket', 'closed'));
 		await sleep(1000);
 		if (client.channels.cache.get(interaction.channel_id).name.includes('ticket-')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
