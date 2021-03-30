@@ -137,7 +137,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 	commandLogEmbed.addField('**Command:**', command.name);
 
 	if (command.permissions) {
-		const authorPerms = client.channels.cache.get(interaction.channel_id).permissionsFor(interaction.member);
+		const authorPerms = client.channels.cache.get(interaction.channel_id).members.get(interaction.member.user.id).permissions;
 		if (!authorPerms || !authorPerms.has(command.permissions)) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {

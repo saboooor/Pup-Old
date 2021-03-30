@@ -5,6 +5,7 @@ module.exports = {
 	name: 'delete',
 	description: 'Delete a ticket',
 	guildOnly: true,
+	permissions: 'ADMINISTRATOR',
 	async execute(interaction, args, client, Client, Discord) {
 		if (client.settings.get(interaction.guild_id).tickets == 'false') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
