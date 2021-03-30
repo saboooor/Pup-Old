@@ -9,41 +9,50 @@ module.exports = {
 	description: 'Get stats of Pup or a Minecraft server',
 	aliases: ['status'],
 	cooldown: 5,
-	async execute(message, args, client, Client, Discord) {
+	options: [{
+		type: 3,
+		name: 'server',
+		description: 'Specify a Minecraft server',
+	}],
+	async execute(interaction, args, client, Client, Discord) {
+		await client.api.interactions(interaction.id, interaction.token).callback.post({
+			data: {
+				type: 5,
+			},
+		});
 		let srvconfig = [];
-		if (message.channel.type == 'dm') {
+		if (client.channels.cache.get(interaction.channel_id).type == 'dm') {
 			srvconfig.adfree = false;
 		}
 		else {
-			srvconfig = client.settings.get(message.guild.id);
+			srvconfig = client.settings.get(interaction.guild_id);
 		}
 		const Embed = new Discord.MessageEmbed()
 			.setThumbnail('https://bugs.mojang.com/secure/attachment/99116/unknown_pack.png')
 			.setColor(3447003);
-		const reply = await message.channel.send('Pinging...');
 		const panel = 'https://panel.birdflop.com';
 		let id = '';
 		let serverip = '';
-		let arg = args.join(' ');
-		if (arg) arg = arg.toLowerCase();
+		let arg = 'pup';
+		if (args) arg = args[0].value.toLowerCase();
 		if (srvconfig.adfree == 'true') {
 			if (arg != 'pup') {
 				arg = 'pup';
 			}
-			if (message.guild.id == '661736128373719141') {
+			if (interaction.guild_id == '661736128373719141') {
 				arg = 'nether depths';
 			}
-			else if (message.guild.id == '711661870926397601') {
+			else if (interaction.guild_id == '711661870926397601') {
 				arg = 'taco haven';
 			}
 		}
 		if (!arg) {
 			id = '5bcaad8d';
-			if (message.guild.id == '661736128373719141') {
+			if (interaction.guild_id == '661736128373719141') {
 				id = '50dc31e4';
 				serverip = 'play.netherdepths.com';
 			}
-			else if (message.guild.id == '711661870926397601') {
+			else if (interaction.guild_id == '711661870926397601') {
 				id = 'd68c84e1';
 				serverip = 'tacohaven.club';
 			}
@@ -63,9 +72,15 @@ module.exports = {
 			serverip = args[0];
 		}
 		if (id !== '') {
-			Embed.setThumbnail(message.guild.iconURL());
+			Embed.setThumbnail(client.guilds.cache.get(interaction.guild_id).iconURL());
 			Client.login(panel, client.config.panelapikey, (logged_in, err) => {
-				if (logged_in == false) return message.reply(`Something went wrong\n${err}`);
+				if (logged_in == false) {
+					return client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
+						data: {
+							content: 'Something went wrong, try again later',
+						},
+					});
+				}
 			});
 			const rn = new Date();
 			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
@@ -83,7 +98,7 @@ module.exports = {
 				Embed.setTitle('Pup Bot');
 				const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
 				if (duration) Embed.addField('**Uptime:**', duration);
-				Embed.setThumbnail(reply.author.avatarURL());
+				Embed.setThumbnail(client.user.avatarURL());
 			}
 			if (info.attributes.node) Embed.addField('**Node:**', info.attributes.node);
 			if (cpu.current) Embed.addField('**CPU Usage:**', cpu.current + '%');
@@ -95,7 +110,13 @@ module.exports = {
 			if (id == '') {
 				let noadmsg = '**Server is offline**';
 				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`';
-				if (!pong.online) return reply.edit(noadmsg);
+				if (!pong.online) {
+					return client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
+						data: {
+							content: noadmsg,
+						},
+					});
+				}
 			}
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.players) {
@@ -109,7 +130,15 @@ module.exports = {
 				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 			}
 		}
-		await reply.delete();
-		await message.channel.send('', Embed);
+		await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
+			data: {
+				content: 'Pong!',
+			},
+		});
+		await client.api.webhooks(client.user.id, interaction.token).post({
+			data: {
+				embeds: [Embed],
+			},
+		});
 	},
 };
