@@ -5,7 +5,7 @@ module.exports = {
 	options: [{
 		type: 6,
 		name: 'user',
-		description: 'User to add to ticket',
+		description: 'User to remove from ticket',
 		required: true,
 	}],
 	async execute(interaction, args, client, Client, Discord) {
