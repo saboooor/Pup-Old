@@ -200,7 +200,7 @@ module.exports = {
 							content: `**Poll created! Check <#${channel.id}>**`,
 						},
 					},
-				}).catch(error => {return});
+				}).catch(error => {return;});
 			}
 			else {
 				await client.api.interactions(interaction.id, interaction.token).callback.post({
@@ -210,7 +210,7 @@ module.exports = {
 							embeds: [Poll],
 						},
 					},
-				}).catch(error => {return});
+				}).catch(error => {return;});
 				const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
 				const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
 				emojis.forEach(emoji => {
