@@ -69,7 +69,7 @@ module.exports = {
 			serverip = 'play.netherdepths.com';
 		}
 		else {
-			serverip = args[0];
+			serverip = args[0].value;
 		}
 		if (id !== '') {
 			Embed.setThumbnail(client.guilds.cache.get(interaction.guild_id).iconURL());
@@ -127,18 +127,14 @@ module.exports = {
 			if (pong.icon) {
 				const base64string = Buffer.from(pong.icon.replace(/^data:image\/png;base64,/, ''), 'base64');
 				const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
-				Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
+				await Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 			}
 		}
-		await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
+		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
 			data: {
 				content: 'Pong!',
 			},
 		});
-		await client.api.webhooks(client.user.id, interaction.token).post({
-			data: {
-				embeds: [Embed],
-			},
-		});
+		await client.channels.cache.get(interaction.channel_id).send(Embed);
 	},
 };
