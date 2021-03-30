@@ -54,7 +54,7 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
 			.setDescription(`Ticket Closed by ${interaction.member.user.username}\nMake sure to remove people from this ticket with ${srvconfig.prefix}remove or /remove if you've added them with ${srvconfig.prefix}add or /add!`);
-		client.api.interactions(interaction.id, interaction.token).callback.post({
+		await client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
 				data: {
@@ -62,7 +62,7 @@ module.exports = {
 				},
 			},
 		});
-		Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open or /open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete or /delete\``);
+		await Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open or /open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete or /delete\``);
 		const msg = await client.channels.cache.get(interaction.channel_id).send(Embed);
 		msg.react('🔓');
 		msg.react('⛔');
