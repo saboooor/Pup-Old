@@ -17,7 +17,6 @@ module.exports = {
 			.setAuthor(interaction.member.user.username, `https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}.webp`)
 			.setTitle('Suggestion')
 			.setDescription(suggestion);
-
 		if (channel) {
 			const pp = await channel.send(Embed);
 			await pp.react(client.config.yes);
