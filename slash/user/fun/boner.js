@@ -39,7 +39,7 @@ module.exports = {
 		const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
 		const shaft = [];
 		for (let step = 0; step < random; step++) {
-			await sleep(1000);
+			await sleep(1200);
 			Embed.setDescription('8' + shaft.join('') + 'D');
 			pp.edit(Embed);
 			shaft.push('=');

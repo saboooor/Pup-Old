@@ -25,7 +25,7 @@ module.exports = {
 		const pp = await message.channel.send(Embed);
 		const shaft = [];
 		for (let step = 0; step < random; step++) {
-			await sleep(1000);
+			await sleep(1200);
 			Embed.setDescription('8' + shaft.join('') + 'D');
 			await pp.edit (Embed);
 			shaft.push('=');
