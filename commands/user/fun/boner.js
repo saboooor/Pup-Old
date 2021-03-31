@@ -10,15 +10,7 @@ module.exports = {
 		if (client.settings.get(message.guild.id).bonercmd == 'false') return message.reply('This command is disabled!');
 		const srvconfig = client.settings.get(message.guild.id);
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
-		let nick = message.member.displayName;
-		if (args) {
-			nick = args.join(' ');
-			if (nick.startsWith('<@') && nick.endsWith('>')) {
-				let mention = nick.slice(2, -1);
-				if (mention.startsWith('!')) mention = mention.slice(1);
-				nick = client.users.cache.get(mention).username;
-			}
-		}
+		const nick = message.member.displayName;
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))
 			.setTitle(`${nick}'s pp size`)

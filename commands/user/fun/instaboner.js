@@ -6,15 +6,7 @@ module.exports = {
 	execute(message, args, client, Client, Discord) {
 		if (client.settings.get(message.guild.id).bonercmd == 'false') return message.reply('This command is disabled!');
 		const srvconfig = client.settings.get(message.guild.id);
-		let nick = message.member.displayName;
-		if (args) {
-			nick = args.join(' ');
-			if (nick.startsWith('<@') && nick.endsWith('>')) {
-				let mention = nick.slice(2, -1);
-				if (mention.startsWith('!')) mention = mention.slice(1);
-				nick = client.users.cache.get(mention).username;
-			}
-		}
+		const nick = message.member.displayName;
 		const hard = Math.round(Math.random());
 		let hardtxt = 'soft';
 		if (hard == '1') hardtxt = 'hard';
