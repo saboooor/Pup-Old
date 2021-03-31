@@ -1,6 +1,9 @@
 function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'open',
 	description: 'Repen a ticket',
@@ -23,6 +26,9 @@ module.exports = {
 			.setColor(15105570)
 			.setDescription(`Ticket Opened by ${message.author.username}`);
 		message.channel.send(Embed);
-		return;
+		await sleep(1000);
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Reopened ticket #${message.channel.name}`);
 	},
 };

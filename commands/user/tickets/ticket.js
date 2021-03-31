@@ -1,6 +1,9 @@
 function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'ticket',
 	description: 'Create a ticket',
@@ -16,8 +19,8 @@ module.exports = {
 		const role = message.guild.roles.cache.find(r => r.name.toLowerCase().includes('staff'));
 		const channel = message.guild.channels.cache.find(c => c.name.toLowerCase() == `ticket-${message.author.username.toLowerCase().replace(' ', '-')}`);
 		if (channel) {
-			message.guild.channels.cache.get(channel.id).send(`❗ **<@${message.author.id}> Ticket already exists!**`);
-			const msg = await message.reply(`You've already created a ticket at <#${channel.id}>!`);
+			message.guild.channels.cache.get(channel.id).send(`❗ **${message.author} Ticket already exists!**`);
+			const msg = await message.reply(`You've already created a ticket at ${channel}!`);
 			await sleep(5000);
 			await msg.delete();
 			return;
@@ -43,7 +46,10 @@ module.exports = {
 				},
 			],
 		}).catch(console.error);
-		const msg = await message.reply(`Ticket created at <#${ticket.id}>!`);
+		const msg = await message.reply(`Ticket created at ${ticket}!`);
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Ticket created at #${ticket.name}`);
 		await sleep(1000);
 		const srvconfig = client.settings.get(message.guild.id);
 		const Embed = new Discord.MessageEmbed()
@@ -52,7 +58,7 @@ module.exports = {
 			.setDescription('Please explain your issue and we\'ll be with you shortly.')
 			.setFooter(`To close this ticket do ${srvconfig.prefix}close or react with 🔒`);
 		if (args) Embed.addField('Description', args.join(' '));
-		const embed = await ticket.send(`<@${message.author.id}>`, Embed);
+		const embed = await ticket.send(`${message.author}`, Embed);
 		embed.react('🔒');
 		const ping = await ticket.send('@everyone');
 		await ping.delete();

@@ -1,6 +1,9 @@
 function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'close',
 	description: 'Close a ticket',
@@ -66,6 +69,8 @@ module.exports = {
 		const msg = await client.channels.cache.get(interaction.channel_id).send(Embed);
 		msg.react('🔓');
 		msg.react('⛔');
-		return;
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Closed ticket #${client.channels.cache.get(interaction.channel_id).name}`);
 	},
 };

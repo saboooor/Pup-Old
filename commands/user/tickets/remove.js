@@ -1,3 +1,6 @@
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'remove',
 	description: 'Remove someone from a ticket',
@@ -19,6 +22,8 @@ module.exports = {
 			.setColor(15105570)
 			.setDescription(`${message.author.username} removed ${user} from the ticket`);
 		message.channel.send(Embed);
-		return;
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Removed ${user.username} from #${message.channel.name}`);
 	},
 };

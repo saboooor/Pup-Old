@@ -1,3 +1,6 @@
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'add',
 	description: 'Add someone to a ticket.',
@@ -53,6 +56,8 @@ module.exports = {
 				},
 			},
 		});
-		return;
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Added ${user.username} to #${client.channels.cache.get(interaction.channel_id).name}`);
 	},
 };

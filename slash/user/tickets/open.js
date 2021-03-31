@@ -1,6 +1,9 @@
 function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'open',
 	description: 'Repen a ticket',
@@ -61,6 +64,9 @@ module.exports = {
 				},
 			},
 		});
-		return;
+		await sleep(1000);
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Reopened ticket #${client.channels.cache.get(interaction.channel_id).name}`);
 	},
 };
