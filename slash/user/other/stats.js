@@ -130,7 +130,7 @@ module.exports = {
 				await Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 			}
 		}
-		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
+		client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
 			data: {
 				content: 'Pong!',
 			},
