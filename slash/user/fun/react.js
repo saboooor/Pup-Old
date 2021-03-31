@@ -3,7 +3,7 @@ function sleep(ms) {
 }
 module.exports = {
 	name: 'react',
-	description: 'React to a message with pup',
+	description: 'React to a message with Pup',
 	cooldown: 1,
 	options: [{
 		type: 3,
