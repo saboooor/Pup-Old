@@ -170,7 +170,7 @@ module.exports = {
 				data: {
 					type: 4,
 					data: {
-						content: 'Invalid Message ID or Emoji!',
+						content: 'Invalid Message ID or Emoji! Try using a universal emoji or an emoji from this guild',
 					},
 				},
 			});
