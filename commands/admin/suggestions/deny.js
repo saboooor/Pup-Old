@@ -16,7 +16,7 @@ module.exports = {
 			.setAuthor(fetchedMsg.embeds[0].author.name, fetchedMsg.embeds[0].author.iconURL)
 			.setDescription(fetchedMsg.embeds[0].description)
 			.setTitle('Suggestion (Denied)');
-		if (args[1] === undefined) {
+		if (!args[1]) {
 			Embed.setFooter('No response.');
 			fetchedMsg.edit(Embed);
 		}

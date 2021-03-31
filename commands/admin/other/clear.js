@@ -17,7 +17,7 @@ module.exports = {
 		});
 		if (message.channel.name == 'global') {
 			const consolechannel = message.guild.channels.cache.find(c => c.name.includes('console'));
-			if (consolechannel === undefined) return;
+			if (!consolechannel) return;
 			consolechannel.send('clearchat');
 		}
 		const rn = new Date();

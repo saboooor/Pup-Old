@@ -7,8 +7,8 @@ module.exports = {
 	async execute(message, args, client, Client, Discord) {
 		let id = '5bcaad8d';
 		let arg = args.join(' ');
-		if (arg !== undefined) arg = arg.toLowerCase();
-		if (arg === undefined) {
+		if (arg) arg = arg.toLowerCase();
+		if (!arg) {
 			if (message.guild.id == '661736128373719141') id = '50dc31e4';
 			else if (message.guild.id == '711661870926397601') id = 'd68c84e1';
 		}
