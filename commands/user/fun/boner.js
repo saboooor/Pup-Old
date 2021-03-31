@@ -21,7 +21,7 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))
 			.setTitle(`${nick}'s pp size`)
-			.setDescription('Calculating...');
+			.setDescription('<a:loading:826611946258038805> Calculating...');
 		const pp = await message.channel.send(Embed);
 		const shaft = [];
 		for (let step = 0; step < random; step++) {
