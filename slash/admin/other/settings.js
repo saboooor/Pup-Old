@@ -71,7 +71,8 @@ module.exports = {
 					});
 				}
 			}
-			const [prop, ...value] = args;
+			const prop = args[0].value;
+			const value = args[1].value;
 			if(!client.settings.has(interaction.guild_id, prop)) {
 				return client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
@@ -82,7 +83,7 @@ module.exports = {
 					},
 				});
 			}
-			client.settings.set(interaction.guild_id, value.join(' ').replace(/"/g, ''), prop);
+			client.settings.set(interaction.guild_id, value, prop);
 		}
 		const desc = {
 			prefix: '*The bot\'s prefix (You can use double quotes (") to include spaces)*',
