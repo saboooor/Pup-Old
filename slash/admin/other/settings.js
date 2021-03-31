@@ -45,12 +45,10 @@ module.exports = {
 		name: 'value',
 		description: 'The value to set the setting to',
 	}],
+	permissions: 'ADMINISTRATOR',
 	async execute(interaction, args, client, Client, Discord) {
 		if (args) {
 			if (!args[1]) return;
-			if (!client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.member.user.id).hasPermission('ADMINISTRATOR')) {
-				if (interaction.member.user.id !== '249638347306303499') return;
-			}
 			if (args[0].value == 'maxppsize') {
 				if (args[1].value > 75) {
 					return client.api.interactions(interaction.id, interaction.token).callback.post({
@@ -97,6 +95,7 @@ module.exports = {
 			adfree: '*Gets rid of all references to other servers (true/false)*',
 			maxppsize: '*Maximum pp size in pp and instapp commands*',
 			tickets: '*Enables tickets (true/false)*',
+			bonercmd: 'Toggles boner command',
 		};
 		const srvconfig = Object.keys(client.settings.get(interaction.guild_id)).map(prop => {
 			return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(interaction.guild_id)[prop]}\``;

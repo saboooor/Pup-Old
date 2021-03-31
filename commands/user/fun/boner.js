@@ -7,6 +7,7 @@ module.exports = {
 	aliases: ['pp', 'penis', 'erect'],
 	cooldown: 10,
 	async execute(message, args, client, Client, Discord) {
+		if (client.settings.get(message.guild.id).bonercmd == 'false') return message.reply('This command is disabled!');
 		const srvconfig = client.settings.get(message.guild.id);
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
 		let nick = message.member.displayName;

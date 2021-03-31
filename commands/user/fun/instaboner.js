@@ -4,6 +4,7 @@ module.exports = {
 	aliases: ['instapp', 'instapenis', 'instaerect'],
 	cooldown: 1,
 	execute(message, args, client, Client, Discord) {
+		if (client.settings.get(message.guild.id).bonercmd == 'false') return message.reply('This command is disabled!');
 		const srvconfig = client.settings.get(message.guild.id);
 		let nick = message.member.displayName;
 		if (args) {

@@ -4,11 +4,9 @@ module.exports = {
 	aliases: ['setting'],
 	guildOnly: true,
 	cooldown: 1,
+	permissions: 'ADMINISTRATOR',
 	async execute(message, args, client, Client, Discord) {
 		if (args[1]) {
-			if (!message.member.hasPermission('ADMINISTRATOR')) {
-				if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
-			}
 			if (args[0] == 'maxppsize') {
 				if (args[1] > 75) return message.reply('You can\'t set maxppsize to a number over 75!');
 			}
@@ -29,6 +27,7 @@ module.exports = {
 			adfree: '*Gets rid of all references to other servers (true/false)*',
 			maxppsize: '*Maximum pp size in pp and instapp commands*',
 			tickets: '*Enables tickets (true/false)*',
+			bonercmd: 'Toggles boner command',
 		};
 		const srvconfig = Object.keys(client.settings.get(message.guild.id)).map(prop => {
 			return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(message.guild.id)[prop]}\``;

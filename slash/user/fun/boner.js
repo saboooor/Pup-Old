@@ -11,6 +11,16 @@ module.exports = {
 		description: 'Pick someone for the bot to calculate the pp size of',
 	}],
 	async execute(interaction, args, client, Client, Discord) {
+		if (client.settings.get(interaction.guild_id).bonercmd == 'false') {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'This command is disabled!',
+					},
+				},
+			});
+		}
 		const srvconfig = client.settings.get(interaction.guild_id);
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
 		let nick = interaction.member.user.username;
