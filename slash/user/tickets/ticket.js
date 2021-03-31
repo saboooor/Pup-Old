@@ -1,6 +1,9 @@
 function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 module.exports = {
 	name: 'ticket',
 	description: 'Create a ticket',
@@ -83,10 +86,13 @@ module.exports = {
 			data: {
 				type: 4,
 				data: {
-					content: `Ticket created at <#${ticket.id}>!`,
+					content: `Ticket created at ${ticket}!`,
 				},
 			},
 		});
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Ticket created at #${ticket.name}`);
 		await sleep(1000);
 		const srvconfig = client.settings.get(interaction.guild_id);
 		const Embed = new Discord.MessageEmbed()
