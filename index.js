@@ -285,6 +285,7 @@ for (const file of responseFiles) {
 }
 
 client.on('message', message => {
+	if (message.channel.type == 'dm') return;
 	if (message.webhookID) {
 		if (message.channel.id != '812082273393704960') return;
 		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
