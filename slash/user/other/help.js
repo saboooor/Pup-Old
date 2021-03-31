@@ -39,8 +39,7 @@ module.exports = {
 	async execute(interaction, args, client, Client, Discord) {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215));
-		let arg = args[0].value;
-		if (arg) arg = arg.toLowerCase();
+		const arg = args[0].value.toLowerCase();
 		if (arg == 'commands') {
 			Embed.setDescription(`**BOT FEATURES:**
 *This is what the bot can do other than commands*
@@ -178,7 +177,7 @@ Walks you through how to setup support tickets in your guild
 		}
 		else if (arg == 'supportpanel') {
 			if (!client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.member.user.id).permissions.has('ADMINISTRATOR')) return;
-			Embed.setDescription('Created support panel! You can now delete this message, otherwise it\'ll be deleted in 10 seconds');
+			Embed.setDescription('Created support panel! You may now delete this message, otherwise it\'ll be deleted in 10 seconds');
 			const Panel = new Discord.MessageEmbed()
 				.setColor(3447003)
 				.setTitle('Need help? No problem!')

@@ -1,4 +1,6 @@
-/* eslint-disable no-control-regex */
+function sleep(ms) {
+	return new Promise(res => setTimeout(res, ms));
+}
 module.exports = {
 	name: 'help',
 	description: 'Get help with pup',
@@ -117,7 +119,7 @@ Approve a suggestion (Alias: ${srvconfig.prefix}accept)
 **${srvconfig.prefix}deny <message id> [response]**
 Deny a suggestion (Alias: ${srvconfig.prefix}decline)
 *Permission: Administrator*
-**${srvconfig.prefix}support**
+**${srvconfig.prefix}help support**
 Walks you through how to setup support tickets in your guild
 *Permission: Administrator*
 
@@ -145,6 +147,24 @@ Walks you through how to setup support tickets in your guild
 **Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 **Still need help with the bot? Do ${srvconfig.prefix}invite!**`);
 		}
+		else if (arg == 'support') {
+			Embed.setDescription(`**How to create support tickets:**
+1. Create a channel category that contains the word "tickets"
+2. Create a role that contains the word "staff"
+3. Execute \`${srvconfig.prefix}help supportpanel\` in your support channel
+4. You're done!`);
+		}
+		else if (arg == 'supportpanel') {
+			if (!message.member.permissions.has('ADMINISTRATOR')) return;
+			Embed.setDescription('Created support panel! You may now delete this message, otherwise it\'ll be deleted in 10 seconds');
+			const Panel = new Discord.MessageEmbed()
+				.setColor(3447003)
+				.setTitle('Need help? No problem!')
+				.setDescription('React with 🎫 to open a ticket!')
+				.setFooter(`${message.guild.name} Support`, message.guild.iconURL());
+			const msg = await message.channel.send(Panel);
+			await msg.react('🎫');
+		}
 		else {
 			Embed.setDescription(`**BOT FEATURES:**
 *This is what the bot can do other than commands*
@@ -165,6 +185,9 @@ Walks you through how to setup support tickets in your guild
 **Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 **Still need help with the bot? Do ${srvconfig.prefix}invite!**`);
 		}
-		await message.channel.send(Embed);
+		const pp = message.channel.send(Embed);
+		await sleep(10000);
+		message.delete();
+		pp.delete();
 	},
 };
