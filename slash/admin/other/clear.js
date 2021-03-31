@@ -1,11 +1,19 @@
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
+function sleep(ms) {
+	return new Promise(res => setTimeout(res, ms));
+}
 module.exports = {
 	name: 'clear',
 	description: 'Delete multiple messages at once',
 	guildOnly: true,
 	permissions: 'MANAGE_MESSAGES',
+	options: [{
+		type: 4,
+		name: 'amount',
+		description: 'The amount of messages to clear',
+	}],
 	async execute(interaction, args, client, Client, Discord) {
 		await client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
@@ -37,6 +45,7 @@ module.exports = {
 		});
 		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
 		const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
-		pp.delete();
+		await sleep(5000);
+		await pp.delete();
 	},
 };
