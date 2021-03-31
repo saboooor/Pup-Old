@@ -34,6 +34,10 @@ module.exports = {
 		{
 			name: 'tickets',
 			value: 'tickets',
+		},
+		{
+			name: 'bonercmd',
+			value: 'bonercmd',
 		}],
 	},
 	{
