@@ -132,7 +132,7 @@ module.exports = {
 		description: 'The tenth option',
 	}],
 	async execute(interaction, args, client, Client, Discord) {
-		const channel = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.includes('polls'));
+		const channel = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.includes('poll'));
 		const Poll = new Discord.MessageEmbed()
 			.setColor(3447003)
 			.setTitle('Poll')
@@ -189,9 +189,7 @@ module.exports = {
 			if (channel) {
 				const pp = await channel.send(Poll);
 				emojis.forEach(emoji => {
-					pp.react(emoji).catch(error => {
-						return;
-					});
+					pp.react(emoji).catch(error => {return;});
 				});
 				await client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
@@ -214,9 +212,7 @@ module.exports = {
 				const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
 				const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
 				emojis.forEach(emoji => {
-					pp.react(emoji).catch(error => {
-						return;
-					});
+					pp.react(emoji).catch(error => {return;});
 				});
 			}
 		}
