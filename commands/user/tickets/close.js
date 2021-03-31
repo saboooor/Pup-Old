@@ -14,7 +14,6 @@ module.exports = {
 		const user = await client.users.cache.find(u => message.channel.topic.includes(u.id));
 		if (!user) return message.reply('This is not a valid ticket!');
 		if (message.channel.name.includes('closed-')) return message.reply('This ticket is already closed!');
-		if (!message.channel.name.includes('ticket-')) return message.reply('This is not a valid ticket!');
 		message.channel.setName(message.channel.name.replace('ticket', 'closed'));
 		await sleep(1000);
 		if (message.channel.name.includes('ticket-')) return message.channel.send('Failed to close ticket, please try again in 10 minutes');

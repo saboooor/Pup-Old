@@ -15,15 +15,15 @@ module.exports = {
 		const parent = message.guild.channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
 		const role = message.guild.roles.cache.find(r => r.name.toLowerCase().includes('staff'));
 		const channel = message.guild.channels.cache.find(c => c.name.toLowerCase() == `ticket-${message.author.username.toLowerCase().replace(' ', '-')}`);
-		if (channel !== undefined) {
+		if (channel) {
 			message.guild.channels.cache.get(channel.id).send(`❗ **<@${message.author.id}> Ticket already exists!**`);
 			const msg = await message.reply(`You've already created a ticket at <#${channel.id}>!`);
 			await sleep(5000);
 			await msg.delete();
 			return;
 		}
-		if (parent === undefined) return message.reply('You need to create a category with the word "tickets" in it!');
-		if (role === undefined) return message.reply('You need to create a role with the word "staff" in it!');
+		if (!parent) return message.reply('You need to create a category with the word "tickets" in it!');
+		if (!role) return message.reply('You need to create a role with the word "staff" in it!');
 		const ticket = await message.guild.channels.create(`ticket-${message.author.username.toLowerCase().replace(' ', '-')}`, {
 			type: 'text',
 			parent: parent.id,

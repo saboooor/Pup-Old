@@ -24,7 +24,7 @@ module.exports = {
 		const parent = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
 		const role = client.guilds.cache.get(interaction.guild_id).roles.cache.find(r => r.name.toLowerCase().includes('staff'));
 		const channel = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase() == `ticket-${interaction.member.user.username.toLowerCase().replace(' ', '-')}`);
-		if (channel !== undefined) {
+		if (channel) {
 			client.guilds.cache.get(interaction.guild_id).channels.cache.get(channel.id).send(`❗ **<@${interaction.member.user.id}> Ticket already exists!**`);
 			await client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
@@ -40,7 +40,7 @@ module.exports = {
 			await pp.delete();
 			return;
 		}
-		if (parent === undefined) {
+		if (!parent) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -50,7 +50,7 @@ module.exports = {
 				},
 			});
 		}
-		if (role === undefined) {
+		if (!role) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
