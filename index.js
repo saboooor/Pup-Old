@@ -128,7 +128,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 		.setAuthor(`${interaction.member.user.username}#${interaction.member.user.discriminator}`, `https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}.webp`)
 		.addField('**Type:**', 'Slash');
 
-	if (client.channels.cache.get(interaction.channel_id).type !== 'dm') {
+	if (client.guilds.cache.get(interaction.guild_id)) {
 		commandLogEmbed.addField('**Guild:**', client.guilds.cache.get(interaction.guild_id).name).addField('**Channel:**', client.channels.cache.get(interaction.channel_id).name);
 	}
 	else if (command.guildOnly) {

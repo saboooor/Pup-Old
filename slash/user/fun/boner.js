@@ -11,20 +11,26 @@ module.exports = {
 		description: 'Pick someone for the bot to calculate the pp size of',
 	}],
 	async execute(interaction, args, client, Client, Discord) {
-		if (client.settings.get(interaction.guild_id).bonercmd == 'false') {
-			return client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
+		let srvconfig = {};
+		if (interaction.guild_id) {
+			srvconfig = client.settings.get(interaction.guild_id);
+			if (srvconfig.bonercmd == 'false') {
+				return client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
-						content: 'This command is disabled!',
+						type: 4,
+						data: {
+							content: 'This command is disabled!',
+						},
 					},
-				},
-			});
+				});
+			}
 		}
-		const srvconfig = client.settings.get(interaction.guild_id);
+		else {
+			srvconfig.maxppsize = 35;
+		}
 		const random = Math.round(Math.random() * srvconfig.maxppsize);
 		let nick = interaction.member.user.username;
-		if (interaction.member.nick !== null) nick = interaction.member.nick;
+		if (interaction.member.nick) nick = interaction.member.nick;
 		if (args) {
 			nick = args[0].value;
 			if (nick.startsWith('<@') && nick.endsWith('>')) {
