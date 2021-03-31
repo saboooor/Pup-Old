@@ -2,7 +2,6 @@ module.exports = {
 	name: 'approve',
 	description: 'Approve a suggestion',
 	aliases: ['accept'],
-	guildOnly: true,
 	args: true,
 	permissions: 'ADMINISTRATOR',
 	usage: '<Message ID> [Response]',

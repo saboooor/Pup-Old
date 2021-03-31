@@ -239,12 +239,8 @@ client.on('message', message => {
 		.setAuthor(message.author.tag, message.author.avatarURL())
 		.addField('**Type:**', 'Legacy');
 
-	if (message.channel.type !== 'dm') {
-		commandLogEmbed.addField('**Guild:**', message.guild.name).addField('**Channel:**', message.channel.name);
-	}
-	else if (command.guildOnly) {
-		return message.reply('You can only execute this command in a Discord Server!');
-	}
+	if (message.channel.type == 'dm') return message.reply('You can only execute legacy commands in a Discord Server!\nTry using slash (/) commands instead');
+	commandLogEmbed.addField('**Guild:**', message.guild.name).addField('**Channel:**', message.channel.name);
 
 	commandLogEmbed.addField('**Command:**', message.content);
 

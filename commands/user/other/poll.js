@@ -10,7 +10,6 @@ module.exports = {
 	name: 'poll',
 	description: 'Create a poll',
 	cooldown: 10,
-	guildOnly: true,
 	args: true,
 	usage: '<Question>\nIt is recommended to use /poll instead',
 	async execute(message, args, client, Client, Discord) {

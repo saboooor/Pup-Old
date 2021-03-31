@@ -7,7 +7,6 @@ function minTwoDigits(n) {
 module.exports = {
 	name: 'ticket',
 	description: 'Create a ticket',
-	guildOnly: true,
 	aliases: ['new'],
 	async execute(message, args, client, Client, Discord, reaction) {
 		if (reaction) {

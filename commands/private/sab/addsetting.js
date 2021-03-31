@@ -4,7 +4,6 @@ function minTwoDigits(n) {
 module.exports = {
 	name: 'addsetting',
 	description: 'Add a guild setting',
-	guildOnly: true,
 	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		if (args[1]) {

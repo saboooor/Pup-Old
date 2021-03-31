@@ -7,7 +7,6 @@ function minTwoDigits(n) {
 module.exports = {
 	name: 'close',
 	description: 'Close a ticket',
-	guildOnly: true,
 	async execute(message, args, client, Client, Discord, reaction) {
 		if (reaction) {
 			if (message.author.id != client.user.id) return;

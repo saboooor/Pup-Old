@@ -2,7 +2,6 @@ module.exports = {
 	name: 'react',
 	description: 'React to a message with pup',
 	cooldown: 1,
-	guildOnly: true,
 	args: true,
 	argamnt: 2,
 	usage: '<Message ID> <Emoji>',

@@ -2,7 +2,6 @@ module.exports = {
 	name: 'deny',
 	description: 'Deny a suggestion',
 	aliases: ['reject', 'decline'],
-	guildOnly: true,
 	args: true,
 	permissions: 'ADMINISTRATOR',
 	usage: '<Message ID> [Response]',

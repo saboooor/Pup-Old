@@ -4,7 +4,6 @@ function minTwoDigits(n) {
 module.exports = {
 	name: 'add',
 	description: 'Add someone to a ticket',
-	guildOnly: true,
 	args: true,
 	usage: '<User Mention or ID>',
 	async execute(message, args, client, Client, Discord, reaction) {

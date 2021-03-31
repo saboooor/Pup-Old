@@ -4,7 +4,6 @@ function minTwoDigits(n) {
 module.exports = {
 	name: 'kick',
 	description: 'Kick someone with a reason',
-	guildOnly: true,
 	args: true,
 	argamnt: 2,
 	usage: '<User Mention> <Reason>',

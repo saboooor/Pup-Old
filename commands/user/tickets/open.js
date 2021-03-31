@@ -7,7 +7,6 @@ function minTwoDigits(n) {
 module.exports = {
 	name: 'open',
 	description: 'Repen a ticket',
-	guildOnly: true,
 	aliases: ['reopen'],
 	async execute(message, args, client, Client, Discord, reaction) {
 		if (reaction) {
