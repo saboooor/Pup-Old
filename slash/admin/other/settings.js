@@ -105,7 +105,7 @@ module.exports = {
 			data: {
 				type: 4,
 				data: {
-					content: [Embed],
+					embeds: [Embed],
 				},
 			},
 		});
