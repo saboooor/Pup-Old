@@ -38,6 +38,16 @@ module.exports = {
 				},
 			});
 		}
+		if (client.channels.cache.get(interaction.channel_id).topic.includes('Ticket marked as resolved.')) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'This ticket is already marked as resolved!',
+					},
+				},
+			});
+		}
 		client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,

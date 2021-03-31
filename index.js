@@ -285,7 +285,8 @@ for (const file of responseFiles) {
 }
 
 client.on('message', message => {
-	if (message.channel.type == 'dm') return;
+	const srvconfig = client.settings.get(message.guild.id);
+	if (message.channel.type == 'dm' || message.content.startsWith(srvconfig.prefix)) return;
 	if (message.channel.name.includes('ticket-')) {
 		if (message.channel.topic.includes('Ticket marked as resolved.')) return message.channel.setTopic(message.channel.topic.replace(/ Ticket marked as resolved./g, ''));
 	}
@@ -299,7 +300,6 @@ client.on('message', message => {
 		Client.restartServer('5bcaad8d').catch();
 		Client.killServer('5bcaad8d').catch();
 	}
-	const srvconfig = client.settings.get(message.guild.id);
 	if (message.content.includes(client.user.id)) {
 		if (message.author.bot) return;
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
