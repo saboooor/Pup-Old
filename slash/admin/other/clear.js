@@ -45,7 +45,7 @@ module.exports = {
 			},
 		});
 		await sleep(5000);
-		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
+		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} }).catch(error => {return;});
 		const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
 		await pp.delete();
 	},
