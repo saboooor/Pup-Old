@@ -22,6 +22,16 @@ module.exports = {
 				},
 			});
 		}
+		if (client.channels.cache.get(interaction.channel_id).topic == null) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'This is not a valid ticket!',
+					},
+				},
+			});
+		}
 		let user = await client.users.cache.find(u => client.channels.cache.get(interaction.channel_id).topic.includes(u.id));
 		if (!user) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
