@@ -168,6 +168,16 @@ module.exports = {
 			}
 		}
 		else if (args[0].value.toLowerCase() == 'choices') {
+			if (!args[3]) {
+				return client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							content: 'You need to pick at least one option!',
+						},
+					},
+				});
+			}
 			const emojis = [];
 			const options = [];
 			args.forEach(arg => {
