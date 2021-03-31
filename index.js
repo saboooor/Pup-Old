@@ -92,6 +92,12 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 	const timestamps = cooldowns.get(command.name);
 	const cooldownAmount = (command.cooldown || 3) * 1000;
 
+	if (!interaction.member) {
+		interaction.member = {
+			user: interaction.user,
+		};
+	}
+
 	if (timestamps.has(interaction.member.user.id)) {
 		const expirationTime = timestamps.get(interaction.member.user.id) + cooldownAmount;
 		const random = Math.floor(Math.random() * 4);

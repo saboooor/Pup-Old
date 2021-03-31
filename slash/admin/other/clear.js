@@ -6,13 +6,14 @@ function sleep(ms) {
 }
 module.exports = {
 	name: 'clear',
-	description: 'Delete multiple messages at once',
+	description: 'Delete multiple messages at once.',
 	guildOnly: true,
 	permissions: 'MANAGE_MESSAGES',
 	options: [{
 		type: 4,
 		name: 'amount',
 		description: 'The amount of messages to clear',
+		required: true,
 	}],
 	async execute(interaction, args, client, Client, Discord) {
 		if (args[0].value > 100) {
