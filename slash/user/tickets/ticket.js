@@ -14,7 +14,8 @@ module.exports = {
 		description: 'The message to send on the ticket',
 	}],
 	async execute(interaction, args, client, Client, Discord) {
-		if (client.settings.get(interaction.guild_id).tickets == 'false') {
+		const srvconfig = client.settings.get(interaction.guild_id);
+		if (srvconfig.tickets == 'false') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -94,7 +95,6 @@ module.exports = {
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 		console.log(`[${time} INFO]: Ticket created at #${ticket.name}`);
 		await sleep(1000);
-		const srvconfig = client.settings.get(interaction.guild_id);
 		const Embed = new Discord.MessageEmbed()
 			.setColor(3447003)
 			.setTitle('Ticket Created')

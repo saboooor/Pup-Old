@@ -9,7 +9,8 @@ module.exports = {
 	description: 'Close a ticket',
 	guildOnly: true,
 	async execute(interaction, args, client, Client, Discord) {
-		if (client.settings.get(interaction.guild_id).tickets == 'false') {
+		const srvconfig = client.settings.get(interaction.guild_id);
+		if (srvconfig.tickets == 'false') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -63,7 +64,6 @@ module.exports = {
 			});
 		}
 		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: false });
-		const srvconfig = client.settings.get(interaction.guild_id);
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
 			.setDescription(`Ticket Closed by ${interaction.member.user.username}\nMake sure to remove people from this ticket with ${srvconfig.prefix}remove or /remove if you've added them with ${srvconfig.prefix}add or /add!`);
