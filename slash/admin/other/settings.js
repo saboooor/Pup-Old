@@ -42,7 +42,8 @@ module.exports = {
 		description: 'The value to set the setting to',
 	}],
 	async execute(interaction, args, client, Client, Discord) {
-		if (args[1]) {
+		if (args) {
+			if (!args[1]) return;
 			if (!client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.member.user.id).hasPermission('ADMINISTRATOR')) {
 				if (interaction.member.user.id !== '249638347306303499') return;
 			}
