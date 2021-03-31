@@ -17,7 +17,7 @@ module.exports = {
 				},
 			});
 		}
-		const user = await client.users.cache.find(u => interaction.channel.topic.includes(u.id));
+		const user = await client.users.cache.find(u => client.channels.cache.get(interaction.channel_id).topic.includes(u.id));
 		if (!user) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
