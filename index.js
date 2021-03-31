@@ -188,6 +188,7 @@ for (const folder of commandFolders) {
 }
 
 client.on('message', message => {
+	if (message.author.bot) return;
 	let srvconfig = [];
 	if (message.guild) {
 		srvconfig = client.settings.get(message.guild.id);
@@ -195,7 +196,11 @@ client.on('message', message => {
 	else {
 		srvconfig.prefix = '-';
 	}
-	if (!message.content.startsWith(srvconfig.prefix) || message.author.bot) return;
+	if (message.channel.type == 'dm') {
+		if (message.content.startsWith(srvconfig.prefix)) return message.reply('You can only execute legacy commands in a Discord Server!\nTry using slash (/) commands instead');
+		client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
+	}
+	if (!message.content.startsWith(srvconfig.prefix)) return;
 
 	const args = message.content.slice(srvconfig.prefix.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
@@ -245,7 +250,6 @@ client.on('message', message => {
 		.setAuthor(message.author.tag, message.author.avatarURL())
 		.addField('**Type:**', 'Legacy');
 
-	if (message.channel.type == 'dm') return message.reply('You can only execute legacy commands in a Discord Server!\nTry using slash (/) commands instead');
 	commandLogEmbed.addField('**Guild:**', message.guild.name).addField('**Channel:**', message.channel.name);
 
 	commandLogEmbed.addField('**Command:**', message.content);
@@ -281,12 +285,7 @@ for (const file of responseFiles) {
 }
 
 client.on('message', message => {
-	if (message.channel.type == 'dm') {
-		if (message.author.bot) return;
-		client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
-		return;
-	}
-	else if (message.webhookID) {
+	if (message.webhookID) {
 		if (message.channel.id != '812082273393704960') return;
 		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
 		message.channel.send('Updating to latest commit...');
