@@ -11,7 +11,7 @@ module.exports = {
 	permissions: 'KICK_MEMBERS',
 	cooldown: 5,
 	async execute(message, args, client, Client, Discord) {
-		if (!message.mentions.users.first()) return message.reply('ur supposed to use a discord user mention dumbass');
+		if (!message.mentions.users.first()) return message.reply('Please use a user mention');
 		const user = message.mentions.users.first();
 		const member = message.guild.members.cache.get(user.id);
 		const author = message.guild.members.cache.get(message.author.id);
