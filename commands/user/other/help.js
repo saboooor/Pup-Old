@@ -6,7 +6,6 @@ module.exports = {
 	description: 'Get help with pup',
 	aliases: ['commands'],
 	cooldown: 2,
-	guildOnly: false,
 	async execute(message, args, client, Client, Discord) {
 		let srvconfig = [];
 		if (message.guild) {

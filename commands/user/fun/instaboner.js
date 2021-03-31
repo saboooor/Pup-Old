@@ -3,7 +3,6 @@ module.exports = {
 	description: 'See your pp grow FAST',
 	aliases: ['instapp', 'instapenis', 'instaerect'],
 	cooldown: 1,
-	guildOnly: false,
 	execute(message, args, client, Client, Discord) {
 		const srvconfig = client.settings.get(message.guild.id);
 		let nick = message.member.displayName;

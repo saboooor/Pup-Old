@@ -2,7 +2,6 @@ module.exports = {
 	name: 'link',
 	description: 'Get help on DiscordSRV linking',
 	cooldown: 10,
-	guildOnly: false,
 	async execute(message, args, client, Client, Discord) {
 		let e = [];
 		if (message.guild.id == '661736128373719141') e = ['Warden', '661797951223627787', 'Nether Depths'];

@@ -6,7 +6,6 @@ module.exports = {
 	name: 'eval',
 	description: 'Execute any code',
 	aliases: ['ec'],
-	guildOnly: false,
 	args: true,
 	usage: '<Code>',
 	async execute(message, args, client, Client, Discord) {
