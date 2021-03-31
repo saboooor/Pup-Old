@@ -20,7 +20,7 @@ module.exports = {
 		const Embed = new Discord.MessageEmbed()
 			.setThumbnail('https://bugs.mojang.com/secure/attachment/99116/unknown_pack.png')
 			.setColor(3447003);
-		const reply = await message.channel.send('Pinging...');
+		const reply = await message.channel.send('<a:loading:826611946258038805> Pup is thinking...');
 		const panel = 'https://panel.birdflop.com';
 		let id = '';
 		let serverip = '';

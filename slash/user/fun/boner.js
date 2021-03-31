@@ -3,7 +3,7 @@ function sleep(ms) {
 }
 module.exports = {
 	name: 'boner',
-	description: 'See your pp grow',
+	description: 'See your pp grow!',
 	cooldown: 10,
 	options: [{
 		type: 3,
