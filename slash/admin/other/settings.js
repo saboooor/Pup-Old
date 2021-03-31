@@ -83,7 +83,7 @@ module.exports = {
 					},
 				});
 			}
-			client.settings.set(interaction.guild_id, value, prop);
+			client.settings.set(interaction.guild_id, value.replace(/"/g, ''), prop);
 		}
 		const desc = {
 			prefix: '*The bot\'s prefix (You can use double quotes (") to include spaces)*',
