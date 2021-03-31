@@ -12,7 +12,8 @@ module.exports = {
 			if (message.author.id != client.user.id) return;
 			message.author = Client;
 		}
-		if (client.settings.get(message.guild.id).tickets == 'false') return message.reply('Tickets are disabled!');
+		const srvconfig = client.settings.get(message.guild.id);
+		if (srvconfig.tickets == 'false') return message.reply('Tickets are disabled!');
 		const user = await client.users.cache.find(u => message.channel.topic.includes(u.id));
 		if (!user) return message.reply('This is not a valid ticket!');
 		if (message.channel.name.includes('closed-')) return message.reply('This ticket is already closed!');
@@ -20,7 +21,6 @@ module.exports = {
 		await sleep(1000);
 		if (message.channel.name.includes('ticket-')) return message.channel.send('Failed to close ticket, please try again in 10 minutes');
 		message.channel.updateOverwrite(user, { VIEW_CHANNEL: false });
-		const srvconfig = client.settings.get(message.guild.id);
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
 			.setDescription(`Ticket Closed by ${message.author.username}\nMake sure to remove people from this ticket with ${srvconfig.prefix}remove if you've added them with ${srvconfig.prefix}add!`);
