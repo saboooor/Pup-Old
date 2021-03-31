@@ -1,7 +1,6 @@
 module.exports = {
 	name: 'dm',
 	description: 'DM someone through Pup bot.',
-	guildOnly: true,
 	options: [{
 		type: 6,
 		name: 'user',
