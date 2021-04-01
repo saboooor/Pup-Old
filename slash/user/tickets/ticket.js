@@ -67,7 +67,7 @@ module.exports = {
 		const ticket = await client.guilds.cache.get(interaction.guild_id).channels.create(`ticket-${interaction.member.user.username.toLowerCase().replace(' ', '-')}`, {
 			type: 'text',
 			parent: parent.id,
-			topic: `Ticket Opened by ${interaction.member.user.tag} ID: ${interaction.member.user.id}`,
+			topic: `Ticket Opened by ${interaction.member.user.username}#${interaction.member.user.discriminator} ID: ${interaction.member.user.id}`,
 			permissionOverwrites: [
 				{
 					id: interaction.guild_id,
