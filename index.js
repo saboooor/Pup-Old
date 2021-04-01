@@ -285,8 +285,8 @@ for (const file of responseFiles) {
 }
 
 client.on('message', message => {
-	const srvconfig = client.settings.get(message.guild.id);
 	if (message.channel.type == 'dm' || message.content.startsWith(srvconfig.prefix)) return;
+	const srvconfig = client.settings.get(message.guild.id);
 	if (message.channel.name.includes('ticket-')) {
 		if (message.channel.topic.includes('Ticket marked as resolved.')) return message.channel.setTopic(message.channel.topic.replace(/ Ticket marked as resolved./g, ''));
 	}
