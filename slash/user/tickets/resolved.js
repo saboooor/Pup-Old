@@ -52,7 +52,7 @@ module.exports = {
 			data: {
 				type: 4,
 				data: {
-					content: `${user}, this ticket has been marked as resolved and will close after 12 hours if you don't respond.\nIf you still have an issue, please explain it here. Otherwise, you can do \`/close\`, \`-close\`, or react to the original message to close the ticket now.`,
+					content: `${user}, this ticket has been marked as resolved and will close at 12AM ET if you don't respond.\nIf you still have an issue, please explain it here. Otherwise, you can do \`/close\`, \`-close\`, or react to the original message to close the ticket now.`,
 				},
 			},
 		});
