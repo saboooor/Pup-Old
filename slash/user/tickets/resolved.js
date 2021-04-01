@@ -3,7 +3,7 @@ function minTwoDigits(n) {
 }
 module.exports = {
 	name: 'resolved',
-	description: 'Mark a ticket as resolved',
+	description: 'Mark a ticket as resolved (Deletes ticket at 12AM ET)',
 	aliases: ['resolve'],
 	async execute(interaction, args, client, Client, Discord) {
 		const srvconfig = client.settings.get(interaction.guild_id);

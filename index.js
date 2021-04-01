@@ -305,7 +305,7 @@ client.on('message', message => {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
 	if(message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
-	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', ' sloppy ', 'sloppy ', ' sloppy', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
+	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (message.author.bot) return;
 		if (srvconfig.simpreaction == 'false') return;
 		client.response.get('simp').execute(message);
@@ -387,6 +387,19 @@ async function updateCount(global, vc) {
 		}
 	}
 }
+
+const cron = require('node-cron');
+
+cron.schedule('0 0 * * *', () => {
+	client.channels.cache.forEach(channel => {
+		if (channel.topic.includes('Ticket marked as resolved.') && channel.name.includes('ticket-')) {
+			const rn = new Date();
+			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+			console.log(`[${time} INFO]: Closed resolved ticket #${channel.name}`);
+			channel.delete();
+		}
+	});
+});
 
 client.on('message', message => {
 	if (message.author.id == '661797951223627787') {
