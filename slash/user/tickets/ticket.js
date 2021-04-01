@@ -103,7 +103,7 @@ module.exports = {
 		if (args) Embed.addField('Description', args[0].value);
 		const embed = await ticket.send(`<@${interaction.member.user.id}>`, Embed);
 		embed.react('🔒');
-		const ping = await ticket.send('@.everyone');
+		const ping = await ticket.send('@everyone');
 		await ping.delete();
 	},
 };

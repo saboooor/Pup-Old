@@ -31,6 +31,16 @@ module.exports = {
 				},
 			});
 		}
+		if (user == client.users.cache.get(interaction.member.user.id)) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'You cannot resolve this ticket! Try closing the ticket instead',
+					},
+				},
+			});
+		}
 		if (client.channels.cache.get(interaction.channel_id).name.includes('closed-')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {

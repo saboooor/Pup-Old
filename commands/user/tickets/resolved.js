@@ -13,6 +13,7 @@ module.exports = {
 		if (srvconfig.tickets == 'false') return message.reply('Tickets are disabled!');
 		const user = await client.users.cache.find(u => message.channel.topic.includes(u.id));
 		if (!user) return message.reply('This is not a valid ticket!');
+		if (user == message.author) return message.reply('You cannot resolve this ticket! Try closing the ticket instead');
 		if (message.channel.name.includes('closed-')) return message.reply('This ticket is already closed!');
 		if (message.channel.topic.includes('Ticket marked as resolved.')) return message.reply('This ticket is already marked as resolved!');
 		message.channel.setTopic(message.channel.topic + ' Ticket marked as resolved.');
