@@ -314,6 +314,7 @@ async function updateCount(global, vc) {
 }
 
 client.on('message', message => {
+	if(message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
 	if (message.webhookID) {
 		if (message.channel.id != '812082273393704960') return;
 		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
@@ -344,7 +345,6 @@ client.on('message', message => {
 	if (message.content.includes(client.user.id)) {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
-	if(message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (srvconfig.simpreaction == 'false') return;
 		client.response.get('simp').execute(message);
