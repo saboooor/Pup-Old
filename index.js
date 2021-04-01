@@ -284,12 +284,36 @@ for (const file of responseFiles) {
 	client.response.set(response.name, response);
 }
 
-client.on('message', message => {
-	if (message.channel.type == 'dm' || message.content.startsWith(client.settings.get(message.guild.id).prefix)) return;
-	const srvconfig = client.settings.get(message.guild.id);
-	if (message.channel.name.includes('ticket-')) {
-		if (message.channel.topic.includes('Ticket marked as resolved.')) return message.channel.setTopic(message.channel.topic.replace(/ Ticket marked as resolved./g, ''));
+
+let lastUpdated = Date.now() - 270000;
+async function updateCount(global, vc) {
+	if (Date.now() - lastUpdated > 325000) {
+		const json = await fetch('https://api.mcsrvstat.us/2/play.netherdepths.com').catch(error => {
+			const rn = new Date();
+			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+			console.error(`[${time} ERROR]: Couldn't connect to API! ${error}`);
+			return;
+		});
+		if (!json) return;
+		const pong = await json.json();
+		if (!pong.online) return;
+		if (!pong.players) return;
+		if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
+			await client.channels.cache.get(vc).setName(`Players: ${pong.players.online} / ${pong.players.max}`);
+			if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
+				const rn = new Date();
+				const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+				console.warn(`[${time} WARN]: Failed to change channel name! Rate limited?`);
+				lastUpdated = Date.now() + 60000;
+			}
+			else {
+				lastUpdated = Date.now();
+			}
+		}
 	}
+}
+
+client.on('message', message => {
 	if (message.webhookID) {
 		if (message.channel.id != '812082273393704960') return;
 		client.user.setPresence({ activity: { name: 'Updating', type: 'PLAYING' } });
@@ -300,13 +324,24 @@ client.on('message', message => {
 		Client.restartServer('5bcaad8d').catch();
 		Client.killServer('5bcaad8d').catch();
 	}
+	if (message.author.id == '661797951223627787') {
+		updateCount('776992487537377311', '808188940728664084').catch(error => {
+			const rn = new Date();
+			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+			console.error(`[${time} ERROR]: ${error}`);
+		});
+	}
+	if (message.author.bot) return;
+	if (message.channel.type == 'dm' || message.content.startsWith(client.settings.get(message.guild.id).prefix)) return;
+	const srvconfig = client.settings.get(message.guild.id);
+	if (message.channel.name.includes('ticket-')) {
+		if (message.channel.topic.includes('Ticket marked as resolved.')) return message.channel.setTopic(message.channel.topic.replace(/ Ticket marked as resolved./g, ''));
+	}
 	if (message.content.includes(client.user.id)) {
-		if (message.author.bot) return;
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
 	if(message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
 	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
-		if (message.author.bot) return;
 		if (srvconfig.simpreaction == 'false') return;
 		client.response.get('simp').execute(message);
 	}
@@ -360,34 +395,6 @@ client.on('guildMemberAdd', (member) => {
 	if (member.guild.id == '661736128373719141') return client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);
 });
 
-let lastUpdated = Date.now() - 270000;
-async function updateCount(global, vc) {
-	if (Date.now() - lastUpdated > 325000) {
-		const json = await fetch('https://api.mcsrvstat.us/2/play.netherdepths.com').catch(error => {
-			const rn = new Date();
-			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-			console.error(`[${time} ERROR]: Couldn't connect to API! ${error}`);
-			return;
-		});
-		if (!json) return;
-		const pong = await json.json();
-		if (!pong.online) return;
-		if (!pong.players) return;
-		if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
-			await client.channels.cache.get(vc).setName(`Players: ${pong.players.online} / ${pong.players.max}`);
-			if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
-				const rn = new Date();
-				const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-				console.warn(`[${time} WARN]: Failed to change channel name! Rate limited?`);
-				lastUpdated = Date.now() + 60000;
-			}
-			else {
-				lastUpdated = Date.now();
-			}
-		}
-	}
-}
-
 const cron = require('node-cron');
 
 cron.schedule('0 0 * * *', () => {
@@ -399,14 +406,4 @@ cron.schedule('0 0 * * *', () => {
 			channel.delete();
 		}
 	});
-});
-
-client.on('message', message => {
-	if (message.author.id == '661797951223627787') {
-		updateCount('776992487537377311', '808188940728664084').catch(error => {
-			const rn = new Date();
-			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-			console.error(`[${time} ERROR]: ${error}`);
-		});
-	}
 });
