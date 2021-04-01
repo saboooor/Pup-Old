@@ -1,3 +1,6 @@
+function sleep(ms) {
+	return new Promise(res => setTimeout(res, ms));
+}
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
@@ -48,6 +51,18 @@ module.exports = {
 				},
 			});
 		}
+		client.channels.cache.get(interaction.channel_id).setTopic(client.channels.cache.get(interaction.channel_id).topic + ' Ticket marked as resolved.');
+		await sleep(1000);
+		if (!client.channels.cache.get(interaction.channel_id).topic.includes('Ticket marked as resolved.')) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'Failed to resolve ticket, try again in 5-10 minutes',
+					},
+				},
+			});
+		}
 		client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
@@ -56,7 +71,6 @@ module.exports = {
 				},
 			},
 		});
-		client.channels.cache.get(interaction.channel_id).setTopic(client.channels.cache.get(interaction.channel_id).topic + ' Ticket marked as resolved.');
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 		console.log(`[${time} INFO]: Marked ticket #${client.channels.cache.get(interaction.channel_id).name} as resolved`);
