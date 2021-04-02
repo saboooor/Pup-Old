@@ -371,6 +371,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			});
 	}
 	if (reaction.emoji.name == '❌') {
+		if (user.bot) return;
 		if (message.channel.type != 'dm') return;
 		if (!message.content.includes('React to this message to unsubscribe to the broadcast')) return;
 		if (client.userdata.get(user.id, "unsubbed") == 'true') return message.channel.send('You\'re already unsubscribed!');
