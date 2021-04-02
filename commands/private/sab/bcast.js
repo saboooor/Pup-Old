@@ -13,7 +13,7 @@ module.exports = {
 			if (client.guilds.cache.get('811354612547190794').members.cache.has(guild.owner.id)) return;
 			guild.owner.send(`**PUP BROADCAST**
 ${args.join(' ')}
-*This message was sent to all owners that have Pup in their guild and haven't joined the Discord*
+*This message was sent to all owners that have Pup in their guild*
 React to this message to unsubscribe to the broadcast`).then(msg => msg.react('❌'));
 		});
 	},
