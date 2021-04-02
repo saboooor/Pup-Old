@@ -78,6 +78,14 @@ client.settings = new Enmap({
 client.on('guildDelete', guild => {
 	client.settings.delete(guild.id);
 });
+client.userdata = new Enmap({
+	name: "unsubbed",
+	autoFetch: true,
+	fetchAll: false,
+	autoEnsure: {
+		unsubbed: 'false'
+	},
+});
 
 client.ws.on('INTERACTION_CREATE', async interaction => {
 	const command = client.slashcommands.get(interaction.data.name.toLowerCase());
@@ -366,8 +374,10 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (message.channel.type != 'dm') return;
 		if (!message.content.includes('React to this message to unsubscribe to the broadcast')) return;
 		reaction.users.remove(user.id);
-
-		message.channel.send('Unsubscribed!')
+		client.userdata.ensure(user.id, defaultSettings);
+		if (client.userdata.get(user.id, "unsubbed") == 'true') return message.channel.send('You\'re already unsubscribed!');
+		client.userdata.set(user.id, 'true', 'unsubbed');
+		message.channel.send('Unsubscribed!');
 	}
 	if (message.channel.type == 'dm') return;
 	if (user.bot) return;
