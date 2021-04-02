@@ -79,12 +79,6 @@ client.on('guildDelete', guild => {
 	client.settings.delete(guild.id);
 });
 
-client.data = new Enmap({
-	name: 'data',
-	autoFetch: true,
-	fetchAll: false,
-});
-
 client.ws.on('INTERACTION_CREATE', async interaction => {
 	const command = client.slashcommands.get(interaction.data.name.toLowerCase());
 	const args = interaction.data.options;
@@ -372,8 +366,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (message.channel.type != 'dm') return;
 		if (!message.content.includes('React to this message to unsubscribe to the broadcast')) return;
 		reaction.users.remove(user.id);
-		if (client.data.get('unsubbed').has(user.id)) return message.channel.send('You\'ve already been unsubscribed!');
-		client.data.push('unsubbed', user.id);
+
 		message.channel.send('Unsubscribed!')
 	}
 	if (message.channel.type == 'dm') return;
