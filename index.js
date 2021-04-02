@@ -61,8 +61,8 @@ client.once('ready', () => {
 
 client.settings = new Enmap({
 	name: 'settings',
-	fetchAll: false,
 	autoFetch: true,
+	fetchAll: false,
 	cloneLevel: 'deep',
 	autoEnsure: {
 		prefix: client.config.prefix,
@@ -77,6 +77,12 @@ client.settings = new Enmap({
 });
 client.on('guildDelete', guild => {
 	client.settings.delete(guild.id);
+});
+
+client.data = new Enmap({
+	name: 'data',
+	autoFetch: true,
+	fetchAll: false,
 });
 
 client.ws.on('INTERACTION_CREATE', async interaction => {
@@ -362,25 +368,33 @@ client.on('messageReactionAdd', async (reaction, user) => {
 				message = fullmessage;
 			});
 	}
+	if (reaction.emoji.name == '❌') {
+		if (message.channel.type != 'dm') return;
+		if (!message.content.includes('React to this message to unsubscribe to the broadcast')) return;
+		reaction.users.remove(user.id);
+		if (client.data.get('unsubbed').has(user.id)) return message.channel.send('You\'ve already been unsubscribed!');
+		client.data.push('unsubbed', user.id);
+		message.channel.send('Unsubscribed!')
+	}
 	if (message.channel.type == 'dm') return;
 	if (user.bot) return;
-	if (reaction.emoji.name === '🎫') {
+	if (reaction.emoji.name == '🎫') {
 		if (message.embeds[0].title !== 'Need help? No problem!') return;
 		reaction.users.remove(user.id);
 		client.commands.get('ticket').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name === '⛔') {
+	if (reaction.emoji.name == '⛔') {
 		reaction.users.remove(user.id);
 		await client.commands.get('delete').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name === '🔓') {
+	if (reaction.emoji.name == '🔓') {
 		reaction.users.remove(user.id);
 		await client.commands.get('open').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name === '🔒') {
+	if (reaction.emoji.name == '🔒') {
 		reaction.users.remove(user.id);
 		client.commands.get('close').execute(message, null, client, user, Discord, reaction);
 		return;
