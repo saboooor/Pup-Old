@@ -374,7 +374,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (message.channel.type != 'dm') return;
 		if (!message.content.includes('React to this message to unsubscribe to the broadcast')) return;
 		reaction.users.remove(user.id);
-		client.userdata.ensure(user.id, defaultSettings);
 		if (client.userdata.get(user.id, "unsubbed") == 'true') return message.channel.send('You\'re already unsubscribed!');
 		client.userdata.set(user.id, 'true', 'unsubbed');
 		message.channel.send('Unsubscribed!');
