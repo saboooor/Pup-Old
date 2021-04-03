@@ -14,10 +14,8 @@ module.exports = {
 		required: true,
 	}],
 	async execute(interaction, args, client, Client, Discord) {
-		if (interaction.guild_id == '661736128373719141') {
-if (!client.guilds.cache.get('661736128373719141').members.cache.get(interaction.member.user.id).roles.cache.has('699724468469366844')) return;
+		if (interaction.guild_id == '661736128373719141' && !client.guilds.cache.get('661736128373719141').members.cache.get(interaction.member.user.id).roles.cache.has('699724468469366844')) return;
 		else if (interaction.member.user.id !== '249638347306303499') return;
-}
 		client.users.cache.get(args[0].value).send(args[1].value);
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))
