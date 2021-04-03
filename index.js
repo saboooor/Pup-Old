@@ -335,12 +335,12 @@ client.on('message', message => {
 	if (message.channel.type == 'dm' || message.content.startsWith(client.settings.get(message.guild.id).prefix) || message.author.bot) return;
 	const srvconfig = client.settings.get(message.guild.id);
 	if (message.channel.name.includes('ticket-')) {
-		if (message.channel.topic.includes('Ticket marked as resolved.')) {
-			message.channel.setTopic(message.channel.topic.replace(/ Ticket marked as resolved./g, ''));
-			const rn = new Date();
-			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-			console.log(`[${time} INFO]: Unmarked ticket #${message.channel.name} as resolved`);
-		}
+		if (!message.channel.topic) return;
+		if (!message.channel.topic.includes('Ticket marked as resolved.')) return;
+		message.channel.setTopic(message.channel.topic.replace(/ Ticket marked as resolved./g, ''));
+		const rn = new Date();
+		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+		console.log(`[${time} INFO]: Unmarked ticket #${message.channel.name} as resolved`);
 	}
 	if (message.content.includes(client.user.id)) {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
