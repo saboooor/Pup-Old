@@ -61,8 +61,8 @@ client.once('ready', () => {
 
 client.settings = new Enmap({
 	name: 'settings',
-	fetchAll: false,
 	autoFetch: true,
+	fetchAll: false,
 	cloneLevel: 'deep',
 	autoEnsure: {
 		prefix: client.config.prefix,
@@ -77,6 +77,14 @@ client.settings = new Enmap({
 });
 client.on('guildDelete', guild => {
 	client.settings.delete(guild.id);
+});
+client.userdata = new Enmap({
+	name: "unsubbed",
+	autoFetch: true,
+	fetchAll: false,
+	autoEnsure: {
+		unsubbed: 'false'
+	},
 });
 
 client.ws.on('INTERACTION_CREATE', async interaction => {
@@ -198,7 +206,8 @@ client.on('message', message => {
 	}
 	if (message.channel.type == 'dm') {
 		if (message.content.startsWith(srvconfig.prefix)) return message.reply('You can only execute legacy commands in a Discord Server!\nTry using slash (/) commands instead');
-		client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
+		if (client.guilds.cache.get('661736128373719141').members.cache.has(message.author.id)) client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
+		else client.channels.cache.get('827651453698179134').send(`**<@!${message.author.id}>** > ${message.content}`);
 	}
 	if (!message.content.startsWith(srvconfig.prefix)) return;
 
@@ -361,25 +370,33 @@ client.on('messageReactionAdd', async (reaction, user) => {
 				message = fullmessage;
 			});
 	}
+	if (reaction.emoji.name == '❌') {
+		if (user.bot) return;
+		if (message.channel.type != 'dm') return;
+		if (!message.content.includes('React to this message to unsubscribe to the broadcast')) return;
+		if (client.userdata.get(user.id, "unsubbed") == 'true') return message.channel.send('You\'re already unsubscribed!');
+		client.userdata.set(user.id, 'true', 'unsubbed');
+		message.channel.send('Unsubscribed!');
+	}
 	if (message.channel.type == 'dm') return;
 	if (user.bot) return;
-	if (reaction.emoji.name === '🎫') {
+	if (reaction.emoji.name == '🎫') {
 		if (message.embeds[0].title !== 'Need help? No problem!') return;
 		reaction.users.remove(user.id);
 		client.commands.get('ticket').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name === '⛔') {
+	if (reaction.emoji.name == '⛔') {
 		reaction.users.remove(user.id);
 		await client.commands.get('delete').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name === '🔓') {
+	if (reaction.emoji.name == '🔓') {
 		reaction.users.remove(user.id);
 		await client.commands.get('open').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name === '🔒') {
+	if (reaction.emoji.name == '🔒') {
 		reaction.users.remove(user.id);
 		client.commands.get('close').execute(message, null, client, user, Discord, reaction);
 		return;
