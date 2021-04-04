@@ -47,6 +47,9 @@ module.exports = {
 	}],
 	permissions: 'ADMINISTRATOR',
 	async execute(interaction, args, client, Client, Discord) {
+		const Embed = new Discord.MessageEmbed()
+			.setColor(Math.floor(Math.random() * 16777215))
+			.setTitle('Bot Settings');
 		if (args) {
 			if (!args[1]) return;
 			if (args[0].value == 'maxppsize') {
@@ -86,25 +89,24 @@ module.exports = {
 				});
 			}
 			client.settings.set(interaction.guild_id, value.replace(/"/g, ''), prop);
+			Embed.setDescription(`Successfully set \`${prop}\` to \`${value.replace(/"/g, '')}\``);
 		}
-		const desc = {
-			prefix: '*The bot\'s prefix (You can use double quotes (") to include spaces)*',
-			simpreaction: '*Reacts with "SIMP" on messages with simpy words (true/false)*',
-			leavemessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
-			joinmessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
-			adfree: '*Gets rid of all references to other servers (true/false)*',
-			maxppsize: '*Maximum pp size in pp and instapp commands*',
-			tickets: '*Enables tickets (true/false)*',
-			bonercmd: 'Toggles boner command',
-		};
-		const srvconfig = Object.keys(client.settings.get(interaction.guild_id)).map(prop => {
-			return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(interaction.guild_id)[prop]}\``;
-		});
-		const Embed = new Discord.MessageEmbed()
-			.setColor(Math.floor(Math.random() * 16777215))
-			.setTitle('Bot Settings')
-			.setDescription(srvconfig.join('\n'))
-			.addField('Usage', '`/settings [<Setting> <Value>]`');
+		else {
+			const desc = {
+				prefix: '*The bot\'s prefix (You can use double quotes (") to include spaces)*',
+				simpreaction: '*Reacts with "SIMP" on messages with simpy words (true/false)*',
+				leavemessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
+				joinmessage: '*Can be either false or the message text itself.\nVariables: {USER MENTION} {USER TAG}*',
+				adfree: '*Gets rid of all references to other servers (true/false)*',
+				maxppsize: '*Maximum pp size in pp and instapp commands*',
+				tickets: '*Enables tickets (true/false)*',
+				bonercmd: '*Toggles boner command (true/false)*',
+			};
+			const srvconfig = Object.keys(client.settings.get(interaction.guild_id)).map(prop => {
+				return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(interaction.guild_id)[prop]}\``;
+			});
+			Embed.setDescription(srvconfig.join('\n')).addField('Usage', '`/settings [<Setting> <Value>]`');
+		}
 		client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
