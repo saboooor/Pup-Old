@@ -19,7 +19,7 @@ module.exports = {
 			});
 			await message.reply('Joined Minecraft Server!');
 			await sleep(5000);
-			await mcclient.write('chat', { message: 'join play.goldenwaters.org now' });
+			await mcclient.write('chat', { message: 'Connected with Pup on Discord' });
 		}
 	},
 };
