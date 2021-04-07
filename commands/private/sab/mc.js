@@ -16,5 +16,13 @@ module.exports = {
 			});
 			message.reply('Joined Minecraft Server!');
 		}
+		const msg = {
+			translate: 'chat.type.announcement',
+			'with': [
+				'Server',
+				'Hello, world!',
+			],
+		};
+		client.write('chat', { message: JSON.stringify(msg), position: 0, sender: '0' });
 	},
 };
