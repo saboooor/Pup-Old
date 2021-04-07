@@ -20,9 +20,9 @@ module.exports = {
 				username: client.config.clientemail,
 				password: client.config.clientpassword,
 			});
-			await message.reply('Joined Minecraft Server!');
+			await message.reply('Joined Minecraft Server! Check out https://pupmap.hoglin.org to see what the client is seeing');
 			client.mc.on('spawn', () => {
-				client.mc.chat('Connected with Pup on Discord');
+				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
 			});
 		}
