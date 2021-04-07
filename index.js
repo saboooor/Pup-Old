@@ -420,6 +420,7 @@ const cron = require('node-cron');
 
 cron.schedule('0 0 * * *', () => {
 	client.channels.cache.forEach(async channel => {
+		if (!channel.topic) return;
 		if (channel.topic.includes('Ticket marked as resolved.') && channel.name.includes('ticket-')) {
 			channel.setTopic(channel.topic.replace(/ Ticket marked as resolved./g, ''));
 			const user = await client.users.cache.find(u => channel.topic.includes(u.id));
