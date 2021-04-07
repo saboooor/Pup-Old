@@ -44,8 +44,7 @@ module.exports = {
 			await message.reply('Left Minecraft Server!');
 		}
 		else if (args[0] == 'snapshot') {
-			if (client.mc) client.mc.quit();
-			console.log(headlessmineflayerViewer(client.mc, { output: 'output.mp4', frames: 200, width: 512, height: 512 }));
+			headlessmineflayerViewer(client.mc, { output: 'output.mp4', frames: 200, width: 512, height: 512 });
 		}
 	},
 };
