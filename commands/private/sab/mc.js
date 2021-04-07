@@ -27,15 +27,13 @@ module.exports = {
 				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
 				client.mc.chatAddPattern(
-					/(.+)/g,
+					/(.+)/,
 					'everything',
-					'Custom chat event',
 				);
 			});
-			const logger = (chatmsg) => {
+			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg);
-			};
-			client.mc.on('everything', logger);
+			});
 		}
 		else if (args[0] == 'chat') {
 			await message.reply('Sent chat!');
