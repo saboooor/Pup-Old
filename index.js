@@ -419,8 +419,21 @@ client.on('guildMemberAdd', (member) => {
 const cron = require('node-cron');
 
 cron.schedule('0 0 * * *', () => {
-	client.channels.cache.forEach(channel => {
+	client.channels.cache.forEach(async channel => {
 		if (channel.topic.includes('Ticket marked as resolved.') && channel.name.includes('ticket-')) {
+			channel.setTopic(channel.topic.replace(/ Ticket marked as resolved./g, ''));
+			const user = await client.users.cache.find(u => channel.topic.includes(u.id));
+			channel.setName(channel.name.replace('ticket', 'closed'));
+			if (channel.name.includes('ticket-')) return channel.send('Failed to close ticket, please try again in 10 minutes');
+			channel.updateOverwrite(user, { VIEW_CHANNEL: false });
+			const Embed = new Discord.MessageEmbed()
+				.setColor(15105570)
+				.setDescription('Ticket Closed automatically\nMake sure to remove people from this ticket with /remove if you\'ve added them with /add!');
+			channel.send(Embed);
+			Embed.setColor(3447003).setDescription('🔓 Reopen Ticket `/open`\n⛔ Delete Ticket `/delete`');
+			const msg = await channel.send(Embed);
+			msg.react('🔓');
+			msg.react('⛔');
 			const rn = new Date();
 			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 			console.log(`[${time} INFO]: Closed resolved ticket #${channel.name}`);
