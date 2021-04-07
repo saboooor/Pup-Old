@@ -77,8 +77,8 @@ module.exports = {
 			if (!args[1]) return message.reply('-mc goto <Player>');
 			const target = client.mc.players[args[1]].entity;
 			if (!target) {
-				client.mc.chat('I don\'t see you !');
-				return;
+				client.mc.chat(`/tpa ${args[1]}`);
+				return message.reply(`Sent TPA request to ${args[1]}`);
 			}
 			const { x: playerX, y: playerY, z: playerZ } = target.position;
 			const mcData = require('minecraft-data')(client.mc.version);
