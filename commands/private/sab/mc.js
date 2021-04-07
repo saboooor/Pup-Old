@@ -36,7 +36,7 @@ module.exports = {
 		}
 		else if (args[0] == 'chat') {
 			await message.reply('Sent chat!');
-			await client.mc.chat(args.join(' ').replace(args[0], ''));
+			await client.mc.chat(args.join(' ').replace(args[0] + ' ', ''));
 		}
 		else if (args[0] == 'leave') {
 			if (client.mc) client.mc.quit();
