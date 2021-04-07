@@ -8,10 +8,11 @@ module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
 	args: true,
-	usage: '<join/leave/chat> [<Server IP>]',
+	usage: '<join/leave/chat/goto/move>',
 	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		if (args[0] == 'join') {
+			if (!args[1]) return message.reply('-mc join <Server IP>');
 			if (client.mc) {
 				client.mc.quit();
 				if (client.mc.viewer) client.mc.viewer.close();
@@ -30,25 +31,47 @@ module.exports = {
 					/(.+)/,
 					'everything',
 				);
+				client.mc.loadPlugin(pathfinder);
 			});
 			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg);
 			});
 		}
 		else if (args[0] == 'chat') {
-			await message.reply('Sent chat!');
+			if (!args[1]) return message.reply('-mc chat <Message>');
 			await client.mc.chat(args.join(' ').replace(args[0] + ' ', ''));
+			await message.reply('Sent chat!');
 		}
 		else if (args[0] == 'leave') {
 			if (client.mc) client.mc.quit();
 			await message.reply('Left Minecraft Server!');
 		}
 		else if (args[0] == 'goto') {
-			client.mc.loadPlugin(pathfinder);
+			if (!args[3]) return message.reply('-mc goto <x> <y> <z>');
 			const mcData = require('minecraft-data')(client.mc.version);
 			const defaultMove = new Movements(client.mc, mcData);
 			client.mc.pathfinder.setMovements(defaultMove);
 			client.mc.pathfinder.setGoal(new GoalNear(args[1], args[2], args[3], 1));
+			await message.reply(`Going to ${args[1]} ${args[2]} ${args[3]}...`);
+		}
+		else if (args[0] == 'move') {
+			if (!args[2]) return message.reply('-mc move <x/y/z> <Coordinate>');
+			const mcData = require('minecraft-data')(client.mc.version);
+			const defaultMove = new Movements(client.mc, mcData);
+			client.mc.pathfinder.setMovements(defaultMove);
+			const { x: playerX, y: playerY, z: playerZ } = client.mc.entity.position;
+			if (args[1] == 'x') {
+				client.mc.pathfinder.setGoal(new GoalNear(playerX + parseInt(args[2], 10), playerY, playerZ, 1));
+				await message.reply(`Going to ${playerX + parseInt(args[2], 10)} ${playerY} ${playerZ}...`);
+			}
+			else if (args[1] == 'y') {
+				client.mc.pathfinder.setGoal(new GoalNear(playerX, playerY + parseInt(args[2], 10), playerZ, 1));
+				await message.reply(`Going to ${playerX} ${playerY + parseInt(args[2], 10)} ${playerZ}...`);
+			}
+			else if (args[1] == 'z') {
+				client.mc.pathfinder.setGoal(new GoalNear(playerX, playerY, playerZ + parseInt(args[2], 10), 1));
+				await message.reply(`Going to ${playerX} ${playerY} ${playerZ + parseInt(args[2], 10)}...`);
+			}
 		}
 	},
 };
