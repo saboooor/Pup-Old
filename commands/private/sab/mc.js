@@ -23,9 +23,17 @@ module.exports = {
 				password: client.config.clientpassword,
 			});
 			await message.reply('Joined Minecraft Server!\nCheck out https://pupmap.hoglin.org to see what the client is seeing');
-			client.mc.on('spawn', () => {
+			client.mc.once('spawn', () => {
 				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
+			});
+			client.mc.chatAddPattern(
+				/.+/,
+				'everything',
+				'Custom chat event',
+			);
+			client.mc.on('everything', (msg) => {
+				message.channel.send(msg);
 			});
 		}
 		else if (args[0] == 'chat') {
