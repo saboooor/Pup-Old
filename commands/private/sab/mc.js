@@ -11,7 +11,7 @@ module.exports = {
 	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		if (args[0] == 'join') {
-			const mcclient = await mc.createClient({
+			client.mc = await mc.createClient({
 				host: args[1],
 				port: 25565,
 				username: client.config.clientemail,
@@ -20,7 +20,11 @@ module.exports = {
 			});
 			await message.reply('Joined Minecraft Server!');
 			await sleep(5000);
-			await mcclient.write('chat', { message: 'Connected with Pup on Discord' });
+			await client.mc.write('chat', { message: 'Connected with Pup on Discord' });
+		}
+		if (args[0] == 'chat') {
+			await message.reply('Sent chat!');
+			await client.mc.write('chat', { message: args[1] });
 		}
 	},
 };
