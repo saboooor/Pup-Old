@@ -32,6 +32,7 @@ module.exports = {
 			});
 			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg);
+				console.log(chatmsg.toAnsi());
 			});
 		}
 		else if (args[0] == 'chat') {
