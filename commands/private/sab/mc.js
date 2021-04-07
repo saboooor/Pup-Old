@@ -46,8 +46,8 @@ module.exports = {
 			if (client.mc) client.mc.quit();
 			await message.reply('Left Minecraft Server!');
 		}
-		else if (args[0] == 'goto') {
-			if (!args[3]) return message.reply('-mc goto <x> <y> <z>');
+		else if (args[0] == 'coord') {
+			if (!args[3]) return message.reply('-mc coord <x> <y> <z>');
 			const mcData = require('minecraft-data')(client.mc.version);
 			const defaultMove = new Movements(client.mc, mcData);
 			client.mc.pathfinder.setMovements(defaultMove);
@@ -72,6 +72,20 @@ module.exports = {
 				client.mc.pathfinder.setGoal(new GoalNear(playerX, playerY, playerZ + parseInt(args[2], 10), 1));
 				await message.reply(`Going to ${playerX} ${playerY} ${playerZ + parseInt(args[2], 10)}...`);
 			}
+		}
+		else if (args[0] == 'goto') {
+			if (!args[1]) return message.reply('-mc goto <Player>');
+			const target = client.mc.players[args[1]].entity;
+			if (!target) {
+				client.mc.chat('I don\'t see you !');
+				return;
+			}
+			const { x: playerX, y: playerY, z: playerZ } = target.position;
+			const mcData = require('minecraft-data')(client.mc.version);
+			const defaultMove = new Movements(client.mc, mcData);
+			client.mc.pathfinder.setMovements(defaultMove);
+			client.mc.pathfinder.setGoal(new GoalNear(playerX, playerY, playerZ, 1));
+			await message.reply(`Going to ${playerX} ${playerY} ${playerZ}...`);
 		}
 	},
 };
