@@ -32,9 +32,10 @@ module.exports = {
 					'Custom chat event',
 				);
 			});
-			client.mc.on('everything', (msg) => {
-				message.channel.send(msg);
-			});
+			const logger = (chatmsg) => {
+				message.channel.send(chatmsg);
+			};
+			client.mc.on('everything', logger);
 		}
 		else if (args[0] == 'chat') {
 			await message.reply('Sent chat!');
