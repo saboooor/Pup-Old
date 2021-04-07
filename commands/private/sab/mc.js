@@ -3,7 +3,6 @@ function sleep(ms) {
 }
 const mineflayer = require('mineflayer');
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
-const headlessmineflayerViewer = require('prismarine-viewer').headless;
 module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
@@ -42,9 +41,6 @@ module.exports = {
 		else if (args[0] == 'leave') {
 			if (client.mc) client.mc.quit();
 			await message.reply('Left Minecraft Server!');
-		}
-		else if (args[0] == 'snapshot') {
-			headlessmineflayerViewer(client.mc, { output: '../../output.mp4', frames: 200, width: 512, height: 512 });
 		}
 	},
 };
