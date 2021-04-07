@@ -24,7 +24,7 @@ module.exports = {
 			});
 			await message.reply('Joined Minecraft Server!\nCheck out https://pupmap.hoglin.org to see what the client is seeing');
 			client.mc.once('spawn', () => {
-				//client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
+				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
 				client.mc.chatAddPattern(
 					/(.+)/,
@@ -45,7 +45,7 @@ module.exports = {
 		}
 		else if (args[0] == 'snapshot') {
 			if (client.mc) client.mc.quit();
-			headlessmineflayerViewer(client.mc, { output: 'output.mp4', frames: 200, width: 512, height: 512 });
+			console.log(headlessmineflayerViewer(client.mc, { output: 'output.mp4', frames: 200, width: 512, height: 512 }));
 		}
 	},
 };
