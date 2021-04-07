@@ -27,7 +27,7 @@ module.exports = {
 				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
 				client.mc.chatAddPattern(
-					/.+/,
+					/(.+)/g,
 					'everything',
 					'Custom chat event',
 				);
