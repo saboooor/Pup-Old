@@ -7,8 +7,7 @@ module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
 	args: true,
-	argamt: 2,
-	usage: '<join/chat> <Server IP>',
+	usage: '<join/leave/chat> [<Server IP>]',
 	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		if (args[0] == 'join') {
@@ -38,6 +37,10 @@ module.exports = {
 		else if (args[0] == 'chat') {
 			await message.reply('Sent chat!');
 			await client.mc.chat(args.join(' ').replace(args[0], ''));
+		}
+		else if (args[0] == 'leave') {
+			if (client.mc) client.mc.quit();
+			await message.reply('Left Minecraft Server!');
 		}
 	},
 };
