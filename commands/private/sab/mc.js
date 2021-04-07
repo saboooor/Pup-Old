@@ -3,6 +3,7 @@ function sleep(ms) {
 }
 const mineflayer = require('mineflayer');
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
+const { pathfinder, Movements, goals: { GoalNear } } = require('mineflayer-pathfinder');
 module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
@@ -32,7 +33,6 @@ module.exports = {
 			});
 			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg);
-				console.log(chatmsg.toAnsi());
 			});
 		}
 		else if (args[0] == 'chat') {
@@ -42,6 +42,13 @@ module.exports = {
 		else if (args[0] == 'leave') {
 			if (client.mc) client.mc.quit();
 			await message.reply('Left Minecraft Server!');
+		}
+		else if (args[0] == 'goto') {
+			client.mc.loadPlugin(pathfinder);
+			const mcData = require('minecraft-data')(client.mc.version);
+			const defaultMove = new Movements(client.mc, mcData);
+			client.mc.pathfinder.setMovements(defaultMove);
+			client.mc.pathfinder.setGoal(new GoalNear(args[1], args[2], args[3], 1));
 		}
 	},
 };
