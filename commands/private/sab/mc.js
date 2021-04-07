@@ -87,5 +87,14 @@ module.exports = {
 			client.mc.pathfinder.setGoal(new GoalNear(playerX, playerY, playerZ, 1));
 			await message.reply(`Going to ${playerX} ${playerY} ${playerZ}...`);
 		}
+		else if (args[0] == 'mount') {
+			const entity = client.mc.nearestEntity((e) => { return e.type === 'object'; });
+			if (entity) {
+				client.mc.mount(entity);
+			}
+			else {
+				client.mc.chat('no nearby objects');
+			}
+		}
 	},
 };
