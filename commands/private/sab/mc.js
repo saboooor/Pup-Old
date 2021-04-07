@@ -12,8 +12,10 @@ module.exports = {
 	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		if (args[0] == 'join') {
-			if (client.mc) client.mc.quit();
-			if (client.mc) client.mc.viewer.close();
+			if (client.mc) {
+				client.mc.quit();
+				if (client.mc.viewer) client.mc.viewer.close();
+			}
 			client.mc = mineflayer.createBot({
 				host: args[1],
 				port: 25565,
