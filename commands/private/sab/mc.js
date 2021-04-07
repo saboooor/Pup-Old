@@ -9,6 +9,7 @@ module.exports = {
 	argamt: 2,
 	usage: '<join/leave> <Server IP>',
 	async execute(message, args, client, Client, Discord) {
+		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		if (args[0] == 'join') {
 			const mcclient = await mc.createClient({
 				host: args[1],
