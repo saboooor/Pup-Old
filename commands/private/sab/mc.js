@@ -4,6 +4,7 @@ function sleep(ms) {
 const mineflayer = require('mineflayer');
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
 const { pathfinder, Movements, goals: { GoalNear } } = require('mineflayer-pathfinder');
+const collectBlock = require('mineflayer-collectblock').plugin;
 module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
@@ -26,8 +27,10 @@ module.exports = {
 			await message.reply('Joined Minecraft Server!\nCheck out https://pupmap.hoglin.org to see what the client is seeing');
 			client.mc.once('spawn', () => {
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
+				mineflayerViewer(client.mc, { port: 40498, firstPerson: true });
 				client.mc.loadPlugin(pathfinder);
-				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
+				client.mc.loadPlugin(collectBlock);
+				client.mc.chat('Connected with Pup on Discord. Check out http://elktail.birdflop.com:40498 to see what I\'m seeing!');
 				client.mc.chatAddPattern(
 					/(.+)/,
 					'everything',
@@ -99,8 +102,41 @@ module.exports = {
 				client.mc.mount(entity);
 			}
 			else {
-				client.mc.chat('no nearby objects');
+				message.reply('No nearby vehicles');
 			}
+		}
+		else if (args[0] == 'break') {
+			if (!client.mc) return message.reply('Join a server first!');
+			if (!args[2]) return message.reply('-mc break <Amount> <Block>');
+			const mcData = require('minecraft-data')(client.mc.version);
+			const count = parseInt(args[1]);
+			const type = args[2];
+			const blockType = mcData.blocksByName[type];
+			if (!blockType) {
+				return message.reply(`Can't find any ${type}`);
+			}
+			const blocks = client.mc.findBlocks({
+				matching: blockType.id,
+				maxDistance: 64,
+				count: count,
+			});
+			if (blocks.length === 0) {
+				return message.reply(`Can't find any ${type}`);
+			}
+			const targets = [];
+			for (let i = 0; i < Math.min(blocks.length, count); i++) {
+				targets.push(client.mc.blockAt(blocks[i]));
+			}
+			client.mc.chat(`Found ${targets.length} ${type}(s)`);
+			client.mc.collectBlock.collect(targets, err => {
+				if (err) {
+					client.mc.chat(err.message);
+					console.log(err);
+				}
+				else {
+					client.mc.chat(`I just broke ${count} ${type}!`);
+				}
+			});
 		}
 	},
 };
