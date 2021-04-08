@@ -16,7 +16,7 @@ module.exports = {
 		if (srvconfig.tickets == 'false') return message.reply('Tickets are disabled!');
 		if (!message.channel.topic.includes('Ticket Opened by')) return message.reply('This is not a valid ticket!');
 		if (message.channel.name.includes('closed-')) return message.reply('This ticket is already closed!');
-		if (client.tickets.get(message.channel.id).users.includes(message.author)) {
+		if (client.tickets.get(message.channel.id).users.includes(message.author.id)) {
 			if (message.author.id != client.tickets.get(message.channel.id).opener) return message.reply('You can\'t close this ticket!');
 		}
 		message.channel.setName(message.channel.name.replace('ticket', 'closed'));
