@@ -9,7 +9,7 @@ module.exports = {
 	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		client.guilds.cache.forEach(guild => {
-			if (client.userdata.get(guild.owner.id, "unsubbed") == 'true') return;
+			if (client.userdata.get(guild.owner.id, 'unsubbed') == 'true') return;
 			if (client.guilds.cache.get('811354612547190794').members.cache.has(guild.owner.id)) return;
 			guild.owner.send(`**PUP BROADCAST**
 ${args.join(' ')}
