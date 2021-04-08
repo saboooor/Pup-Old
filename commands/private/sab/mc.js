@@ -27,13 +27,12 @@ module.exports = {
 			await message.reply('Joined Minecraft Server!\nCheck out https://pupmap.hoglin.org to see what the client is seeing');
 			client.mc.once('spawn', () => {
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
-				inventoryViewer(client.mc, { port: 40401 });
+				client.mc.loadPlugin(pathfinder);
 				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
 				client.mc.chatAddPattern(
 					/(.+)/,
 					'everything',
 				);
-				client.mc.loadPlugin(pathfinder);
 			});
 			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg);
@@ -103,10 +102,6 @@ module.exports = {
 			else {
 				client.mc.chat('no nearby objects');
 			}
-		}
-		else if (args[0] == 'inv') {
-			if (!client.mc) return message.reply('Join a server first!');
-			message.reply('http://elktail.birdflop.com:40401');
 		}
 	},
 };
