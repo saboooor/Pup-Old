@@ -42,8 +42,8 @@ module.exports = {
 				if (['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => chatmsg.toLowerCase().includes(word))) {
 					client.mc.chat('simp');
 				}
-				if (chatmsg.startsWith('[+]')) client.mc.chat('wb');
-				if (chatmsg.startsWith('[-]')) client.mc.chat('k bye ig smh');
+				if (chatmsg.startsWith('[+]')) client.mc.chat(`wb ${chatmsg.replace('[+] ', '')}`);
+				if (chatmsg.startsWith('[-]')) client.mc.chat(`k bye ${chatmsg.replace('[-] ', '')} smh`);
 				if (chatmsg.startsWith('Welcome')) client.mc.chat('Welcome!');
 			});
 		}
