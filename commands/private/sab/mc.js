@@ -38,6 +38,13 @@ module.exports = {
 			});
 			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg);
+				if (chatmsg.includes('[Helper] sab')) return;
+				if (['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => chatmsg.toLowerCase().includes(word))) {
+					client.mc.chat('simp');
+				}
+				if (chatmsg.startsWith('[+]')) client.mc.chat('wb');
+				if (chatmsg.startsWith('[-]')) client.mc.chat('k bye ig smh');
+				if (chatmsg.startsWith('Welcome')) client.mc.chat('Welcome!');
 			});
 		}
 		else if (args[0] == 'chat') {
