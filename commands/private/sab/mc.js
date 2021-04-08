@@ -4,6 +4,7 @@ function sleep(ms) {
 const mineflayer = require('mineflayer');
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
 const { pathfinder, Movements, goals: { GoalNear } } = require('mineflayer-pathfinder');
+const inventoryViewer = require('mineflayer-web-inventory');
 module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
@@ -25,8 +26,9 @@ module.exports = {
 			});
 			await message.reply('Joined Minecraft Server!\nCheck out https://pupmap.hoglin.org to see what the client is seeing');
 			client.mc.once('spawn', () => {
-				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
+				inventoryViewer(client.mc, { port: 40401 });
+				client.mc.chat('Connected with Pup on Discord. Check out https://pupmap.hoglin.org to see what I\'m seeing!');
 				client.mc.chatAddPattern(
 					/(.+)/,
 					'everything',
@@ -38,15 +40,18 @@ module.exports = {
 			});
 		}
 		else if (args[0] == 'chat') {
+			if (!client.mc) return message.reply('Join a server first!');
 			if (!args[1]) return message.reply('-mc chat <Message>');
 			await client.mc.chat(args.join(' ').replace(args[0] + ' ', ''));
 			await message.reply('Sent chat!');
 		}
 		else if (args[0] == 'leave') {
-			if (client.mc) client.mc.quit();
+			if (!client.mc) return message.reply('Join a server first!');
+			client.mc.quit();
 			await message.reply('Left Minecraft Server!');
 		}
 		else if (args[0] == 'coord') {
+			if (!client.mc) return message.reply('Join a server first!');
 			if (!args[3]) return message.reply('-mc coord <x> <y> <z>');
 			const mcData = require('minecraft-data')(client.mc.version);
 			const defaultMove = new Movements(client.mc, mcData);
@@ -55,6 +60,7 @@ module.exports = {
 			await message.reply(`Going to ${args[1]} ${args[2]} ${args[3]}...`);
 		}
 		else if (args[0] == 'move') {
+			if (!client.mc) return message.reply('Join a server first!');
 			if (!args[2]) return message.reply('-mc move <x/y/z> <Coordinate>');
 			const mcData = require('minecraft-data')(client.mc.version);
 			const defaultMove = new Movements(client.mc, mcData);
@@ -74,6 +80,7 @@ module.exports = {
 			}
 		}
 		else if (args[0] == 'goto') {
+			if (!client.mc) return message.reply('Join a server first!');
 			if (!args[1]) return message.reply('-mc goto <Player>');
 			const target = client.mc.players[args[1]].entity;
 			if (!target) {
@@ -88,6 +95,7 @@ module.exports = {
 			await message.reply(`Going to ${playerX} ${playerY} ${playerZ}...`);
 		}
 		else if (args[0] == 'mount') {
+			if (!client.mc) return message.reply('Join a server first!');
 			const entity = client.mc.nearestEntity((e) => { return e.type === 'object'; });
 			if (entity) {
 				client.mc.mount(entity);
@@ -95,6 +103,10 @@ module.exports = {
 			else {
 				client.mc.chat('no nearby objects');
 			}
+		}
+		else if (args[0] == 'inv') {
+			if (!client.mc) return message.reply('Join a server first!');
+			message.reply('http://elktail.birdflop.com:40401');
 		}
 	},
 };

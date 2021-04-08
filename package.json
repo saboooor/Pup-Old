@@ -19,6 +19,7 @@
     "fs": "0.0.1-security",
     "mineflayer": "^3.6.0",
     "mineflayer-pathfinder": "^1.6.1",
+    "mineflayer-web-inventory": "^1.4.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "node-cron": "^3.0.0",
