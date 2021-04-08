@@ -4,7 +4,6 @@ function sleep(ms) {
 const mineflayer = require('mineflayer');
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
 const { pathfinder, Movements, goals: { GoalNear } } = require('mineflayer-pathfinder');
-const inventoryViewer = require('mineflayer-web-inventory');
 module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
