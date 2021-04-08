@@ -10,6 +10,14 @@ module.exports = {
 	guildOnly: true,
 	permissions: 'ADMINISTRATOR',
 	async execute(interaction, args, client, Client, Discord) {
+		return client.api.interactions(interaction.id, interaction.token).callback.post({
+			data: {
+				type: 4,
+				data: {
+					content: 'Slash commands for tickets are currently disabled for now, please use the old commands',
+				},
+			},
+		});
 		if (client.settings.get(interaction.guild_id).tickets == 'false') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {

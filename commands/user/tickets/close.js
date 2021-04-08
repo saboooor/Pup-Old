@@ -30,7 +30,7 @@ module.exports = {
 			.setColor(15105570)
 			.setDescription(`Ticket Closed by ${message.author.username}`);
 		message.channel.send(Embed);
-		Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete\``);
+		Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open\` \`/open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete\` \`/delete\``);
 		const msg = await message.channel.send(Embed);
 		msg.react('🔓');
 		msg.react('⛔');

@@ -9,6 +9,14 @@ module.exports = {
 	description: 'Mark a ticket as resolved (Deletes ticket at 12AM ET)',
 	aliases: ['resolve'],
 	async execute(interaction, args, client, Client, Discord) {
+		return client.api.interactions(interaction.id, interaction.token).callback.post({
+			data: {
+				type: 4,
+				data: {
+					content: 'Slash commands for tickets are currently disabled for now, please use the old commands',
+				},
+			},
+		});
 		const srvconfig = client.settings.get(interaction.guild_id);
 		if (srvconfig.tickets == 'false') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({

@@ -57,7 +57,7 @@ module.exports = {
 			.setColor(3447003)
 			.setTitle('Ticket Created')
 			.setDescription('Please explain your issue and we\'ll be with you shortly.')
-			.setFooter(`To close this ticket do ${srvconfig.prefix}close or react with 🔒`);
+			.setFooter(`To close this ticket do ${srvconfig.prefix}close, /close or react with 🔒`);
 		if (args) Embed.addField('Description', args.join(' '));
 		const embed = await ticket.send(`${message.author}`, Embed);
 		embed.react('🔒');
