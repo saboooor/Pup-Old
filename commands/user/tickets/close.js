@@ -14,16 +14,21 @@ module.exports = {
 		}
 		const srvconfig = client.settings.get(message.guild.id);
 		if (srvconfig.tickets == 'false') return message.reply('Tickets are disabled!');
-		const user = await client.users.cache.find(u => message.channel.topic.includes(u.id));
-		if (!user) return message.reply('This is not a valid ticket!');
+		if (!message.channel.topic.includes('Ticket Opened by')) return message.reply('This is not a valid ticket!');
 		if (message.channel.name.includes('closed-')) return message.reply('This ticket is already closed!');
+		if (client.tickets.get(message.channel.id).users.includes(message.author)) {
+			if (message.author.id != client.tickets.get(message.channel.id).opener) return message.reply('You can\'t close this ticket!');
+		}
 		message.channel.setName(message.channel.name.replace('ticket', 'closed'));
 		await sleep(1000);
 		if (message.channel.name.includes('ticket-')) return message.channel.send('Failed to close ticket, please try again in 10 minutes');
-		message.channel.updateOverwrite(user, { VIEW_CHANNEL: false });
+		client.tickets.set(message.channel.id, 'false', 'resolved');
+		client.tickets.get(message.channel.id).users.forEach(userid => {
+			message.channel.updateOverwrite(client.users.cache.get(userid), { VIEW_CHANNEL: false });
+		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`Ticket Closed by ${message.author.username}\nMake sure to remove people from this ticket with ${srvconfig.prefix}remove if you've added them with ${srvconfig.prefix}add!`);
+			.setDescription(`Ticket Closed by ${message.author.username}`);
 		message.channel.send(Embed);
 		Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete\``);
 		const msg = await message.channel.send(Embed);

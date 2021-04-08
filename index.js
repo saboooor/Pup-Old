@@ -86,6 +86,16 @@ client.userdata = new Enmap({
 		unsubbed: 'false',
 	},
 });
+client.tickets = new Enmap({
+	name: 'tickets',
+	autoFetch: true,
+	fetchAll: false,
+	autoEnsure: {
+		opener: null,
+		resolved: 'false',
+		users: [],
+	},
+});
 
 client.ws.on('INTERACTION_CREATE', async interaction => {
 	const command = client.slashcommands.get(interaction.data.name.toLowerCase());
@@ -344,9 +354,9 @@ client.on('message', message => {
 	if (message.channel.type == 'dm' || message.content.startsWith(client.settings.get(message.guild.id).prefix) || message.author.bot) return;
 	const srvconfig = client.settings.get(message.guild.id);
 	if (message.channel.name.includes('ticket-')) {
-		if (!message.channel.topic) return;
-		if (!message.channel.topic.includes('Ticket marked as resolved.')) return;
-		message.channel.setTopic(message.channel.topic.replace(/ Ticket marked as resolved./g, ''));
+		if (!message.channel.topic.includes('Ticket Opened by')) return;
+		if (client.tickets.get(message.channel.id).resolved != 'true') return;
+		client.tickets.set(message.channel.id, 'false', 'resolved');
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 		console.log(`[${time} INFO]: Unmarked ticket #${message.channel.name} as resolved`);
@@ -420,15 +430,17 @@ const cron = require('node-cron');
 
 cron.schedule('0 0 * * *', () => {
 	client.channels.cache.forEach(async channel => {
-		if (channel.topic.includes('Ticket marked as resolved.') && channel.name.includes('ticket-')) {
-			channel.setTopic(channel.topic.replace(/ Ticket marked as resolved./g, ''));
-			const user = await client.users.cache.find(u => channel.topic.includes(u.id));
+		if (client.tickets.get(channel.id).resolved == 'true' && channel.name.includes('ticket-')) {
 			channel.setName(channel.name.replace('ticket', 'closed'));
+			await sleep(1000);
 			if (channel.name.includes('ticket-')) return channel.send('Failed to close ticket, please try again in 10 minutes');
-			channel.updateOverwrite(user, { VIEW_CHANNEL: false });
+			client.tickets.set(channel.id, 'false', 'resolved');
+			client.tickets.get(channel.id).users.forEach(userid => {
+				channel.updateOverwrite(client.users.cache.get(userid), { VIEW_CHANNEL: false });
+			});
 			const Embed = new Discord.MessageEmbed()
 				.setColor(15105570)
-				.setDescription('Ticket Closed automatically\nMake sure to remove people from this ticket with /remove if you\'ve added them with /add!');
+				.setDescription('Ticket Closed automatically');
 			channel.send(Embed);
 			Embed.setColor(3447003).setDescription('🔓 Reopen Ticket `/open`\n⛔ Delete Ticket `/delete`');
 			const msg = await channel.send(Embed);
@@ -437,7 +449,6 @@ cron.schedule('0 0 * * *', () => {
 			const rn = new Date();
 			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
 			console.log(`[${time} INFO]: Closed resolved ticket #${channel.name}`);
-			channel.delete();
 		}
 	});
 });
