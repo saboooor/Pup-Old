@@ -42,8 +42,16 @@ module.exports = {
 				if (['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => chatmsg.toLowerCase().includes(word))) {
 					client.mc.chat('simp');
 				}
-				if (chatmsg.startsWith('[+]')) client.mc.chat(`wb ${chatmsg.split('] ')[2]}`);
-				if (chatmsg.startsWith('[-]')) client.mc.chat(`k bye ${chatmsg.split('] ')[2]} smh`);
+				if (chatmsg.startsWith('[+]')) {
+					const msgs = ['wb', `wb ${chatmsg.split('] ')[2]}`, `we meet again, ${chatmsg.split('] ')[2]}`, `hello again, ${chatmsg.split('] ')[2]}`, `hi ${chatmsg.split('] ')[2]} :)`, 'WB!!'];
+					const random = Math.round(Math.random() * 6);
+					client.mc.chat(msgs[random]);
+				}
+				if (chatmsg.startsWith('[-]')) {
+					const msgs = ['bruh why u leave :(', `k bye ${chatmsg.split('] ')[2]} smh`, `cya ${chatmsg.split('] ')[2]} o/`, `byebye ${chatmsg.split('] ')[2]}`, `join back ${chatmsg.split('] ')[2]} i miss u :(`, 'oh ok bye'];
+					const random = Math.round(Math.random() * 6);
+					client.mc.chat(msgs[random]);
+				}
 				if (chatmsg.startsWith('Welcome')) client.mc.chat('Welcome!');
 			});
 		}
