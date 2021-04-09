@@ -15,7 +15,7 @@ module.exports = {
 		}
 		const srvconfig = client.settings.get(message.guild.id);
 		if (srvconfig.tickets == 'false') return message.reply('Tickets are disabled!');
-		const parent = message.guild.channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
+		let parent = message.guild.channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
 		const role = message.guild.roles.cache.find(r => r.name.toLowerCase().includes('staff'));
 		const channel = message.guild.channels.cache.find(c => c.name.toLowerCase() == `ticket-${message.author.username.toLowerCase().replace(' ', '-')}`);
 		if (channel) {
@@ -25,7 +25,7 @@ module.exports = {
 			await msg.delete();
 			return;
 		}
-		if (!parent) return message.reply('You need to create a category with the word "tickets" in it!');
+		if (!parent) parent = { id: null };
 		if (!role) return message.reply('You need to create a role with the word "staff" in it!');
 		const ticket = await message.guild.channels.create(`ticket-${message.author.username.toLowerCase().replace(' ', '-')}`, {
 			type: 'text',

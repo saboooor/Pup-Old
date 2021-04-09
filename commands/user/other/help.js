@@ -148,7 +148,7 @@ Walks you through how to setup support tickets in your guild
 		}
 		else if (arg == 'support') {
 			Embed.setDescription(`**How to create support tickets:**
-1. Create a channel category that contains the word "tickets"
+1. Create a channel category that contains the word "tickets" (Optional)
 2. Create a role that contains the word "staff"
 3. Execute \`${srvconfig.prefix}help supportpanel\` in your support channel
 4. You're done!`);

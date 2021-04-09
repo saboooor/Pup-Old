@@ -26,7 +26,7 @@ module.exports = {
 				},
 			});
 		}
-		const parent = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
+		let parent = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
 		const role = client.guilds.cache.get(interaction.guild_id).roles.cache.find(r => r.name.toLowerCase().includes('staff'));
 		const channel = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase() == `ticket-${interaction.member.user.username.toLowerCase().replace(' ', '-')}`);
 		if (channel) {
@@ -52,17 +52,7 @@ module.exports = {
 				},
 			});
 		}
-		if (!parent) {
-			return client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: 'You need to create a category with the word "tickets" in it!',
-						flags: 64,
-					},
-				},
-			});
-		}
+		if (!parent) parent = { id: null };
 		const ticket = await client.guilds.cache.get(interaction.guild_id).channels.create(`ticket-${interaction.member.user.username.toLowerCase().replace(' ', '-')}`, {
 			type: 'text',
 			parent: parent.id,
