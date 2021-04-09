@@ -1,12 +1,11 @@
-function sleep(ms) {
-	return new Promise(res => setTimeout(res, ms));
-}
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
 module.exports = {
 	name: 'delete',
 	description: 'Delete a ticket',
+	guildOnly: true,
+	permissions: 'ADMINISTRATOR',
 	async execute(message, args, client, Client, Discord, reaction) {
 		if (reaction) {
 			if (message.author.id != client.user.id) return;
@@ -16,7 +15,6 @@ module.exports = {
 		if (!message.channel.topic.includes('Ticket Opened by')) return message.reply('This is not a valid ticket!');
 		if (message.channel.name.includes('ticket-')) return message.reply('This ticket needs to be closed first!');
 		message.channel.send('Deleting Ticket...');
-		await sleep(1000);
 		client.tickets.delete(message.channel.id);
 		message.channel.delete();
 		const rn = new Date();

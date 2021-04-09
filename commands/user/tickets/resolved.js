@@ -1,6 +1,3 @@
-function sleep(ms) {
-	return new Promise(res => setTimeout(res, ms));
-}
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
