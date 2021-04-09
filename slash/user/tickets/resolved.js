@@ -16,6 +16,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'Tickets are disabled!',
+						flags: 64,
 					},
 				},
 			});
@@ -26,6 +27,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This is not a valid ticket!',
+						flags: 64,
 					},
 				},
 			});
@@ -36,6 +38,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'You cannot resolve this ticket! Try closing the ticket instead',
+						flags: 64,
 					},
 				},
 			});
@@ -46,6 +49,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This ticket is already closed!',
+						flags: 64,
 					},
 				},
 			});
@@ -56,6 +60,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This ticket is already marked as resolved!',
+						flags: 64,
 					},
 				},
 			});
