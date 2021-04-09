@@ -104,6 +104,7 @@ module.exports = {
 				maxppsize: '*Maximum pp size in pp and instapp commands*',
 				tickets: '*Enables tickets (true/false)*',
 				bonercmd: '*Toggles boner command (true/false)*',
+				ticketlogchannel: '*The channel where the bot puts transcripts of tickets\nCan be either false or the channel ID*',
 			};
 			const srvconfig = Object.keys(client.settings.get(interaction.guild_id)).map(prop => {
 				return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(interaction.guild_id)[prop]}\``;

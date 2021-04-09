@@ -1,9 +1,6 @@
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
-function sleep(ms) {
-	return new Promise(res => setTimeout(res, ms));
-}
 module.exports = {
 	name: 'clear',
 	description: 'Delete multiple messages at once.',

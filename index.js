@@ -73,6 +73,7 @@ client.settings = new Enmap({
 		maxppsize: '35',
 		tickets: 'true',
 		bonercmd: 'true',
+		ticketlogchannel: 'false',
 	},
 });
 client.on('guildDelete', guild => {
