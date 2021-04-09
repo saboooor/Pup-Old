@@ -1,7 +1,9 @@
 {
-    "token": "[Put the bot's token here]",
-    "prefix": "[Put the default prefix here]",
-    "panelapikey": "[Put the API key of the Pterodactyl panel here]",
-    "yes": "[Put the emoji ID for yes here]",
-    "no": "[Put the emoji ID for no here]"
+    "token": "BOT_TOKEN",
+    "panelapikey": "PTERODACTYL_PANEL_TOKEN",
+    "yes": "EMOJI_ID_YES",
+    "no": "EMOJI_ID_NO",
+    "clientemail": "MINECRAFT_EMAIL",
+    "clientpassword": "MINECRAFT_PASSWORD",
+    "prefix": "-"
 }
