@@ -30,7 +30,7 @@ module.exports = {
 		const ticket = await message.guild.channels.create(`ticket-${message.author.username.toLowerCase().replace(' ', '-')}`, {
 			type: 'text',
 			parent: parent.id,
-			topic: `Ticket Opened by ${message.author.tag} ID: ${message.author.id}`,
+			topic: `Ticket Opened by ${message.author.tag}`,
 			permissionOverwrites: [
 				{
 					id: message.guild.id,
@@ -46,6 +46,8 @@ module.exports = {
 				},
 			],
 		}).catch(console.error);
+		client.tickets.set(ticket.id, message.author.id, 'opener');
+		client.tickets.push(ticket.id, message.author.id, 'users');
 		const msg = await message.reply(`Ticket created at ${ticket}!`);
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
@@ -55,11 +57,11 @@ module.exports = {
 			.setColor(3447003)
 			.setTitle('Ticket Created')
 			.setDescription('Please explain your issue and we\'ll be with you shortly.')
-			.setFooter(`To close this ticket do ${srvconfig.prefix}close or react with 🔒`);
+			.setFooter(`To close this ticket do ${srvconfig.prefix}close, /close or react with 🔒`);
 		if (args) Embed.addField('Description', args.join(' '));
 		const embed = await ticket.send(`${message.author}`, Embed);
 		embed.react('🔒');
-		const ping = await ticket.send('@everyone');
+		const ping = await ticket.send('@.everyone');
 		await ping.delete();
 		await sleep(4000);
 		await msg.delete();
