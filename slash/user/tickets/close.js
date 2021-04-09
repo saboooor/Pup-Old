@@ -21,6 +21,17 @@ module.exports = {
 				},
 			});
 		}
+		if (!client.channels.cache.get(interaction.channel_id).topic) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'This is not a valid ticket!',
+						flags: 64,
+					},
+				},
+			});
+		}
 		if (!client.channels.cache.get(interaction.channel_id).topic.includes('Ticket Opened by')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {

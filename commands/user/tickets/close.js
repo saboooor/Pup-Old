@@ -14,6 +14,7 @@ module.exports = {
 		}
 		const srvconfig = client.settings.get(message.guild.id);
 		if (srvconfig.tickets == 'false') return message.reply('Tickets are disabled!');
+		if (!message.channel.topic) return message.reply('This is not a valid ticket!');
 		if (!message.channel.topic.includes('Ticket Opened by')) return message.reply('This is not a valid ticket!');
 		if (message.channel.name.includes('closed-')) return message.reply('This ticket is already closed!');
 		if (client.tickets.get(message.channel.id).users.includes(message.author.id)) {
