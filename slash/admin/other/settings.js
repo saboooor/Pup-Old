@@ -38,6 +38,10 @@ module.exports = {
 		{
 			name: 'bonercmd',
 			value: 'bonercmd',
+		},
+		{
+			name: 'ticketlogchannel',
+			value: 'ticketlogchannel',
 		}],
 	},
 	{
