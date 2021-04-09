@@ -59,6 +59,7 @@ module.exports = {
 							type: 4,
 							data: {
 								content: 'You can only set maxppsize as less than 76!',
+								flags: 64,
 							},
 						},
 					});
@@ -71,6 +72,7 @@ module.exports = {
 							type: 4,
 							data: {
 								content: 'You can only set this as true or false!',
+								flags: 64,
 							},
 						},
 					});
@@ -84,6 +86,7 @@ module.exports = {
 						type: 4,
 						data: {
 							content: 'Invalid setting!',
+							flags: 64,
 						},
 					},
 				});
@@ -112,6 +115,7 @@ module.exports = {
 				type: 4,
 				data: {
 					embeds: [Embed],
+					flags: 64,
 				},
 			},
 		});

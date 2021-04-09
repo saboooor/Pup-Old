@@ -28,6 +28,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'You can\'t do that! Your role is lower than the user\'s role!',
+						flags: 64,
 					},
 				},
 			});

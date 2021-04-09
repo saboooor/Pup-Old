@@ -171,6 +171,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'Invalid Message ID or Emoji! Try using a universal emoji or an emoji from this guild',
+						flags: 64,
 					},
 				},
 			});
@@ -181,12 +182,9 @@ module.exports = {
 				type: 4,
 				data: {
 					content: 'Reacted!',
+					flags: 64,
 				},
 			},
 		});
-		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
-		const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
-		await sleep(4000);
-		pp.delete();
 	},
 };

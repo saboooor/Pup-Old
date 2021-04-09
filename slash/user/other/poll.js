@@ -148,6 +148,7 @@ module.exports = {
 						type: 4,
 						data: {
 							content: `**Poll created! Check <#${channel.id}>**`,
+							flags: 64,
 						},
 					},
 				});
@@ -174,6 +175,7 @@ module.exports = {
 						type: 4,
 						data: {
 							content: 'You need to pick at least one option!',
+							flags: 64,
 						},
 					},
 				});
@@ -206,6 +208,7 @@ module.exports = {
 						type: 4,
 						data: {
 							content: `**Poll created! Check <#${channel.id}>**`,
+							flags: 64,
 						},
 					},
 				}).catch(error => {return;});

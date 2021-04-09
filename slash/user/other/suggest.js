@@ -26,6 +26,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: `**Suggestion created! Check <#${channel.id}>**`,
+						flags: 64,
 					},
 				},
 			});

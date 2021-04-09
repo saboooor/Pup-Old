@@ -17,6 +17,7 @@ module.exports = {
 						type: 4,
 						data: {
 							content: 'This command is disabled!',
+							flags: 64,
 						},
 					},
 				});

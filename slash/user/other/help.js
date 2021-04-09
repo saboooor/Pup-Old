@@ -178,7 +178,7 @@ Walks you through how to setup support tickets in your guild
 		else if (arg == 'supportpanel') {
 			if (!interaction.guild_id) return;
 			if (!client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.member.user.id).hasPermission('ADMINISTRATOR')) return;
-			Embed.setDescription('Created support panel! You may now delete this message, otherwise it\'ll be deleted in 10 seconds');
+			Embed.setDescription('Created support panel!');
 			const Panel = new Discord.MessageEmbed()
 				.setColor(3447003)
 				.setTitle('Need help? No problem!')
@@ -192,12 +192,9 @@ Walks you through how to setup support tickets in your guild
 				type: 4,
 				data: {
 					embeds: [Embed],
+					flags: 64,
 				},
 			},
 		});
-		const msg = await client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({ data: {} });
-		const pp = new Discord.Message(client, msg, client.channels.cache.get(msg.channel_id));
-		await sleep(10000);
-		pp.delete();
 	},
 };
