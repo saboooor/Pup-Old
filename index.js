@@ -355,6 +355,7 @@ client.on('message', message => {
 	if (message.channel.type == 'dm' || message.content.startsWith(client.settings.get(message.guild.id).prefix) || message.author.bot) return;
 	const srvconfig = client.settings.get(message.guild.id);
 	if (message.channel.name.includes('ticket-')) {
+		if (!message.channel.topic) return;
 		if (!message.channel.topic.includes('Ticket Opened by')) return;
 		if (client.tickets.get(message.channel.id).resolved != 'true') return;
 		client.tickets.set(message.channel.id, 'false', 'resolved');
