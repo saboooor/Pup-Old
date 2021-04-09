@@ -13,6 +13,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'Tickets are disabled!',
+						flags: 64,
 					},
 				},
 			});
@@ -34,6 +35,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This ticket needs to be closed first!',
+						flags: 64,
 					},
 				},
 			});
@@ -43,6 +45,7 @@ module.exports = {
 				type: 4,
 				data: {
 					content: 'Deleting ticket...',
+					flags: 64,
 				},
 			},
 		});
