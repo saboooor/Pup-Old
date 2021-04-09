@@ -18,6 +18,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'Tickets are disabled!',
+						flags: 64,
 					},
 				},
 			});
@@ -28,6 +29,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This is not a valid ticket!',
+						flags: 64,
 					},
 				},
 			});
@@ -38,6 +40,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This ticket is closed!',
+						flags: 64,
 					},
 				},
 			});
@@ -49,6 +52,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This user has already been added!',
+						flags: 64,
 					},
 				},
 			});
