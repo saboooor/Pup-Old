@@ -12,6 +12,7 @@ module.exports = {
 				type: 4,
 				data: {
 					embeds: [Embed],
+					content: 'Pong!',
 					flags: 64,
 				},
 			},
