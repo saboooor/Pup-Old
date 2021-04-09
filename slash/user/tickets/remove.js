@@ -46,7 +46,7 @@ module.exports = {
 			});
 		}
 		const user = client.users.cache.get(args[0].value);
-		if (client.tickets.get(interaction.channel_id).users.includes(user.id)) {
+		if (!client.tickets.get(interaction.channel_id).users.includes(user.id)) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
