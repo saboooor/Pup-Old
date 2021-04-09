@@ -192,7 +192,6 @@ Walks you through how to setup support tickets in your guild
 				type: 4,
 				data: {
 					embeds: [Embed],
-					flags: 64,
 				},
 			},
 		});
