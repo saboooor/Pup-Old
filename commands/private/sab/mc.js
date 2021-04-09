@@ -86,11 +86,11 @@ module.exports = {
 		else if (args[0] == 'goto') {
 			if (!client.mc) return message.reply('Join a server first!');
 			if (!args[1]) return message.reply('-mc goto <Player>');
-			const target = client.mc.players[args[1]].entity;
-			if (!target) {
+			if (!client.mc.players[args[1]]) {
 				client.mc.chat(`/tpa ${args[1]}`);
 				return message.reply(`Sent TPA request to ${args[1]}`);
 			}
+			const target = client.mc.players[args[1]].entity;
 			const { x: playerX, y: playerY, z: playerZ } = target.position;
 			const mcData = require('minecraft-data')(client.mc.version);
 			const defaultMove = new Movements(client.mc, mcData);
