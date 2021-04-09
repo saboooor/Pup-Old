@@ -9,7 +9,7 @@ module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
 	args: true,
-	usage: '<join/leave/chat/goto/move>',
+	usage: '<join/leave/chat/goto/move/mount/break/server>',
 	async execute(message, args, client, Client, Discord) {
 		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
 		if (args[0] == 'join') {
@@ -27,14 +27,13 @@ module.exports = {
 			await message.reply('Joined Minecraft Server!\nCheck out https://pupmap.hoglin.org to see what the client is seeing');
 			client.mc.once('spawn', () => {
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
-				mineflayerViewer(client.mc, { port: 40498, firstPerson: true });
 				client.mc.loadPlugin(pathfinder);
 				client.mc.loadPlugin(collectBlock);
-				client.mc.chat('Connected with Pup on Discord. Check out http://elktail.birdflop.com:40498 to see what I\'m seeing!');
 				client.mc.chatAddPattern(
 					/(.+)/,
 					'everything',
 				);
+				client.mc.chat('Connected with Pup on Discord. Check out http://elktail.birdflop.com:40033 to see what I\'m seeing!');
 			});
 			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg);
@@ -141,6 +140,9 @@ module.exports = {
 					client.mc.chat(`I just broke ${count} ${type}!`);
 				}
 			});
+		}
+		else if (args[0] == 'server') {
+			if (!args[1]) return message.reply('-mc server <start>');
 		}
 	},
 };
