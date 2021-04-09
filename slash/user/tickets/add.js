@@ -57,7 +57,7 @@ module.exports = {
 		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: true });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`${client.users.cache.find(interaction.member.user.id)} added ${user} to the ticket`);
+			.setDescription(`${client.users.cache.get(interaction.member.user.id)} added ${user} to the ticket`);
 		client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
