@@ -82,12 +82,15 @@ module.exports = {
 			client.tickets.get(interaction.channel_id).users.forEach(userid => users.push(client.users.cache.get(userid)));
 			const Embed = new Discord.MessageEmbed()
 				.setColor(Math.floor(Math.random() * 16777215))
-				.setTitle(client.channels.cache.get(interaction.channel_id).name)
+				.setTitle(`Closed ${client.channels.cache.get(interaction.channel_id).name}`)
 				.addField('**Users in ticket**', users)
 				.addField('**Transcript**', `${link}.txt`)
 				.addField('**Closed by**', client.users.cache.get(interaction.member.user.id));
 			await client.channels.cache.get(srvconfig.ticketlogchannel).send(Embed);
 			await trans.delete();
+			const rn = new Date();
+			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+			console.log(`[${time} INFO]: Created transcript of ${client.channels.cache.get(interaction.channel_id).name}: ${link}.txt`);
 		}
 		client.channels.cache.get(interaction.channel_id).setName(client.channels.cache.get(interaction.channel_id).name.replace('ticket', 'closed'));
 		await sleep(1000);
