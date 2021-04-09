@@ -428,7 +428,7 @@ client.on('guildMemberAdd', (member) => {
 
 const cron = require('node-cron');
 
-cron.schedule('0 0 * * *', () => {
+cron.schedule('45 20 * * *', () => {
 	client.channels.cache.forEach(async channel => {
 		if (client.tickets.get(channel.id).resolved == 'true' && channel.name.includes('ticket-')) {
 			channel.setName(channel.name.replace('ticket', 'closed'));
