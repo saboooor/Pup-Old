@@ -7,17 +7,8 @@ function minTwoDigits(n) {
 module.exports = {
 	name: 'resolved',
 	description: 'Mark a ticket as resolved (Deletes ticket at 12AM ET)',
-	aliases: ['resolve'],
+	guildOnly: true,
 	async execute(interaction, args, client, Client, Discord) {
-		return client.api.interactions(interaction.id, interaction.token).callback.post({
-			data: {
-				type: 4,
-				data: {
-					content: 'Slash commands for tickets are currently disabled for now, please use the old commands',
-					flags: 64,
-				},
-			},
-		});
 		const srvconfig = client.settings.get(interaction.guild_id);
 		if (srvconfig.tickets == 'false') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
@@ -29,8 +20,7 @@ module.exports = {
 				},
 			});
 		}
-		const user = await client.users.cache.find(u => client.channels.cache.get(interaction.channel_id).topic.includes(u.id));
-		if (!user) {
+		if (!client.channels.cache.get(interaction.channel_id).topic.includes('Ticket Opened by')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -40,7 +30,7 @@ module.exports = {
 				},
 			});
 		}
-		if (user == client.users.cache.get(interaction.member.user.id)) {
+		if (client.tickets.get(interaction.channel_id).users.includes(interaction.member.user.id)) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -60,7 +50,7 @@ module.exports = {
 				},
 			});
 		}
-		if (client.channels.cache.get(interaction.channel_id).topic.includes('Ticket marked as resolved.')) {
+		if (client.tickets.get(interaction.channel_id).resolved == 'true') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -70,23 +60,14 @@ module.exports = {
 				},
 			});
 		}
-		client.channels.cache.get(interaction.channel_id).setTopic(client.channels.cache.get(interaction.channel_id).topic + ' Ticket marked as resolved.');
-		await sleep(1000);
-		if (!client.channels.cache.get(interaction.channel_id).topic.includes('Ticket marked as resolved.')) {
-			return client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: 'Failed to resolve ticket, try again in 5-10 minutes',
-					},
-				},
-			});
-		}
+		const users = [];
+		client.tickets.get(interaction.channel_id).users.forEach(userid => users.push(client.users.cache.get(userid)));
+		client.tickets.set(interaction.channel_id, 'true', 'resolved');
 		client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
 				data: {
-					content: `${user}, this ticket has been marked as resolved and will close at 12AM ET if you don't respond.\nIf you still have an issue, please explain it here. Otherwise, you can do \`/close\`, \`-close\`, or react to the original message to close the ticket now.`,
+					content: `${users}, this ticket has been marked as resolved and will close at 12AM ET if you don't respond.\nIf you still have an issue, please explain it here. Otherwise, you can do \`/close\`, \`-close\`, or react to the original message to close the ticket now.`,
 				},
 			},
 		});
