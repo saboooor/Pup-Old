@@ -9,15 +9,6 @@ module.exports = {
 	description: 'Close a ticket',
 	guildOnly: true,
 	async execute(interaction, args, client, Client, Discord) {
-		return client.api.interactions(interaction.id, interaction.token).callback.post({
-			data: {
-				type: 4,
-				data: {
-					content: 'Slash commands for tickets are currently disabled for now, please use the old commands',
-					flags: 64,
-				},
-			},
-		});
 		const srvconfig = client.settings.get(interaction.guild_id);
 		if (srvconfig.tickets == 'false') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
@@ -29,18 +20,7 @@ module.exports = {
 				},
 			});
 		}
-		if (client.channels.cache.get(interaction.channel_id).topic == null) {
-			return client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: 'This is not a valid ticket!',
-					},
-				},
-			});
-		}
-		const user = await client.users.cache.find(u => client.channels.cache.get(interaction.channel_id).topic.includes(u.id));
-		if (!user) {
+		if (!client.channels.cache.get(interaction.channel_id).topic.includes('Ticket Opened by')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -60,6 +40,18 @@ module.exports = {
 				},
 			});
 		}
+		if (client.tickets.get(interaction.channel_id).users.includes(interaction.member.user.id)) {
+			if (interaction.member.user.id != client.tickets.get(interaction.channel_id).opener) {
+				return client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							content: 'You can\'t close this ticket!',
+						},
+					},
+				});
+			}
+		}
 		client.channels.cache.get(interaction.channel_id).setName(client.channels.cache.get(interaction.channel_id).name.replace('ticket', 'closed'));
 		await sleep(1000);
 		if (client.channels.cache.get(interaction.channel_id).name.includes('ticket-')) {
@@ -67,15 +59,18 @@ module.exports = {
 				data: {
 					type: 4,
 					data: {
-						content: 'Failed to close ticket, try again in 5-10 minutes',
+						content: 'Failed to close ticket, try again in 10 minutes',
 					},
 				},
 			});
 		}
-		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: false });
+		client.tickets.set(interaction.channel_id, 'false', 'resolved');
+		client.tickets.get(interaction.channel_id).users.forEach(userid => {
+			client.channels.cache.get(interaction.channel_id).updateOverwrite(client.users.cache.get(userid), { VIEW_CHANNEL: false });
+		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`Ticket Closed by ${interaction.member.user.username}\nMake sure to remove people from this ticket with ${srvconfig.prefix}remove or /remove if you've added them with ${srvconfig.prefix}add or /add!`);
+			.setDescription(`Ticket Closed by ${client.users.cache.get(interaction.member.user.id)}`);
 		await client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
@@ -84,7 +79,7 @@ module.exports = {
 				},
 			},
 		});
-		await Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open or /open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete or /delete\``);
+		Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open or /open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete or /delete\``);
 		const msg = await client.channels.cache.get(interaction.channel_id).send(Embed);
 		msg.react('🔓');
 		msg.react('⛔');
