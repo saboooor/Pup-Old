@@ -4,6 +4,7 @@ function sleep(ms) {
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
+const hastebin = require('hastebin');
 module.exports = {
 	name: 'close',
 	description: 'Close a ticket',
@@ -66,6 +67,27 @@ module.exports = {
 					},
 				});
 			}
+		}
+		if (srvconfig.ticketlogchannel != 'false') {
+			const trans = await client.channels.cache.get(interaction.channel_id).send('Creating transcript...');
+			const messages = await client.channels.cache.get(interaction.channel_id).messages.fetch({ limit: 100 });
+			const logs = [];
+			await messages.forEach(async msg => {
+				const time = new Date(msg.createdTimestamp).toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+				logs.push(`[${time}] ${msg.author.tag}\n${msg.content}`);
+			});
+			logs.reverse();
+			const link = await hastebin.createPaste(logs.join('\n\n'), { server: 'https://bin.birdflop.com' });
+			const users = [];
+			client.tickets.get(interaction.channel_id).users.forEach(userid => users.push(client.users.cache.get(userid)));
+			const Embed = new Discord.MessageEmbed()
+				.setColor(Math.floor(Math.random() * 16777215))
+				.setTitle(client.channels.cache.get(interaction.channel_id).name)
+				.addField('**Users in ticket**', users)
+				.addField('**Transcript**', `${link}.txt`)
+				.addField('**Closed by**', client.users.cache.get(interaction.member.user.id));
+			await client.channels.cache.get(srvconfig.ticketlogchannel).send(Embed);
+			await trans.delete();
 		}
 		client.channels.cache.get(interaction.channel_id).setName(client.channels.cache.get(interaction.channel_id).name.replace('ticket', 'closed'));
 		await sleep(1000);
