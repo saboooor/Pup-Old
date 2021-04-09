@@ -15,6 +15,7 @@ module.exports = {
 				type: 4,
 				data: {
 					content: 'Slash commands for tickets are currently disabled for now, please use the old commands',
+					flags: 64,
 				},
 			},
 		});
