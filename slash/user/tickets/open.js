@@ -15,6 +15,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'Tickets are disabled!',
+						flags: 64,
 					},
 				},
 			});
@@ -25,6 +26,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This is not a valid ticket!',
+						flags: 64,
 					},
 				},
 			});
@@ -35,6 +37,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'This ticket is already opened!',
+						flags: 64,
 					},
 				},
 			});
@@ -47,6 +50,7 @@ module.exports = {
 					type: 4,
 					data: {
 						content: 'Failed to open ticket, try again in 5-10 minutes',
+						flags: 64,
 					},
 				},
 			});
