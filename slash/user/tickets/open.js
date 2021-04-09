@@ -9,15 +9,6 @@ module.exports = {
 	description: 'Repen a ticket',
 	guildOnly: true,
 	async execute(interaction, args, client, Client, Discord) {
-		return client.api.interactions(interaction.id, interaction.token).callback.post({
-			data: {
-				type: 4,
-				data: {
-					content: 'Slash commands for tickets are currently disabled for now, please use the old commands',
-					flags: 64,
-				},
-			},
-		});
 		if (client.settings.get(interaction.guild_id).tickets == 'false') {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
@@ -28,18 +19,7 @@ module.exports = {
 				},
 			});
 		}
-		if (client.channels.cache.get(interaction.channel_id).topic == null) {
-			return client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: 'This is not a valid ticket!',
-					},
-				},
-			});
-		}
-		const user = await client.users.cache.find(u => client.channels.cache.get(interaction.channel_id).topic.includes(u.id));
-		if (!user) {
+		if (!client.channels.cache.get(interaction.channel_id).topic.includes('Ticket Opened by')) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -71,10 +51,12 @@ module.exports = {
 				},
 			});
 		}
-		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: true });
+		client.tickets.get(interaction.channel_id).users.forEach(userid => {
+			client.channels.cache.get(interaction.channel_id).updateOverwrite(client.users.cache.get(userid), { VIEW_CHANNEL: true });
+		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`Ticket Opened by ${interaction.member.user.username}`);
+			.setDescription(`Ticket Opened by ${client.users.cache.get(interaction.member.user.id)}`);
 		client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
@@ -86,6 +68,6 @@ module.exports = {
 		await sleep(1000);
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-		console.log(`[${time} INFO]: Reopened ticket #${client.channels.cache.get(interaction.channel_id).name}`);
+		console.log(`[${time} INFO]: Reopened ticket #${client.tickets.get(interaction.channel_id).name}`);
 	},
 };
