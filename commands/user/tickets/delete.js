@@ -31,10 +31,10 @@ module.exports = {
 			client.tickets.get(message.channel.id).users.forEach(userid => users.push(client.users.cache.get(userid)));
 			const Embed = new Discord.MessageEmbed()
 				.setColor(Math.floor(Math.random() * 16777215))
-				.setTitle(`Closed ${message.channel.name}`)
+				.setTitle(`Deleted ${message.channel.name}`)
 				.addField('**Users in ticket**', users)
 				.addField('**Transcript**', `${link}.txt`)
-				.addField('**Closed by**', message.author);
+				.addField('**Deleted by**', message.author);
 			await client.channels.cache.get(srvconfig.ticketlogchannel).send(Embed);
 			await trans.delete();
 			const rn = new Date();
