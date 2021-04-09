@@ -24,7 +24,7 @@ module.exports = {
 		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`Ticket Opened by ${message.author.username}`);
+			.setDescription(`Ticket Opened by ${message.author}`);
 		message.channel.send(Embed);
 		await sleep(1000);
 		const rn = new Date();

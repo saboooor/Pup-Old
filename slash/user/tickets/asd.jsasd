@@ -22,7 +22,18 @@ module.exports = {
 				},
 			});
 		}
-		if (!client.channels.cache.get(interaction.channel_id).topic.includes('Ticket Opened by')) {
+		if (client.channels.cache.get(interaction.channel_id).topic == null) {
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'This is not a valid ticket!',
+					},
+				},
+			});
+		}
+		let user = await client.users.cache.find(u => client.channels.cache.get(interaction.channel_id).topic.includes(u.id));
+		if (!user) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -42,23 +53,12 @@ module.exports = {
 				},
 			});
 		}
-		const user = client.users.cache.get(args[0].value);
-		if (client.tickets.get(interaction.channel_id).users.includes(user.id)) {
-			return client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: 'This user has already been added!',
-					},
-				},
-			});
-		}
-		client.tickets.push(interaction.channel_id, user.id, 'users');
+		user = client.users.cache.get(args[0].value);
 		client.channels.cache.get(interaction.channel_id).updateOverwrite(user, { VIEW_CHANNEL: true });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`${client.users.cache.find(interaction.member.user.id)} added ${user} to the ticket`);
-		client.api.interactions(interaction.id, interaction.token).callback.post({
+			.setDescription(`${interaction.member.user.username} added ${user} to the ticket`);
+		await client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 4,
 				data: {

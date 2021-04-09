@@ -28,7 +28,7 @@ module.exports = {
 		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`Ticket Closed by ${message.author.username}`);
+			.setDescription(`Ticket Closed by ${message.author}`);
 		message.channel.send(Embed);
 		Embed.setColor(3447003).setDescription(`🔓 Reopen Ticket \`${srvconfig.prefix}open\` \`/open\`\n⛔ Delete Ticket \`${srvconfig.prefix}delete\` \`/delete\``);
 		const msg = await message.channel.send(Embed);

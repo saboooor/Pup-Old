@@ -20,7 +20,7 @@ module.exports = {
 		message.channel.updateOverwrite(user, { VIEW_CHANNEL: true });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`${message.author.username} added ${user} to the ticket`);
+			.setDescription(`${message.author} added ${user} to the ticket`);
 		message.channel.send(Embed);
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;

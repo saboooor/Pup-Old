@@ -21,7 +21,7 @@ module.exports = {
 		message.channel.updateOverwrite(user, { VIEW_CHANNEL: false });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`${message.author.username} removed ${user} from the ticket`);
+			.setDescription(`${message.author} removed ${user} from the ticket`);
 		message.channel.send(Embed);
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
