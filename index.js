@@ -435,9 +435,7 @@ cron.schedule('0 0 * * *', () => {
 			await sleep(1000);
 			if (channel.name.includes('ticket-')) return channel.send('Failed to close ticket, please try again in 10 minutes');
 			client.tickets.set(channel.id, 'false', 'resolved');
-			client.tickets.get(channel.id).users.forEach(userid => {
-				channel.updateOverwrite(client.users.cache.get(userid), { VIEW_CHANNEL: false });
-			});
+			client.tickets.get(channel.id).users.forEach(userid => channel.updateOverwrite(client.users.cache.get(userid), { VIEW_CHANNEL: false }));
 			const Embed = new Discord.MessageEmbed()
 				.setColor(15105570)
 				.setDescription('Ticket Closed automatically');
