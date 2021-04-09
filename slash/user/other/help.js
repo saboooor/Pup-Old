@@ -171,10 +171,11 @@ Walks you through how to setup support tickets in your guild
 		else if (arg == 'support') {
 			Embed.setDescription(`**How to create support tickets:**
 1. Create a channel category that contains the word "tickets" (Optional)
-2. Create a role that contains the word "staff"
-3. Execute \`/help supportpanel\` if you want to use a reaction to create a ticket
+2. Set a log channel by doing /settings ticketlogchannel <Channel ID> (Optional)
+3. Create a role that contains the word "staff"
+4. Execute \`/help supportpanel\` if you want to use a reaction to create a ticket
 Otherwise just do /ticket or /new to create a ticket
-4. You're done!`);
+5. You're done!`);
 		}
 		else if (arg == 'supportpanel') {
 			if (!interaction.guild_id) return;
