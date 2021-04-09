@@ -72,6 +72,6 @@ module.exports = {
 		await sleep(1000);
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-		console.log(`[${time} INFO]: Reopened ticket #${client.tickets.get(interaction.channel_id).name}`);
+		console.log(`[${time} INFO]: Reopened ticket #${client.channels.cache.get(interaction.channel_id).name}`);
 	},
 };
