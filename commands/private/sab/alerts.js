@@ -6,7 +6,7 @@ module.exports = {
 	description: 'Toggle the Alerts role',
 	async execute(message, args, client, Client, Discord, reaction) {
 		if (message.guild.id != '711661870926397601') return;
-		if (message.guild.id != '661736128373719141') return;
+		else if (message.guild.id != '661736128373719141') return;
 		if (reaction) {
 			if (message.author.id != client.user.id) return;
 			message.author = Client;
