@@ -389,6 +389,13 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			return;
 		}
 	}
+	if (reaction.message.channel.id == '678391804563030031') {
+		if (reaction.emoji.name == '⛔') {
+			reaction.users.remove(user.id);
+			client.commands.get('nsfw').execute(message, null, client, user, Discord, reaction);
+			return;
+		}
+	}
 	if (reaction.emoji.name == '❌') {
 		if (user.bot) return;
 		if (message.channel.type != 'dm') return;

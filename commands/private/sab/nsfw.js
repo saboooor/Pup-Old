@@ -2,18 +2,18 @@ function sleep(ms) {
 	return new Promise(res => setTimeout(res, ms));
 }
 module.exports = {
-	name: 'alerts',
-	description: 'Toggle the Alerts role',
+	name: 'nsfw',
+	description: 'Toggle the NSFW role',
 	async execute(message, args, client, Client, Discord, reaction) {
-		if (message.guild.id !== '711661870926397601' && message.guild.id !== '661736128373719141') return;
+		if (message.guild.id !== '661736128373719141') return;
 		if (reaction) {
 			message.author = Client;
 		}
 		const member = await message.guild.members.cache.find(m => m.id === message.author.id);
-		const role = await message.guild.roles.cache.find(r => r.name.toLowerCase() === 'alerts');
+		const role = await message.guild.roles.cache.find(r => r.name.toLowerCase() === 'nsfw');
 		if (!member.roles.cache.has(role.id)) {
 			await member.roles.add(role);
-			const msg = await message.channel.send(`✅ **Added Alerts Role to ${message.author}**`);
+			const msg = await message.channel.send(`✅ **Added NSFW Role to ${message.author}**`);
 			if (reaction) {
 				await sleep(1000);
 				await msg.delete();
@@ -21,7 +21,7 @@ module.exports = {
 		}
 		else {
 			await member.roles.remove(role);
-			const msg = await message.channel.send(`❌ **Removed Alerts Role from ${message.author}**`);
+			const msg = await message.channel.send(`❌ **Removed NSFW Role from ${message.author}**`);
 			if (reaction) {
 				await sleep(1000);
 				await msg.delete();
