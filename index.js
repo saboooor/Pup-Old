@@ -375,21 +375,14 @@ client.on('message', message => {
 });
 
 client.on('messageReactionAdd', async (reaction, user) => {
-	if (reaction.message.channel.id == '678391804563030031') {
-		if (reaction.emoji.name == '❗') {
-			reaction.users.remove(user.id);
-			client.commands.get('alerts').execute(message, null, client, user, Discord, reaction);
-			return;
-		}
-	}
-	else if (reaction.message.channel.id == '717262907712471080') {
-		if (reaction.emoji.name == '❗') {
-			reaction.users.remove(user.id);
-			client.commands.get('alerts').execute(message, null, client, user, Discord, reaction);
-			return;
-		}
-	}
 	let message = reaction.message;
+	if (reaction.message.channel.id == '678391804563030031' || reaction.message.channel.id == '717262907712471080') {
+		if (reaction.emoji.name == '❗') {
+			reaction.users.remove(user.id);
+			client.commands.get('alerts').execute(message, null, client, user, Discord, reaction);
+			return;
+		}
+	}
 	if (reaction.message.partial) {
 		await reaction.message.fetch()
 			.then(fullmessage => {
