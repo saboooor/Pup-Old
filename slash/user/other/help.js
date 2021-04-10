@@ -180,7 +180,6 @@ Otherwise just do /ticket or /new to create a ticket
 		else if (arg == 'supportpanel') {
 			if (!interaction.guild_id) return;
 			if (!client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.member.user.id).hasPermission('ADMINISTRATOR')) return;
-			Embed.setDescription('Created support panel!');
 			const Panel = new Discord.MessageEmbed()
 				.setColor(3447003)
 				.setTitle('Need help? No problem!')
@@ -188,6 +187,15 @@ Otherwise just do /ticket or /new to create a ticket
 				.setFooter(`${client.guilds.cache.get(interaction.guild_id).name} Support`, client.guilds.cache.get(interaction.guild_id).iconURL());
 			const msg = await client.channels.cache.get(interaction.channel_id).send(Panel);
 			await msg.react('🎫');
+			return client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: 'Created support panel!',
+						flags: 64,
+					},
+				},
+			});
 		}
 		await client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
