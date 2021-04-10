@@ -386,7 +386,14 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (reaction.emoji.name == '❗') {
 			reaction.users.remove(user.id);
 			client.commands.get('alerts').execute(message, null, client, user, Discord, reaction);
-			return;
+		}
+		else if (reaction.emoji.name == '📘') {
+			reaction.users.remove(user.id);
+			client.commands.get('vnext').execute(message, null, client, user, Discord, reaction);
+		}
+		else if (reaction.emoji.name == '🏆') {
+			reaction.users.remove(user.id);
+			client.commands.get('vtotal').execute(message, null, client, user, Discord, reaction);
 		}
 	}
 	if (reaction.message.channel.id == '678391804563030031') {

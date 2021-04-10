@@ -1,0 +1,71 @@
+function checkign(user, command, message) {
+	const console = message.guild.channels.cache.find(channel => channel.name === 'console');
+	const member = message.guild.members.cache.get(user.id);
+	console.send(`discord linked ${member.displayName}`);
+	const filter = m => m.content.includes(member.displayName);
+	const usernamecollector = console.createMessageCollector(filter, { time: 14000 });
+	usernamecollector.on('collect', m => {
+		if (m.author.id != '661797951223627787' && m.author.id != '743741294190395402') return;
+		const output = m.content.split(/\n/);
+		const check3 = output.find(site => site.includes('- Player: '));
+		if (!check3) return;
+		const playername = check3.split(' (')[0].replace('- Player: ', '');
+		if (playername == '<Unknown>') {
+			member.send({ embed: {
+				color: 3447003,
+				title: 'Could not get votenext output.',
+				description: 'You need a linked account to see your votenext.',
+				footer: {
+					text: message.guild.name,
+					icon_url: message.guild.iconURL(),
+				},
+			} });
+			return;
+		}
+		if (playername.includes(' • ') || playername.includes('[')) {
+			member.send({ embed: {
+				color: 3447003,
+				title: 'Could not get votenext output.',
+				description: 'You might need to leave the server to make this work.',
+				footer: {
+					text: message.guild.name,
+					icon_url: message.guild.iconURL(),
+				},
+			} });
+			return;
+		}
+		console.send(`${command} ${playername}`);
+		const filter2 = m2 => m2.content.includes('Next Votes');
+		const vnextcollect = console.createMessageCollector(filter2, { time: 7000 });
+		vnextcollect.on('collect', m2 => {
+			const output2 = m2.content.split(/\n/);
+			const vnext1 = output2.find(site => site.startsWith('TOPG')).replace('TOPG:', '**TOPG:**');
+			const vnext2 = output2.find(site => site.startsWith('MCSN')).replace('MCSN:', '**MCSN:**');
+			const vnext3 = output2.find(site => site.startsWith('MCSO')).replace('MCSO:', '**MCSO:**');
+			const vnext4 = output2.find(site => site.startsWith('PMC')).replace('PMC:', '**PMC:**');
+			const vnext5 = output2.find(site => site.startsWith('MCSL')).replace('MCSL:', '**MCSL:**') + '\n';
+			let vnext6 = '';
+			if (message.guild.id == '661736128373719141') vnext6 = output2.find(site => site.startsWith('MCMP')).replace('MCMP:', '**MCMP:**');
+			member.send({ embed: {
+				color: 3447003,
+				title: 'Your Next Votes:',
+				description: `${vnext1}\n${vnext2}\n${vnext3}\n${vnext4}\n${vnext5}${vnext6}`,
+				footer: {
+					text: message.guild.name,
+					icon_url: message.guild.iconURL(),
+				},
+			} });
+		});
+		return;
+	});
+}
+module.exports = {
+	name: 'vnext',
+	description: 'Check your votenext',
+	async execute(message, args, client, Client, Discord, reaction) {
+		if (reaction) {
+			message.author = Client;
+		}
+		checkign(message.author, 'vnext', message);
+	},
+};
