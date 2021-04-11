@@ -43,13 +43,16 @@ function checkign(user, command, message) {
 			const vnext2 = output2.find(site => site.startsWith('MCSN')).replace('MCSN:', '**MCSN:**');
 			const vnext3 = output2.find(site => site.startsWith('MCSO')).replace('MCSO:', '**MCSO:**');
 			const vnext4 = output2.find(site => site.startsWith('PMC')).replace('PMC:', '**PMC:**');
-			const vnext5 = output2.find(site => site.startsWith('MCSL')).replace('MCSL:', '**MCSL:**') + '\n';
-			let vnext6 = '';
-			if (message.guild.id == '661736128373719141') vnext6 = output2.find(site => site.startsWith('MCMP')).replace('MCMP:', '**MCMP:**');
+			const vnext5 = output2.find(site => site.startsWith('MCSL')).replace('MCSL:', '**MCSL:**');
+			let vnext6 = ''; let vnext7 = '';
+			if (message.guild.id == '661736128373719141') {
+				vnext6 = '\n' + output2.find(site => site.startsWith('MCMP')).replace('MCMP:', '**MCMP:**');
+				vnext7 = '\n' + output2.find(site => site.startsWith('MCPS')).replace('MCPS:', '**MCPS:**');
+			}
 			member.send({ embed: {
 				color: 3447003,
 				title: 'Your Next Votes:',
-				description: `${vnext1}\n${vnext2}\n${vnext3}\n${vnext4}\n${vnext5}${vnext6}`,
+				description: `${vnext1}\n${vnext2}\n${vnext3}\n${vnext4}\n${vnext5}${vnext6}${vnext7}`,
 				footer: {
 					text: message.guild.name,
 					icon_url: message.guild.iconURL(),
