@@ -456,30 +456,6 @@ cron.schedule('0 0 * * *', () => {
 	client.channels.cache.forEach(async channel => {
 		if (client.tickets.get(channel.id).resolved == 'true' && channel.name.includes('ticket-')) {
 			channel.setName(channel.name.replace('ticket', 'closed'));
-			if (client.settings.get(channel.guild.id).ticketlogchannel != 'false') {
-				const trans = await channel.send('Creating transcript...');
-				const messages = await channel.messages.fetch({ limit: 100 });
-				const logs = [];
-				await messages.forEach(async msg => {
-					const time = new Date(msg.createdTimestamp).toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-					logs.push(`[${time}] ${msg.author.tag}\n${msg.content}`);
-				});
-				logs.reverse();
-				const link = await hastebin.createPaste(logs.join('\n\n'), { server: 'https://bin.birdflop.com' });
-				const users = [];
-				client.tickets.get(channel.id).users.forEach(userid => users.push(client.users.cache.get(userid)));
-				const Embed = new Discord.MessageEmbed()
-					.setColor(Math.floor(Math.random() * 16777215))
-					.setTitle(`Closed ${channel.name}`)
-					.addField('**Users in ticket**', users)
-					.addField('**Transcript**', `${link}.txt`)
-					.addField('**Closed by**', 'Closed automatically');
-				await client.channels.cache.get(client.settings.get(channel.guild.id).ticketlogchannel).send(Embed);
-				await trans.delete();
-				const rn = new Date();
-				const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-				console.log(`[${time} INFO]: Created transcript of ${channel.name}: ${link}.txt`);
-			}
 			await sleep(1000);
 			if (channel.name.includes('ticket-')) return channel.send('Failed to close ticket, please try again in 10 minutes');
 			client.tickets.set(channel.id, 'false', 'resolved');
