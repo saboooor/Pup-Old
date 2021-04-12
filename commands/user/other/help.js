@@ -1,6 +1,3 @@
-function sleep(ms) {
-	return new Promise(res => setTimeout(res, ms));
-}
 module.exports = {
 	name: 'help',
 	description: 'Get help with pup',
@@ -186,9 +183,6 @@ Otherwise just do ${srvconfig.prefix}ticket or ${srvconfig.prefix}new to create 
 **Want to support the bot? [Donate here!](https://paypal.me/youhavebeenyoted)**
 **Still need help with the bot? Do ${srvconfig.prefix}invite!**`);
 		}
-		const pp = message.channel.send(Embed);
-		await sleep(10000);
-		message.delete();
-		pp.delete();
+		message.channel.send(Embed);
 	},
 };
