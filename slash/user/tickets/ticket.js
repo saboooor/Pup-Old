@@ -26,7 +26,7 @@ module.exports = {
 				},
 			});
 		}
-		let parent = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
+		let parent = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase().includes('ticket') && c.type == 'category');
 		const role = client.guilds.cache.get(interaction.guild_id).roles.cache.find(r => r.name.toLowerCase().includes('staff'));
 		const channel = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase() == `ticket-${interaction.member.user.username.toLowerCase().replace(' ', '-')}`);
 		if (channel) {

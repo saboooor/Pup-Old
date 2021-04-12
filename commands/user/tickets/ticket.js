@@ -15,7 +15,7 @@ module.exports = {
 		}
 		const srvconfig = client.settings.get(message.guild.id);
 		if (srvconfig.tickets == 'false') return message.reply('Tickets are disabled!');
-		let parent = message.guild.channels.cache.find(c => c.name.toLowerCase().includes('tickets') && c.type == 'category');
+		let parent = message.guild.channels.cache.find(c => c.name.toLowerCase().includes('ticket') && c.type == 'category');
 		const role = message.guild.roles.cache.find(r => r.name.toLowerCase().includes('staff'));
 		const channel = message.guild.channels.cache.find(c => c.name.toLowerCase() == `ticket-${message.author.username.toLowerCase().replace(' ', '-')}`);
 		if (channel) {
