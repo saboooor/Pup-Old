@@ -19,7 +19,7 @@ module.exports = {
 				client.channels.cache.get('676570220298633237').send(`bcast &4&lNEW UPDATE &#444444•&c ${change}`);
 			});
 		}
-		if (args[0] == 'th') {
+		else if (args[0] == 'th') {
 			if (!client.guilds.cache.get('711661870926397601').members.cache.get(message.member.id).roles.cache.has('716208607070257162')) return message.reply('You can\'t do that!');
 			changes.forEach(change => {
 				Embed.setColor(Math.floor(Math.random() * 16777215));
@@ -29,7 +29,7 @@ module.exports = {
 				client.channels.cache.get('744713171067207711').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
 			});
 		}
-		if (args[0] == 'both') {
+		else if (args[0] == 'thnd') {
 			if (!client.guilds.cache.get('661736128373719141').members.cache.get(message.member.id).roles.cache.has('699724468469366844')) return message.reply('You can\'t do that!');
 			if (!client.guilds.cache.get('711661870926397601').members.cache.get(message.member.id).roles.cache.has('716208607070257162')) return message.reply('You can\'t do that!');
 			changes.forEach(change => {
@@ -41,6 +41,16 @@ module.exports = {
 				client.channels.cache.get('717514613930983445').send(Embed);
 				client.channels.cache.get('717821332695416843').send(Embed);
 				client.channels.cache.get('744713171067207711').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+			});
+		}
+		else if (args[0] == 'ss') {
+			if (!client.guilds.cache.get('763836032902234192').members.cache.get(message.member.id).roles.cache.has('763836815953887282')) return message.reply('You can\'t do that!');
+			changes.forEach(change => {
+				Embed.setColor(Math.floor(Math.random() * 16777215));
+				Embed.setDescription(change);
+				client.channels.cache.get('825534962466947092').send(Embed);
+				client.channels.cache.get('763988429461258272').send(Embed);
+				client.channels.cache.get('765112441264668672').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
 			});
 		}
 	},
