@@ -10,6 +10,7 @@ module.exports = {
 			.setAuthor('Changelog', 'https://hotemoji.com/images/dl/g/scroll-emoji-by-google.png')
 			.setFooter(`By ${message.author.username}`, message.author.avatarURL());
 		if (args[0] == 'nd') {
+			if (!client.guilds.cache.get('661736128373719141').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
 			if (!client.guilds.cache.get('661736128373719141').members.cache.get(message.member.id).roles.cache.has('699724468469366844')) return message.reply('You can\'t do that!');
 			changes.forEach(change => {
 				Embed.setColor(Math.floor(Math.random() * 16777215));
@@ -20,6 +21,7 @@ module.exports = {
 			});
 		}
 		else if (args[0] == 'th') {
+			if (!client.guilds.cache.get('711661870926397601').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
 			if (!client.guilds.cache.get('711661870926397601').members.cache.get(message.member.id).roles.cache.has('716208607070257162')) return message.reply('You can\'t do that!');
 			changes.forEach(change => {
 				Embed.setColor(Math.floor(Math.random() * 16777215));
@@ -30,6 +32,8 @@ module.exports = {
 			});
 		}
 		else if (args[0] == 'thnd') {
+			if (!client.guilds.cache.get('661736128373719141').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
+			if (!client.guilds.cache.get('711661870926397601').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
 			if (!client.guilds.cache.get('661736128373719141').members.cache.get(message.member.id).roles.cache.has('699724468469366844')) return message.reply('You can\'t do that!');
 			if (!client.guilds.cache.get('711661870926397601').members.cache.get(message.member.id).roles.cache.has('716208607070257162')) return message.reply('You can\'t do that!');
 			changes.forEach(change => {
@@ -44,6 +48,7 @@ module.exports = {
 			});
 		}
 		else if (args[0] == 'ss') {
+			if (!client.guilds.cache.get('763836032902234192').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
 			if (!client.guilds.cache.get('763836032902234192').members.cache.get(message.member.id).roles.cache.has('763836815953887282')) return message.reply('You can\'t do that!');
 			changes.forEach(change => {
 				Embed.setColor(Math.floor(Math.random() * 16777215));
