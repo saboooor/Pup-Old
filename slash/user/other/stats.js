@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 require('moment-duration-format');
 const moment = require('moment');
 const hastebin = require('hastebin');
+const protocols = require('../../../mcprotocol.json');
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
@@ -124,6 +125,7 @@ module.exports = {
 			Embed.setDescription(`Last Updated: \`${duration} ago\``);
 			if (!pong.debug.cachetime) Embed.setDescription('Last Updated: `just now`');
 			if (pong.version) Embed.addField('**Version:**', pong.version);
+			if (pong.protocol != -1) Embed.addField('**Protocol:**', `${pong.protocol} (${protocols[pong.protocol]})`);
 			if (pong.software) Embed.addField('**Software:**', pong.software);
 			if (pong.players) {
 				Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
