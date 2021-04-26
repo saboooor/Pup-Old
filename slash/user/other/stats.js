@@ -22,7 +22,7 @@ module.exports = {
 		});
 		let srvconfig = [];
 		if (client.channels.cache.get(interaction.channel_id).type == 'dm') {
-			srvconfig.adfree = false;
+			srvconfig.adfree = 'false';
 		}
 		else {
 			srvconfig = client.settings.get(interaction.guild_id);
@@ -33,8 +33,9 @@ module.exports = {
 		const panel = 'https://panel.birdflop.com';
 		let id = '';
 		let serverip = '';
-		let arg = 'pup';
+		let arg = '';
 		if (args) arg = args[0].value.toLowerCase();
+		console.log(arg);
 		if (srvconfig.adfree == 'true') {
 			if (arg != 'pup') {
 				arg = 'pup';

@@ -12,7 +12,7 @@ module.exports = {
 	async execute(message, args, client, Client, Discord) {
 		let srvconfig = [];
 		if (message.channel.type == 'dm') {
-			srvconfig.adfree = false;
+			srvconfig.adfree = 'false';
 		}
 		else {
 			srvconfig = client.settings.get(message.guild.id);
