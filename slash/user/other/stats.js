@@ -120,8 +120,8 @@ module.exports = {
 					});
 				}
 			}
-			const duration = moment.duration(Date.now() - pong.debug.cachetime * 1000).format('D [days], H [hrs], m [mins], s [secs]');
-			Embed.setDescription(`Last Updated: \`${duration}\` ago`);
+			const duration = moment.duration(Date.now() - pong.debug.cachetime * 1000).format('m [mins and] s [secs]');
+			Embed.setDescription(`Last Updated: \`${duration} ago\``);
 			if (!pong.debug.cachetime) Embed.setDescription('Last Updated: `just now`');
 			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.software) Embed.addField('**Software:**', pong.software);
