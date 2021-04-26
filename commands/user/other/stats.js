@@ -98,9 +98,9 @@ module.exports = {
 				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`';
 				if (!pong.online) return reply.edit(noadmsg);
 			}
-			if (pong.version) Embed.addField('**Version:**', pong.version);
 			const duration = moment.duration(Date.now() - pong.debug.cachetime * 1000).format('D [days], H [hrs], m [mins], s [secs]');
 			Embed.setDescription(`Last Updated: \`${duration}\` ago`);
+			if (pong.version) Embed.addField('**Version:**', pong.version);
 			if (pong.software) Embed.addField('**Software:**', pong.software);
 			if (pong.players) {
 				Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);

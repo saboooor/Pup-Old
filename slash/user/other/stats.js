@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 require('moment-duration-format');
 const moment = require('moment');
+const hastebin = require('hastebin');
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
@@ -119,10 +120,21 @@ module.exports = {
 					});
 				}
 			}
+			const duration = moment.duration(Date.now() - pong.debug.cachetime * 1000).format('D [days], H [hrs], m [mins], s [secs]');
+			Embed.setDescription(`Last Updated: \`${duration}\` ago`);
 			if (pong.version) Embed.addField('**Version:**', pong.version);
+			if (pong.software) Embed.addField('**Software:**', pong.software);
 			if (pong.players) {
 				Embed.addField('**Players Online:**', `${pong.players.online} / ${pong.players.max}`);
-				if (pong.players.list) Embed.addField('**Players:**', pong.players.list.join('\n').replace(/_/g, '\\_'));
+				if (pong.players.list) {
+					if (pong.players.online > 50) {
+						const link = await hastebin.createPaste(pong.players.list.join('\n'), { server: 'https://bin.birdflop.com' });
+						Embed.addField('**Players:**', `[Click Here](${link})`);
+					}
+					else {
+						Embed.addField('**Players:**', pong.players.list.join('\n').replace(/_/g, '\\_'));
+					}
+				}
 			}
 			if (pong.motd) Embed.addField('**MOTD:**', pong.motd.clean.join('\n').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&le;/g, '≤').replace(/&ge;/g, '≥'));
 			if (pong.icon) {
@@ -130,6 +142,11 @@ module.exports = {
 				const iconpng = new Discord.MessageAttachment(base64string, 'icon.png');
 				await Embed.attachFiles([iconpng]).setThumbnail('attachment://icon.png');
 			}
+			if (pong.plugins) {
+				const link = await hastebin.createPaste(pong.plugins.raw.join('\n'), { server: 'https://bin.birdflop.com' });
+				Embed.addField('**Plugins:**', `[Click Here](${link})`);
+			}
+			if (!pong.debug.query) Embed.setFooter('Query disabled! If you want to see more information, please contact the owner and tell them to set query to true and query-port to the same port as the server in server.properties');
 		}
 		client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
 			data: {
