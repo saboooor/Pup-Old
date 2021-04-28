@@ -12,7 +12,7 @@ module.exports = {
 		await message.delete();
 		if (args[0] > 100) return message.reply('You can only clear 100 messages at once!');
 		await message.channel.messages.fetch({ limit: args[0] }).then(messages => {
-			message.channel.bulkDelete(messages);
+			message.channel.bulkDelete(messages).catch(e => message.channel.send(`\`${`${e}`.split('at')[0]}\``));
 		});
 		if (message.channel.name == 'global') {
 			const consolechannel = message.guild.channels.cache.find(c => c.name.includes('console'));
