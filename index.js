@@ -74,6 +74,8 @@ client.settings = new Enmap({
 		tickets: 'true',
 		bonercmd: 'true',
 		ticketlogchannel: 'false',
+		ticketcategory: 'Not Set',
+		supportrole: 'Not Set',
 	},
 });
 client.on('guildDelete', guild => {

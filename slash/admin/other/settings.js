@@ -42,6 +42,14 @@ module.exports = {
 		{
 			name: 'ticketlogchannel',
 			value: 'ticketlogchannel',
+		},
+		{
+			name: 'ticketcategory',
+			value: 'ticketcategory',
+		},
+		{
+			name: 'supportrole',
+			value: 'supportrole',
 		}],
 	},
 	{
@@ -109,6 +117,8 @@ module.exports = {
 				tickets: '*Enables tickets (true/false)*',
 				bonercmd: '*Toggles boner command (true/false)*',
 				ticketlogchannel: '*The channel where the bot puts transcripts of tickets\nCan be either false or the channel ID*',
+				ticketcategory: '*The category where the bot creates tickets in\nMust be a channel ID*',
+				supportrole: '*The ticket support team role\nMust be a role ID*',
 			};
 			const srvconfig = Object.keys(client.settings.get(interaction.guild_id)).map(prop => {
 				return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(interaction.guild_id)[prop]}\``;
