@@ -74,7 +74,7 @@ client.settings = new Enmap({
 		tickets: 'true',
 		bonercmd: 'true',
 		ticketlogchannel: 'false',
-		ticketcategory: 'Not Set',
+		ticketcategory: 'false',
 		supportrole: 'Not Set',
 	},
 });
