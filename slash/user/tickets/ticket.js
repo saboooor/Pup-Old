@@ -26,8 +26,8 @@ module.exports = {
 				},
 			});
 		}
-		let parent = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase().includes('ticket') && c.type == 'category');
-		const role = client.guilds.cache.get(interaction.guild_id).roles.cache.find(r => r.name.toLowerCase().includes('staff'));
+		let parent = client.guilds.cache.get(interaction.guild_id).channels.cache.get(srvconfig.ticketcategory);
+		const role = client.guilds.cache.get(interaction.guild_id).roles.cache.get(srvconfig.supportrole);
 		const channel = client.guilds.cache.get(interaction.guild_id).channels.cache.find(c => c.name.toLowerCase() == `ticket-${interaction.member.user.username.toLowerCase().replace(' ', '-')}`);
 		if (channel) {
 			client.guilds.cache.get(interaction.guild_id).channels.cache.get(channel.id).send(`❗ **<@${interaction.member.user.id}> Ticket already exists!**`);
@@ -46,13 +46,14 @@ module.exports = {
 				data: {
 					type: 4,
 					data: {
-						content: 'You need to create a role with the word "staff" in it!',
+						content: 'You need to set a role with /settings supportrole <Role ID>!',
 						flags: 64,
 					},
 				},
 			});
 		}
 		if (!parent) parent = { id: null };
+		if (parent.type != 'category') parent = { id: null };
 		const ticket = await client.guilds.cache.get(interaction.guild_id).channels.create(`ticket-${interaction.member.user.username.toLowerCase().replace(' ', '-')}`, {
 			type: 'text',
 			parent: parent.id,
