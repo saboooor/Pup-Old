@@ -47,15 +47,47 @@ module.exports = {
 				client.channels.cache.get('744713171067207711').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
 			});
 		}
-		else if (args[0] == 'ss') {
-			if (!client.guilds.cache.get('763836032902234192').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
-			if (!client.guilds.cache.get('763836032902234192').members.cache.get(message.member.id).roles.cache.has('763836815953887282')) return message.reply('You can\'t do that!');
+		else if (args[0] == 'cs') {
+			if (!client.guilds.cache.get('837116518730694678').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
+			if (!client.guilds.cache.get('837116518730694678').members.cache.get(message.member.id).roles.cache.has('837117859678781451')) return message.reply('You can\'t do that!');
 			changes.forEach(change => {
 				Embed.setColor(Math.floor(Math.random() * 16777215));
 				Embed.setDescription(change);
-				client.channels.cache.get('825534962466947092').send(Embed);
-				client.channels.cache.get('763988429461258272').send(Embed);
-				client.channels.cache.get('765112441264668672').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+				client.channels.cache.get('837124270039105546').send(Embed);
+				client.channels.cache.get('837122190817230848').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+				client.channels.cache.get('837122219913379840').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+				client.channels.cache.get('837122241598324787').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+			});
+		}
+		else if (args[0] == 'hn') {
+			if (!client.guilds.cache.get('803786634348462152').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
+			if (!client.guilds.cache.get('803786634348462152').members.cache.get(message.member.id).roles.cache.has('838071207978598461')) return message.reply('You can\'t do that!');
+			changes.forEach(change => {
+				Embed.setColor(Math.floor(Math.random() * 16777215));
+				Embed.setDescription(change);
+				client.channels.cache.get('826902603681497148').send(Embed);
+				client.channels.cache.get('826101820845326346').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+			});
+		}
+		else if (args[0] == 'all') {
+			if (!client.guilds.cache.get('803786634348462152').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
+			if (!client.guilds.cache.get('803786634348462152').members.cache.get(message.member.id).roles.cache.has('838071207978598461')) return message.reply('You can\'t do that!');
+			if (!client.guilds.cache.get('837116518730694678').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
+			if (!client.guilds.cache.get('837116518730694678').members.cache.get(message.member.id).roles.cache.has('837117859678781451')) return message.reply('You can\'t do that!');
+			if (!client.guilds.cache.get('661736128373719141').members.cache.get(message.member.id)) return message.reply('You can\'t do that!');
+			if (!client.guilds.cache.get('661736128373719141').members.cache.get(message.member.id).roles.cache.has('699724468469366844')) return message.reply('You can\'t do that!');
+			changes.forEach(change => {
+				Embed.setColor(Math.floor(Math.random() * 16777215));
+				Embed.setDescription(change);
+				client.channels.cache.get('826902603681497148').send(Embed);
+				client.channels.cache.get('826101820845326346').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+				client.channels.cache.get('837124270039105546').send(Embed);
+				client.channels.cache.get('837122190817230848').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+				client.channels.cache.get('837122219913379840').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+				client.channels.cache.get('837122241598324787').send(`bcast &6[&4&lNEW UPDATE&6]&c ${change}`);
+				client.channels.cache.get('699175256954241095').send(Embed);
+				client.channels.cache.get('670774287317073951').send(Embed);
+				client.channels.cache.get('676570220298633237').send(`bcast &4&lNEW UPDATE &#444444•&c ${change}`);
 			});
 		}
 	},
