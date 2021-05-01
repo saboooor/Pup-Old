@@ -128,7 +128,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 			const Embed = new Discord.MessageEmbed()
 				.setColor(Math.round(Math.random() * 16777215))
 				.setTitle(messages[random])
-				.setDescription(`wait ${timeLeft.toFixed(1)} more seconds before reusing /${command.name}.`);
+				.setDescription(`wait ${timeLeft.toFixed(1)} more seconds before reusing the ${command.name} command.`);
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
@@ -248,7 +248,7 @@ client.on('message', message => {
 			const Embed = new Discord.MessageEmbed()
 				.setColor(Math.round(Math.random() * 16777215))
 				.setTitle(messages[random])
-				.setDescription(`wait ${timeLeft.toFixed(1)} more seconds before reusing /${command.name}.`);
+				.setDescription(`wait ${timeLeft.toFixed(1)} more seconds before reusing the ${command.name} command.`);
 			return message.reply(Embed);
 		}
 	}
