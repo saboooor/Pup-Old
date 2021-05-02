@@ -18,6 +18,6 @@ module.exports = {
 		Client.sendCommand('68505ddb', args.join(' ')).catch((error) => {
 			console.error(`[${time} ERROR]: ${error}`);
 		});
-		message.reply(`Sent command \`${args.join(' ')}}\` to Bungee`);
+		message.reply(`Sent command \`${args.join(' ')}\` to Bungee`);
 	},
 };
