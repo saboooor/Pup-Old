@@ -5,8 +5,7 @@ module.exports = {
 	name: 'ban',
 	description: 'Ban someone with a reason',
 	args: true,
-	argamnt: 2,
-	usage: '<User Mention> <Reason>',
+	usage: '<User Mention> [Reason]',
 	permissions: 'BAN_MEMBERS',
 	cooldown: 5,
 	async execute(message, args, client, Client, Discord) {
