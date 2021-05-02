@@ -96,7 +96,6 @@ module.exports = {
 			serverip = args[0].value;
 		}
 		if (id !== '') {
-			if (interaction.guild_id) Embed.setThumbnail(client.guilds.cache.get(interaction.guild_id).iconURL());
 			Client.login(panel, client.config.panelapikey, (logged_in, err) => {
 				if (logged_in == false) {
 					return client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({

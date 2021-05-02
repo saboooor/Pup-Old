@@ -93,7 +93,6 @@ module.exports = {
 			serverip = args[0];
 		}
 		if (id !== '') {
-			Embed.setThumbnail(message.guild.iconURL());
 			Client.login(panel, client.config.panelapikey, (logged_in, err) => {
 				if (logged_in == false) return message.reply(`Something went wrong\n${err}`);
 			});
