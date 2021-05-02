@@ -38,6 +38,9 @@ module.exports = {
 			else if (message.guild.id == '711661870926397601') {
 				arg = 'taco haven';
 			}
+			else if (message.guild.id == '837116518730694678') {
+				arg = 'network';
+			}
 		}
 		if (!arg) {
 			id = '5bcaad8d';
@@ -48,6 +51,9 @@ module.exports = {
 			else if (message.guild.id == '711661870926397601') {
 				id = 'd68c84e1';
 				serverip = 'tacohaven.club';
+			}
+			else if (message.guild.id == '837116518730694678') {
+				serverip = 'network';
 			}
 		}
 		else if (arg == 'pup') {
@@ -60,6 +66,28 @@ module.exports = {
 		else if (arg == 'nether depths') {
 			id = '50dc31e4';
 			serverip = 'play.netherdepths.com';
+		}
+		else if (arg == 'chopsticks survival') {
+			id = '979d4d06';
+			serverip = 'survival.chopsticksmc.net';
+		}
+		else if (arg == 'chopsticks hub') {
+			id = 'c1b15b0f';
+			serverip = 'hub.chopsticksmc.net';
+		}
+		else if (arg == 'chopsticks proxy') {
+			id = '68505ddb';
+		}
+		else if (arg == 'chopsticks factions') {
+			id = '7d9c4185';
+			serverip = 'factions.chopsticksmc.net';
+		}
+		else if (arg == 'chopsticks') {
+			serverip = 'play.chopsticksmc.net';
+		}
+		else if (arg == 'hallownest') {
+			id = '03620aa6';
+			serverip = 'hallownest.chopsticksmc.net';
 		}
 		else {
 			serverip = args[0];
@@ -97,7 +125,7 @@ module.exports = {
 			if (id == '') {
 				Embed.setTitle(pong.hostname);
 				let noadmsg = '**Server is offline**';
-				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths`';
+				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup, Taco Haven, Nether Depths, Chopsticks (Hub/Survival/Factions/Proxy), Hallownest`';
 				if (!pong.online) return reply.edit(noadmsg);
 			}
 			const duration = moment.duration(Date.now() - pong.debug.cachetime * 1000).format('m [mins and] s [secs]');
