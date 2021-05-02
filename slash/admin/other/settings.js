@@ -6,7 +6,7 @@ module.exports = {
 	options: [{
 		type: 3,
 		name: 'setting',
-		description: 'The setting to change',
+		description: 'The bot setting you want to change',
 		choices: [{
 			name: 'prefix',
 			value: 'prefix',
