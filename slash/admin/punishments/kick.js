@@ -43,7 +43,7 @@ module.exports = {
 		}
 		else {
 			Embed.setTitle(`Kicked ${user.tag}`);
-			await user.send(`**You've been kicked from ${client.guilds.cache.get(interaction.guild_id).name}. No reason provided.**`).catch(e => {
+			await user.send(`**You've been kicked from ${client.guilds.cache.get(interaction.guild_id).name}.**`).catch(e => {
 				client.channels.cache.get(interaction.channel_id).send('Could not DM user! You may have to manually let them know that they have been kicked.');
 			});
 		}
