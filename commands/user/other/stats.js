@@ -156,7 +156,11 @@ module.exports = {
 				const link = await hastebin.createPaste(pong.plugins.raw.join('\n'), { server: 'https://bin.birdflop.com' });
 				Embed.addField('**Plugins:**', `[Click Here](${link})`);
 			}
-			if (!pong.debug.query) Embed.setFooter('Query disabled! If you want to see more information, please contact the owner and tell them to set query to true and query-port to the same port as the server in server.properties');
+			if (!pong.debug.query) {
+				if (pong.software == 'Waterfall') Embed.setFooter('Query disabled! If you want to see more information, please contact the owner and tell them to set query_enabled to true and query_port to the same port as the proxy in config.yml');
+				if (pong.software == 'Bungeecord') Embed.setFooter('Query disabled! If you want to see more information, please contact the owner and tell them to set query_enabled to true and query_port to the same port as the proxy in config.yml');
+				else Embed.setFooter('Query disabled! If you want to see more information, please contact the owner and tell them to set enable-query to true and query.port to the same port as the server in server.properties');
+			}
 		}
 		await reply.delete();
 		await message.channel.send('', Embed);
