@@ -68,7 +68,7 @@ module.exports = {
 			const trainee = players.filter(word => word.startsWith('TRAINEE')).sort().join(', ').replace(/TRAINEE • /g, '').replace(/_/g, '\\_');
 			const mvp = players.filter(word => word.startsWith('MVP')).sort().join(', ').replace(/MVP • /g, '').replace(/_/g, '\\_');
 			const vip = players.filter(word => word.startsWith('VIP')).sort().join(', ').replace(/VIP • /g, '').replace(/_/g, '\\_');
-			const goat = players.filter(word => word.startsWith('GOAT')).sort().join(', ').replace(/GOAT • /g, '').replace(/_/g, '\\_');
+			const glowsquid = players.filter(word => word.startsWith('GLOW SQUID')).sort().join(', ').replace(/GLOW SQUID • /g, '').replace(/_/g, '\\_');
 			const warden = players.filter(word => word.startsWith('WARDEN')).sort().join(', ').replace(/WARDEN • /g, '').replace(/_/g, '\\_');
 			const axolotl = players.filter(word => word.startsWith('AXOLOTL')).sort().join(', ').replace(/AXOLOTL • /g, '').replace(/_/g, '\\_');
 			const hoglin = players.filter(word => word.startsWith('HOGLIN')).sort().join(', ').replace(/HOGLIN • /g, '').replace(/_/g, '\\_');
@@ -78,7 +78,7 @@ module.exports = {
 			const skeleton = players.filter(word => word.startsWith('SKELETON')).sort().join(', ').replace(/SKELETON • /g, '').replace(/_/g, '\\_');
 			const player = players.filter(word => word.startsWith('PLAYER')).sort().join(', ').replace(/PLAYER • /g, '').replace(/_/g, '\\_');
 			const guest = players.filter(word => word.startsWith('GUEST')).sort().join(', ').replace(/GUEST • /g, '').replace(/_/g, '\\_');
-			const other = players.filter(word => !['OWNER', 'ADMIN', 'MOD', 'HELPER', 'TRAINEE', 'MVP', 'VIP', 'GOAT', 'WARDEN', 'AXOLOTL', 'HOGLIN', 'STRIDER', 'BLAZE', 'ENDERMAN', 'SKELETON', 'PLAYER', 'GUEST'].some(a => word.startsWith(a))).sort().join(', ');
+			const other = players.filter(word => !['OWNER', 'ADMIN', 'MOD', 'HELPER', 'TRAINEE', 'MVP', 'VIP', 'GLOW SQUID', 'WARDEN', 'AXOLOTL', 'HOGLIN', 'STRIDER', 'BLAZE', 'ENDERMAN', 'SKELETON', 'PLAYER', 'GUEST'].some(a => word.startsWith(a))).sort().join(', ');
 			if (owner) Embed.addField('**Owner**', owner);
 			if (admin) Embed.addField('**Admin**', admin);
 			if (mod) Embed.addField('**Mod**', mod);
@@ -86,7 +86,7 @@ module.exports = {
 			if (trainee) Embed.addField('**Trainee**', trainee);
 			if (mvp) Embed.addField('**MVP**', mvp);
 			if (vip) Embed.addField('**VIP**', vip);
-			if (goat) Embed.addField('**Goat**', goat);
+			if (glowsquid) Embed.addField('**Glow Squid**', glowsquid);
 			if (warden) Embed.addField('**Warden**', warden);
 			if (axolotl) Embed.addField('**Axolotl**', axolotl);
 			if (hoglin) Embed.addField('**Hoglin**', hoglin);
