@@ -33,7 +33,7 @@ for (const folder of slashcommandFolders) {
 }
 
 client.once('ready', () => {
-	client.user.setPresence({ activity: { name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }, status: 'dnd' });
+	client.user.setPresence({ activities: [{ name: `${client.guilds.cache.size} Servers`, type: 'WATCHING' }], status: 'dnd' });
 	client.channels.cache.get('812082273393704960').messages.fetch({ limit: 1 }).then(msg => {
 		const mesg = msg.first();
 		if (mesg.content !== 'Started Successfully!') client.channels.cache.get('812082273393704960').send('Started Successfully!');
