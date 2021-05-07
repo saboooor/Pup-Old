@@ -158,11 +158,9 @@ module.exports = {
 	usage: '<Message ID> <Emoji>',
 	async execute(interaction, args, client, Client, Discord) {
 		try {
-			const msg = await client.channels.cache.get(interaction.channel_id).messages.fetch({ around: args[0].value, limit: 1 });
-			const fetchedMsg = msg.first();
 			args.forEach(arg => {
 				if (!arg.name.includes('emoji')) return;
-				fetchedMsg.react(arg.value);
+				client.channels.cache.get(interaction.channel_id).messages.react(args[0].value, arg.value);
 			});
 		}
 		catch {

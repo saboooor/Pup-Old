@@ -6,10 +6,8 @@ module.exports = {
 	argamnt: 2,
 	usage: '<Message ID> <Emoji>',
 	permissions: 'SEND_MESSAGES',
-	async execute(message, args, client, Client, Discord) {
-		await message.delete();
-		const msg = await message.channel.messages.fetch({ around: args[0], limit: 1 });
-		const fetchedMsg = msg.first();
-		fetchedMsg.react(args[1]);
+	execute(message, args, client, Client, Discord) {
+		message.delete();
+		message.channel.messages.react(args[0], args[1]);
 	},
 };
