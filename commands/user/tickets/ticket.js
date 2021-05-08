@@ -63,9 +63,12 @@ module.exports = {
 		if (args && args[0]) Embed.addField('Description', args.join(' '));
 		const embed = await ticket.send(`${author}`, Embed);
 		embed.react('🔒');
-		const ping = await ticket.send('@.everyone');
-		await ping.delete();
+		if (srvconfig.ticketmention == 'true') {
+			const ping = await ticket.send('@everyone');
+			await ping.delete();
+		}
 		await sleep(4000);
 		await msg.delete();
+		if (!reaction) await message.delete();
 	},
 };

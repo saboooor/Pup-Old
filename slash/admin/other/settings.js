@@ -1,12 +1,12 @@
 module.exports = {
 	name: 'settings',
-	description: 'Configure the bot',
+	description: 'Configure Pup\'s Guild settings',
 	guildOnly: true,
 	cooldown: 1,
 	options: [{
 		type: 3,
 		name: 'setting',
-		description: 'The bot setting you want to change',
+		description: 'The setting you want to change',
 		choices: [{
 			name: 'prefix',
 			value: 'prefix',
@@ -46,6 +46,10 @@ module.exports = {
 		{
 			name: 'ticketcategory',
 			value: 'ticketcategory',
+		},
+		{
+			name: 'ticketmention',
+			value: 'ticketmention',
 		},
 		{
 			name: 'supportrole',

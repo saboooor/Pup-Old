@@ -94,9 +94,11 @@ module.exports = {
 			.setDescription('Please explain your issue and we\'ll be with you shortly.')
 			.setFooter(`To close this ticket do ${srvconfig.prefix}close, /close or react with 🔒`);
 		if (args) Embed.addField('Description', args.join(' '));
-		const embed = await ticket.send(`${client.users.get(interaction.member.user.id)}`, Embed);
+		const embed = await ticket.send(`${client.users.cache.get(interaction.member.user.id)}`, Embed);
 		embed.react('🔒');
-		const ping = await ticket.send('@everyone');
-		await ping.delete();
+		if (srvconfig.ticketmention == 'true') {
+			const ping = await ticket.send('@everyone');
+			await ping.delete();
+		}
 	},
 };

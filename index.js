@@ -448,12 +448,9 @@ client.on('guildMemberAdd', (member) => {
 	const srvconfig = client.settings.get(member.guild.id);
 	if (srvconfig.joinmessage == 'false') return;
 	member.guild.systemChannel.send(srvconfig.joinmessage.replace(/{USER MENTION}/g, client.users.cache.get(member.id)).replace(/{USER TAG}/g, client.users.cache.get(member.id).tag));
-	if (member.guild.id == '661736128373719141') return client.channels.cache.get('670774287317073951').send(`**${client.users.cache.get(member.id).username}** joined the Nether Depths Discord server! Join yourself with /discord`);
 });
 
-const hastebin = require('hastebin');
 const cron = require('node-cron');
-
 cron.schedule('0 0 * * *', () => {
 	client.channels.cache.forEach(async channel => {
 		if (client.tickets.get(channel.id).resolved == 'true' && channel.name.includes('ticket-')) {
