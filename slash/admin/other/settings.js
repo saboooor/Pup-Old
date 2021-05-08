@@ -119,6 +119,7 @@ module.exports = {
 				ticketlogchannel: '*The channel where the bot puts transcripts of tickets\nCan be either false or the channel ID*',
 				ticketcategory: '*The category where the bot creates tickets in\nMust be a category ID*',
 				supportrole: '*The ticket support team role\nCan be either false or the role ID*',
+				ticketmention: '*Pings @everyone every time a new ticket is created*',
 			};
 			const srvconfig = Object.keys(client.settings.get(interaction.guild_id)).map(prop => {
 				return `**${prop}**\n${desc[prop]}\n\`${client.settings.get(interaction.guild_id)[prop]}\``;

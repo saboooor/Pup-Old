@@ -76,6 +76,7 @@ client.settings = new Enmap({
 		ticketlogchannel: 'false',
 		ticketcategory: 'false',
 		supportrole: 'Not Set',
+		ticketmention: 'true',
 	},
 });
 client.on('guildDelete', guild => {
