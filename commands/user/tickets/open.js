@@ -9,9 +9,10 @@ module.exports = {
 	description: 'Repen a ticket',
 	aliases: ['reopen'],
 	async execute(message, args, client, Client, Discord, reaction) {
+		let author = message.author;
 		if (reaction) {
 			if (message.author.id != client.user.id) return;
-			message.author = Client;
+			author = Client;
 		}
 		if (client.settings.get(message.guild.id).tickets == 'false') return message.reply('Tickets are disabled!');
 		if (!message.channel.topic) return message.reply('This is not a valid ticket!');
@@ -25,7 +26,7 @@ module.exports = {
 		});
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`Ticket Opened by ${message.author}`);
+			.setDescription(`Ticket Opened by ${author}`);
 		message.channel.send(Embed);
 		await sleep(1000);
 		const rn = new Date();

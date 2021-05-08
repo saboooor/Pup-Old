@@ -423,7 +423,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		return;
 	}
 	if (reaction.emoji.name == '⛔') {
-		reaction.users.remove(user.id);
 		await client.commands.get('delete').execute(message, null, client, user, Discord, reaction);
 		return;
 	}

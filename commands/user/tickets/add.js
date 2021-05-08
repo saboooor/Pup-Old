@@ -7,9 +7,10 @@ module.exports = {
 	args: true,
 	usage: '<User Mention or ID>',
 	async execute(message, args, client, Client, Discord, reaction) {
+		let author = message.author;
 		if (reaction) {
 			if (message.author.id != client.user.id) return;
-			message.author = Client;
+			author = Client;
 		}
 		if (client.settings.get(message.guild.id).tickets == 'false') return message.reply('Tickets are disabled!');
 		if (!message.channel.topic) return message.reply('This is not a valid ticket!');
@@ -21,7 +22,7 @@ module.exports = {
 		message.channel.updateOverwrite(user, { VIEW_CHANNEL: true });
 		const Embed = new Discord.MessageEmbed()
 			.setColor(15105570)
-			.setDescription(`${message.author} added ${user} to the ticket`);
+			.setDescription(`${author} added ${user} to the ticket`);
 		message.channel.send(Embed);
 		const rn = new Date();
 		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
