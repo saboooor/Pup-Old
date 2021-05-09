@@ -11,7 +11,7 @@ module.exports = {
 	args: true,
 	usage: '<join/leave/chat/goto/move/mount/break/server>',
 	async execute(message, args, client, Client, Discord) {
-		if (message.author.id !== '249638347306303499') return message.reply('You can\'t do that!');
+		if (!client.guilds.cache.get('811354612547190794').members.cache.get(message.member.id)) return message.reply('You need to be in the Pup Bot Discord server for this to work! Do -invite to join!');
 		if (args[0] == 'join') {
 			if (!args[1]) return message.reply('-mc join <Server IP>');
 			if (client.mc) {
@@ -23,6 +23,7 @@ module.exports = {
 				port: 25565,
 				username: client.config.clientemail,
 				password: client.config.clientpassword,
+				auth: 'microsoft',
 			});
 			await message.reply('Joined Minecraft Server!\nCheck out https://pupmap.hoglin.org to see what the client is seeing');
 			client.mc.once('spawn', () => {
