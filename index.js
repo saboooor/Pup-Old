@@ -5,8 +5,11 @@ const nodeactyl = require('nodeactyl');
 const fetch = require('node-fetch');
 const Enmap = require('enmap');
 const Client = nodeactyl.Client;
+const moment = require('moment');
+const cron = require('node-cron');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'], intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_PRESENCES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS'], allowedMentions: { parse: ['users', 'roles', 'everyone'], repliedUser: true } });
 client.config = require('./config.json');
+const guildnames = [];
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
@@ -33,10 +36,13 @@ for (const folder of slashcommandFolders) {
 }
 
 client.once('ready', () => {
-	client.user.setPresence({ activities: [{ name: `${client.guilds.cache.size} Servers`, type: 'COMPETING' }], status: 'dnd' });
+	client.user.setPresence({ activities: [{ name: 'with you ;)', type: 'PLAYING' }], status: 'dnd' });
 	client.channels.cache.get('812082273393704960').messages.fetch({ limit: 1 }).then(msg => {
 		const mesg = msg.first();
 		if (mesg.content !== 'Started Successfully!') client.channels.cache.get('812082273393704960').send('Started Successfully!');
+	});
+	client.guilds.cache.forEach(guild => {
+		guildnames.push(guild.name);
 	});
 	client.slashcommands.forEach(async command => {
 		const commands = await client.api.applications(client.user.id).commands.get();
@@ -306,7 +312,36 @@ for (const file of responseFiles) {
 	const response = require(`./response/${file}`);
 	client.response.set(response.name, response);
 }
-
+let activityguildnumber = 0;
+setInterval(async () => {
+	const activities = [
+		['PLAYING', '{GUILD}'],
+		['WATCHING', `${client.users.cache.size} Users`],
+		['PLAYING', '{UPTIME}'],
+		['PLAYING', 'with you ;)'],
+		['WATCHING', `${client.channels.cache.size} Channels`],
+		['PLAYING', '{UPTIME}'],
+		['COMPETING', `${client.guilds.cache.size} Servers`],
+		['PLAYING', '{GUILD}'],
+		['PLAYING', 'with you ;)'],
+		['COMPETING', `${client.guilds.cache.size} Servers`],
+		['PLAYING', '{GUILD}'],
+	];
+	const activitynumber = Math.round(Math.random() * (activities.length - 1));
+	const activity = activities[activitynumber];
+	if (activity[1] == '{GUILD}') {
+		activity[1] = `in ${guildnames[activityguildnumber]}`;
+		if (activityguildnumber == guildnames.length - 1) {
+			activityguildnumber = 0;
+		}
+		else {
+			activityguildnumber = activityguildnumber + 1;
+		}
+	}
+	const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
+	if (activity[1] == '{UPTIME}') activity[1] = `for ${duration}`;
+	client.user.setPresence({ activities: [{ name: activity[1], type: activity[0] }] });
+}, 10000);
 
 let lastUpdated = Date.now() - 270000;
 async function updateCount(global, vc) {
@@ -450,7 +485,6 @@ client.on('guildMemberAdd', (member) => {
 	member.guild.systemChannel.send(srvconfig.joinmessage.replace(/{USER MENTION}/g, client.users.cache.get(member.id)).replace(/{USER TAG}/g, client.users.cache.get(member.id).tag));
 });
 
-const cron = require('node-cron');
 cron.schedule('0 0 * * *', () => {
 	client.channels.cache.forEach(async channel => {
 		if (client.tickets.get(channel.id).resolved == 'true' && channel.name.includes('ticket-')) {
