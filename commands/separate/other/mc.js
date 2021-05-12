@@ -16,7 +16,7 @@ module.exports = {
 		if (args[0] == 'join') {
 			if (!args[1]) return message.reply('-mc join <Server IP>');
 			if (client.mc) {
-				client.mc.quit();
+				client.mc.quit().catch(e => (console.log(e)));
 				if (client.mc.viewer) client.mc.viewer.close();
 			}
 			client.mc = mineflayer.createBot({
@@ -26,7 +26,7 @@ module.exports = {
 				password: client.config.clientpassword,
 				auth: 'microsoft',
 			});
-			message.reply('**REMINDER**\nPlease don\'t use this bot for malicious purposes (for example: breaking the rules on a Minecraft server). Doing so WILL get you PERMANENTLY BANNED from ALL Pup commands.\nJoined Minecraft Server!\nCheck out http://elktail.birdflop.com:40033 to see what the bot is seeing!');
+			message.reply('**REMINDER**\nPlease don\'t use this bot for malicious purposes (for example: breaking the rules on a Minecraft server). Doing so WILL get you PERMANENTLY BANNED from ALL Pup commands.\n\n**Joined Minecraft Server!**\nCheck out http://elktail.birdflop.com:40033 to see what the bot is seeing!');
 			client.mc.once('spawn', () => {
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
 				client.mc.loadPlugin(pathfinder);
