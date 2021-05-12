@@ -339,7 +339,7 @@ setInterval(async () => {
 	const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
 	if (activity[1] == '{UPTIME}') activity[1] = `for ${duration}`;
 	client.user.setPresence({ activities: [{ name: activity[1], type: activity[0] }] });
-}, 10000);
+}, 5000);
 
 let lastUpdated = Date.now() - 270000;
 async function updateCount(global, vc) {
