@@ -13,7 +13,6 @@ module.exports = {
 	async execute(message, args, client, Client, Discord) {
 		if (!client.guilds.cache.get('811354612547190794').members.cache.get(message.member.id)) return message.reply('You need to be in the Pup Bot Discord server for this to work! Do -invite to join!');
 		if (message.channel.id !== '841886305239826462') return message.reply('You need to be in <#841886305239826462> for this to work! This is due to spam reasons and we also need to see what you\'re doing with the bot.');
-		message.reply('**REMINDER**\nPlease don\'t use this bot for malicious purposes (for example: breaking the rules on a Minecraft server). Doing so WILL get you PERMANENTLY BANNED from ALL Pup commands.');
 		if (args[0] == 'join') {
 			if (!args[1]) return message.reply('-mc join <Server IP>');
 			if (client.mc) {
@@ -27,7 +26,7 @@ module.exports = {
 				password: client.config.clientpassword,
 				auth: 'microsoft',
 			});
-			await message.reply('Joined Minecraft Server!\nCheck out https://pupmap.hoglin.org to see what the client is seeing');
+			message.reply('**REMINDER**\nPlease don\'t use this bot for malicious purposes (for example: breaking the rules on a Minecraft server). Doing so WILL get you PERMANENTLY BANNED from ALL Pup commands.\nJoined Minecraft Server!\nCheck out http://elktail.birdflop.com:40033 to see what the bot is seeing!');
 			client.mc.once('spawn', () => {
 				mineflayerViewer(client.mc, { port: 40033, firstPerson: false });
 				client.mc.loadPlugin(pathfinder);
