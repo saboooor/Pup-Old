@@ -133,7 +133,7 @@ module.exports = {
 			if (id == '') {
 				Embed.setTitle(pong.hostname);
 				let noadmsg = '**Server is offline**';
-				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:\n`Pup`\n`Taco Haven`\n`Nether Depths`\n`Chopsticks (Hub/Survival/Factions/Proxy)`\n`Hallownest`';
+				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:```yml\nPup\nTaco Haven\nNether Depths\nChopsticks (Hub/Survival/Factions/Proxy)\nHallownest```';
 				if (!pong.online) {
 					return client.api.webhooks(client.user.id, interaction.token).messages('@original').patch({
 						data: {
