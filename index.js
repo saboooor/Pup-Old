@@ -10,6 +10,7 @@ const cron = require('node-cron');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'], intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_PRESENCES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS'], allowedMentions: { parse: ['users', 'roles', 'everyone'], repliedUser: true } });
 client.config = require('./config.json');
 const guildnames = [];
+const usernames = [];
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
@@ -43,6 +44,9 @@ client.once('ready', () => {
 	});
 	client.guilds.cache.forEach(guild => {
 		guildnames.push(guild.name);
+	});
+	client.users.cache.forEach(user => {
+		usernames.push(user.username);
 	});
 	client.slashcommands.forEach(async command => {
 		const commands = await client.api.applications(client.user.id).commands.get();
@@ -312,31 +316,25 @@ for (const file of responseFiles) {
 	const response = require(`./response/${file}`);
 	client.response.set(response.name, response);
 }
-let activityguildnumber = 0;
 setInterval(async () => {
 	const activities = [
-		['PLAYING', '{GUILD}'],
 		['WATCHING', `${client.users.cache.size} Users`],
 		['PLAYING', '{UPTIME}'],
 		['PLAYING', 'with you ;)'],
 		['WATCHING', `${client.channels.cache.size} Channels`],
-		['PLAYING', '{UPTIME}'],
 		['COMPETING', `${client.guilds.cache.size} Servers`],
 		['PLAYING', '{GUILD}'],
-		['PLAYING', 'with you ;)'],
-		['COMPETING', `${client.guilds.cache.size} Servers`],
-		['PLAYING', '{GUILD}'],
+		['PLAYING', '{USER}'],
 	];
 	const activitynumber = Math.round(Math.random() * (activities.length - 1));
 	const activity = activities[activitynumber];
 	if (activity[1] == '{GUILD}') {
+		const activityguildnumber = Math.round(Math.random() * (guildnames.length - 1));
 		activity[1] = `in ${guildnames[activityguildnumber]}`;
-		if (activityguildnumber == guildnames.length - 1) {
-			activityguildnumber = 0;
-		}
-		else {
-			activityguildnumber = activityguildnumber + 1;
-		}
+	}
+	if (activity[1] == '{USER}') {
+		const activityusernumber = Math.round(Math.random() * (usernames.length - 1));
+		activity[1] = `with ${usernames[activityusernumber]}`;
 	}
 	const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
 	if (activity[1] == '{UPTIME}') activity[1] = `for ${duration}`;
