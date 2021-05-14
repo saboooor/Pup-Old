@@ -9,7 +9,6 @@ const moment = require('moment');
 const cron = require('node-cron');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'], intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_PRESENCES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS'], allowedMentions: { parse: ['users', 'roles', 'everyone'], repliedUser: true } });
 client.config = require('./config.json');
-const guildnames = [];
 function minTwoDigits(n) {
 	return (n < 10 ? '0' : '') + n;
 }
@@ -34,15 +33,11 @@ for (const folder of slashcommandFolders) {
 		}
 	}
 }
-
 client.once('ready', () => {
 	client.user.setPresence({ activities: [{ name: 'Just Restarted!', type: 'PLAYING' }], status: 'dnd' });
 	client.channels.cache.get('812082273393704960').messages.fetch({ limit: 1 }).then(msg => {
 		const mesg = msg.first();
 		if (mesg.content !== 'Started Successfully!') client.channels.cache.get('812082273393704960').send('Started Successfully!');
-	});
-	client.guilds.cache.forEach(guild => {
-		guildnames.push(guild.name);
 	});
 	client.slashcommands.forEach(async command => {
 		const commands = await client.api.applications(client.user.id).commands.get();
@@ -323,12 +318,8 @@ setInterval(async () => {
 	];
 	const activitynumber = Math.round(Math.random() * (activities.length - 1));
 	const activity = activities[activitynumber];
-	if (activity[1] == '{GUILD}') {
-		const activityguildnumber = Math.round(Math.random() * (guildnames.length - 1));
-		activity[1] = `in ${guildnames[activityguildnumber]}`;
-	}
-	const duration = moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]');
-	if (activity[1] == '{UPTIME}') activity[1] = `for ${duration}`;
+	if (activity[1] == '{GUILD}') activity[1] = `in ${client.guilds.cache.get([...client.guilds.cache.keys()][Math.floor(Math.random() * client.guilds.cache.size)]).name}`;
+	if (activity[1] == '{UPTIME}') activity[1] = `for ${moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]')}`;
 	client.user.setPresence({ activities: [{ name: activity[1], type: activity[0] }] });
 }, 5000);
 
