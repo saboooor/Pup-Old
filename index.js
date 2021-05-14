@@ -393,6 +393,7 @@ client.on('message', message => {
 });
 
 client.on('messageReactionAdd', async (reaction, user) => {
+	if (user.bot) return;
 	const message = await reaction.message.fetch();
 	if (reaction.message.channel.id == '678391804563030031' || reaction.message.channel.id == '717262907712471080') {
 		if (reaction.emoji.name == '❗') {
@@ -409,14 +410,13 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		}
 	}
 	if (reaction.message.channel.id == '678391804563030031') {
-		if (reaction.emoji.name == '⛔') {
+		if (reaction.emoji.name == '🔞') {
 			reaction.users.remove(user.id);
 			client.commands.get('nsfw').execute(message, null, client, user, Discord, reaction);
 			return;
 		}
 	}
 	if (reaction.emoji.name == '❌') {
-		if (user.bot) return;
 		if (message.channel.type != 'dm') return;
 		if (!message.content.includes('React to this message to unsubscribe to the broadcast')) return;
 		if (client.userdata.get(user.id, 'unsubbed') == 'true') return message.channel.send('You\'re already unsubscribed!');
@@ -424,23 +424,22 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		message.channel.send('Unsubscribed!');
 	}
 	if (message.channel.type == 'dm') return;
-	if (user.bot) return;
 	if (reaction.emoji.name == '🎫') {
 		if (message.embeds[0].title !== 'Need help? No problem!') return;
 		reaction.users.remove(user.id);
 		client.commands.get('ticket').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name == '⛔') {
+	else if (reaction.emoji.name == '⛔') {
 		await client.commands.get('delete').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name == '🔓') {
+	else if (reaction.emoji.name == '🔓') {
 		reaction.users.remove(user.id);
 		await client.commands.get('open').execute(message, null, client, user, Discord, reaction);
 		return;
 	}
-	if (reaction.emoji.name == '🔒') {
+	else if (reaction.emoji.name == '🔒') {
 		reaction.users.remove(user.id);
 		client.commands.get('close').execute(message, null, client, user, Discord, reaction);
 		return;
