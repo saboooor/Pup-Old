@@ -212,18 +212,12 @@ for (const folder of commandFolders) {
 
 client.on('message', message => {
 	if (message.author.bot) return;
-	let srvconfig = [];
-	if (message.guild) {
-		srvconfig = client.settings.get(message.guild.id);
-	}
-	else {
-		srvconfig.prefix = '-';
-	}
 	if (message.channel.type == 'dm') {
 		if (message.content.startsWith(srvconfig.prefix)) return message.reply('You can only execute legacy commands in a Discord Server!\nTry using slash (/) commands instead');
 		if (client.guilds.cache.get('661736128373719141').members.cache.has(message.author.id)) client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
 		else client.channels.cache.get('827651453698179134').send(`**<@!${message.author.id}>** > ${message.content}`);
 	}
+	const srvconfig = client.settings.get(message.guild.id);
 	if (!message.content.startsWith(srvconfig.prefix)) return;
 
 	const args = message.content.slice(srvconfig.prefix.length).trim().split(/ +/);
@@ -352,7 +346,7 @@ async function updateCount(global, vc) {
 }
 
 client.on('message', message => {
-	if(message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
+	if (message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
 	if (message.webhookID && message.channel.id == '812082273393704960') {
 		message.channel.send('Updating to latest commit...');
 		Client.login('https://panel.birdflop.com', client.config.panelapikey, (logged_in, err) => {
@@ -382,12 +376,12 @@ client.on('message', message => {
 	if (message.content.includes(client.user.id)) {
 		message.reply(`My prefix is \`${srvconfig.prefix}\``);
 	}
-	if(['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
+	if (['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => message.content.toLowerCase().includes(word))) {
 		if (srvconfig.simpreaction == 'false') return;
 		client.response.get('simp').execute(message);
 	}
-	if(message.content.toLowerCase().includes('what') && message.content.toLowerCase().includes('ip')) client.response.get('whatip').execute(message);
-	if(message.content.toLowerCase().includes('pup') && ['bad', 'gross', 'shit', 'dum'].some(word => message.content.toLowerCase().includes(word))) client.response.get('pupbad').execute(message);
+	if (message.content.toLowerCase().includes('what') && message.content.toLowerCase().includes('ip')) client.response.get('whatip').execute(message);
+	if (message.content.toLowerCase().includes('pup') && ['bad', 'gross', 'shit', 'dum'].some(word => message.content.toLowerCase().includes(word))) client.response.get('pupbad').execute(message);
 });
 
 client.on('messageReactionAdd', async (reaction, user) => {
