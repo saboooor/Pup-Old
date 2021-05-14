@@ -413,7 +413,6 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (reaction.emoji.name == '🔞') {
 			reaction.users.remove(user.id);
 			client.commands.get('nsfw').execute(message, null, client, user, Discord, reaction);
-			return;
 		}
 	}
 	if (reaction.emoji.name == '❌') {
@@ -428,21 +427,17 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (message.embeds[0].title !== 'Need help? No problem!') return;
 		reaction.users.remove(user.id);
 		client.commands.get('ticket').execute(message, null, client, user, Discord, reaction);
-		return;
 	}
 	else if (reaction.emoji.name == '⛔') {
 		await client.commands.get('delete').execute(message, null, client, user, Discord, reaction);
-		return;
 	}
 	else if (reaction.emoji.name == '🔓') {
 		reaction.users.remove(user.id);
 		await client.commands.get('open').execute(message, null, client, user, Discord, reaction);
-		return;
 	}
 	else if (reaction.emoji.name == '🔒') {
 		reaction.users.remove(user.id);
 		client.commands.get('close').execute(message, null, client, user, Discord, reaction);
-		return;
 	}
 });
 
