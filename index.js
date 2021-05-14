@@ -393,13 +393,7 @@ client.on('message', message => {
 });
 
 client.on('messageReactionAdd', async (reaction, user) => {
-	let message = reaction.message;
-	if (reaction.message.partial) {
-		await reaction.message.fetch()
-			.then(fullmessage => {
-				message = fullmessage;
-			});
-	}
+	const message = await reaction.message.fetch();
 	if (reaction.message.channel.id == '678391804563030031' || reaction.message.channel.id == '717262907712471080') {
 		if (reaction.emoji.name == '❗') {
 			reaction.users.remove(user.id);
