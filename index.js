@@ -408,6 +408,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			reaction.users.remove(user.id);
 			client.commands.get('vtotal').execute(message, null, client, user, Discord, reaction);
 		}
+	}
+	if (reaction.message.channel.id == '678391804563030031') {
 		if (reaction.emoji.name == '🔞') {
 			reaction.users.remove(user.id);
 			client.commands.get('nsfw').execute(message, null, client, user, Discord, reaction);
