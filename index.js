@@ -353,9 +353,7 @@ async function updateCount(global, vc) {
 
 client.on('message', message => {
 	if(message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
-	if (message.webhookID) {
-		if (message.channel.id != '812082273393704960') return;
-		client.user.setPresence({ activities: [{ name: 'Updating', type: 'PLAYING' }] });
+	if (message.webhookID && message.channel.id == '812082273393704960') {
 		message.channel.send('Updating to latest commit...');
 		Client.login('https://panel.birdflop.com', client.config.panelapikey, (logged_in, err) => {
 			if (logged_in == false) return message.reply(`Something went wrong, please use https://panel.birdflop.com\n${err}`);
