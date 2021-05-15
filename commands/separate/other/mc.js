@@ -39,7 +39,7 @@ module.exports = {
 			});
 			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg);
-				if (chatmsg.includes('sab')) return;
+				if (chatmsg.includes('PupDev')) return;
 				if (['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => chatmsg.toLowerCase().includes(word))) {
 					client.mc.chat('simp');
 				}
@@ -142,9 +142,6 @@ module.exports = {
 					client.mc.chat(`I just broke ${count} ${type}!`);
 				}
 			});
-		}
-		else if (args[0] == 'server') {
-			if (!args[1]) return message.reply('-mc server <start>');
 		}
 	},
 };
