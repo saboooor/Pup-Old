@@ -123,38 +123,5 @@ module.exports = {
 				message.reply('No nearby vehicles');
 			}
 		}
-		else if (args[0] == 'break') {
-			if (!client.mc) return message.reply('Join a server first!');
-			if (!args[2]) return message.reply('-mc break <Amount> <Block>');
-			const mcData = require('minecraft-data')(client.mc.version);
-			const count = parseInt(args[1]);
-			const type = args[2];
-			const blockType = mcData.blocksByName[type];
-			if (!blockType) {
-				return message.reply(`Can't find any ${type}`);
-			}
-			const blocks = client.mc.findBlocks({
-				matching: blockType.id,
-				maxDistance: 64,
-				count: count,
-			});
-			if (blocks.length === 0) {
-				return message.reply(`Can't find any ${type}`);
-			}
-			const targets = [];
-			for (let i = 0; i < Math.min(blocks.length, count); i++) {
-				targets.push(client.mc.blockAt(blocks[i]));
-			}
-			client.mc.chat(`Found ${targets.length} ${type}(s)`);
-			client.mc.collectBlock.collect(targets, err => {
-				if (err) {
-					client.mc.chat(err.message);
-					console.log(err);
-				}
-				else {
-					client.mc.chat(`I just broke ${count} ${type}!`);
-				}
-			});
-		}
 	},
 };
