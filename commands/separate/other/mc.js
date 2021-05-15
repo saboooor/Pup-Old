@@ -9,7 +9,7 @@ module.exports = {
 	name: 'mc',
 	description: 'Join a minecraft server with Pup',
 	args: true,
-	usage: '<join/leave/chat/goto/move/mount/break/server>',
+	usage: '<join/leave/chat/goto/move>',
 	async execute(message, args, client, Client, Discord) {
 		if (!client.guilds.cache.get('811354612547190794').members.cache.get(message.member.id)) return message.reply('You need to be in the Pup Bot Discord server for this to work! Do -invite to join!');
 		if (message.channel.id !== '841886305239826462') return message.reply('You need to be in <#841886305239826462> for this to work! This is due to spam reasons and we also need to see what you\'re doing with the bot.');
@@ -112,16 +112,6 @@ module.exports = {
 			client.mc.pathfinder.setMovements(defaultMove);
 			client.mc.pathfinder.setGoal(new GoalNear(playerX, playerY, playerZ, 1));
 			await message.reply(`Going to ${playerX} ${playerY} ${playerZ}...`);
-		}
-		else if (args[0] == 'mount') {
-			if (!client.mc) return message.reply('Join a server first!');
-			const entity = client.mc.nearestEntity((e) => { return e.type === 'object'; });
-			if (entity) {
-				client.mc.mount(entity);
-			}
-			else {
-				message.reply('No nearby vehicles');
-			}
 		}
 	},
 };
