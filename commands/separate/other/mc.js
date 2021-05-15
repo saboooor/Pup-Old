@@ -21,7 +21,7 @@ module.exports = {
 					if (client.mc.viewer) client.mc.viewer.close();
 				}
 				catch (e) {
-					client.mc = null;
+					client.mc.end;
 				}
 			}
 			client.mc = mineflayer.createBot({
@@ -48,6 +48,10 @@ module.exports = {
 				if (['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => chatmsg.toLowerCase().includes(word))) {
 					client.mc.chat('simp');
 				}
+			});
+			client.mc.on('kicked', function(reason) {
+				message.channel.send(`**${reason}**`);
+				client.mc.end;
 			});
 		}
 		else if (args[0] == 'chat') {
