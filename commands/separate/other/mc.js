@@ -48,8 +48,7 @@ module.exports = {
 		else if (args[0] == 'chat') {
 			if (!client.mc) return message.reply('Join a server first!');
 			if (!args[1]) return message.reply('-mc chat <Message>');
-			await client.mc.chat(args.join(' ').replace(args[0] + ' ', ''));
-			await message.reply('Sent chat!');
+			await client.mc.chat(`${message.author.tag} > ${args.join(' ').replace(args[0] + ' ', '')}`);
 		}
 		else if (args[0] == 'leave') {
 			if (!client.mc) return message.reply('Join a server first!');
