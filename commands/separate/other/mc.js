@@ -45,7 +45,7 @@ module.exports = {
 			client.mc.on('everything', (chatmsg) => {
 				message.channel.send(chatmsg.replace(/@/, ''));
 				if (chatmsg.includes('PupDev')) return;
-				if (chatmsg == 'You are permanently muted!') return message.channel.send('lefty muted the bot pls beg him to unmute ;-;');
+				if (chatmsg == 'You are permanently muted!') return message.channel.send('lefty muted the bot pls beg him to unmute ;-; `-mc cmd /msg <player>` works tho ig');
 				if (['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => chatmsg.toLowerCase().includes(word))) {
 					client.mc.chat('simp');
 				}
