@@ -16,8 +16,13 @@ module.exports = {
 		if (args[0] == 'join') {
 			if (!args[1]) return message.reply('-mc join <Server IP>');
 			if (client.mc) {
-				client.mc.quit().catch(e => (console.log(e)));
-				if (client.mc.viewer) client.mc.viewer.close();
+				try {
+					client.mc.quit();
+					if (client.mc.viewer) client.mc.viewer.close();
+				}
+				catch (e) {
+					client.mc = null;
+				}
 			}
 			client.mc = mineflayer.createBot({
 				host: args[1],
@@ -38,7 +43,7 @@ module.exports = {
 				client.mc.chat('Connected with Pup on Discord. Check out http://elktail.birdflop.com:40033 to see what I\'m seeing!');
 			});
 			client.mc.on('everything', (chatmsg) => {
-				message.channel.send(chatmsg);
+				message.channel.send(chatmsg.replace(/@/, ''));
 				if (chatmsg.includes('PupDev')) return;
 				if (['lov', 'simp', ' ily ', ' ily', ' babe ', 'babe ', ' babe', 'kiss', 'daddy', 'mommy', 'cute'].some(word => chatmsg.toLowerCase().includes(word))) {
 					client.mc.chat('simp');
@@ -49,6 +54,11 @@ module.exports = {
 			if (!client.mc) return message.reply('Join a server first!');
 			if (!args[1]) return message.reply('-mc chat <Message>');
 			await client.mc.chat(`${message.author.tag} > ${args.join(' ').replace(args[0] + ' ', '')}`);
+		}
+		else if (args[0] == 'cmd') {
+			if (!client.mc) return message.reply('Join a server first!');
+			if (!args[1]) return message.reply('-mc cmd <Command>');
+			await client.mc.chat(`/${args.join(' ').replace(args[0] + ' ', '').replace('/', '')}`);
 		}
 		else if (args[0] == 'leave') {
 			if (!client.mc) return message.reply('Join a server first!');
