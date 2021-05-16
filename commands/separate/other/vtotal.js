@@ -42,7 +42,7 @@ function checkign(user, command, message) {
 			if (m2.content.includes('User does not exist: ')) {
 				member.send({ embed: {
 					color: 3447003,
-					title: 'Could not get votenext output.',
+					title: 'Could not get votetotal output.',
 					description: '(User does not exist) This is a known bug, please be patient while the owner fixes it!',
 					footer: {
 						text: message.guild.name,
