@@ -61,7 +61,7 @@ module.exports = {
 	name: 'vtotal',
 	description: 'Check your votetotal',
 	async execute(message, args, client, Client, Discord, reaction) {
-		if (message.guild.id !== '711661870926397601' && message.guild.id !== '661736128373719141') return;
+		if (message.guild.id !== '711661870926397601' && message.guild.id !== '661736128373719141' && message.guild.id !== '837116518730694678') return;
 		if (reaction) {
 			message.author = Client;
 		}
