@@ -407,7 +407,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			client.commands.get('nsfw').execute(message, null, client, user, Discord, reaction);
 		}
 	}
-	if (message.channel.id == '842210591779455026') {
+	if (message.channel.id == '837116518730694678') {
 		if (reaction.emoji.name == '🔔') {
 			reaction.users.remove(user.id);
 			client.commands.get('event').execute(message, null, client, user, Discord, reaction);
