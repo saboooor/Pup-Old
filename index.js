@@ -387,7 +387,7 @@ client.on('message', message => {
 client.on('messageReactionAdd', async (reaction, user) => {
 	if (user.bot) return;
 	const message = await reaction.message.fetch();
-	if (message.channel.id == '678391804563030031' || message.channel.id == '717262907712471080') {
+	if (message.channel.id == '678391804563030031' || message.channel.id == '717262907712471080' || message.channel.id == '843372772159389728') {
 		if (reaction.emoji.name == '❗') {
 			reaction.users.remove(user.id);
 			client.commands.get('alerts').execute(message, null, client, user, Discord, reaction);
@@ -405,6 +405,12 @@ client.on('messageReactionAdd', async (reaction, user) => {
 		if (reaction.emoji.name == '🔞') {
 			reaction.users.remove(user.id);
 			client.commands.get('nsfw').execute(message, null, client, user, Discord, reaction);
+		}
+	}
+	if (message.channel.id == '842210591779455026') {
+		if (reaction.emoji.name == '🔔') {
+			reaction.users.remove(user.id);
+			client.commands.get('event').execute(message, null, client, user, Discord, reaction);
 		}
 	}
 	if (reaction.emoji.name == '❌') {

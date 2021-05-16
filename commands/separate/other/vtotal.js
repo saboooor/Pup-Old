@@ -1,5 +1,6 @@
 function checkign(user, command, message) {
-	const console = message.guild.channels.cache.find(channel => channel.name === 'console');
+	let console = message.guild.channels.cache.find(channel => channel.name === 'console');
+	if (!console) console = message.guild.channels.cache.find(channel => channel.name === 'hub-console');
 	const member = message.guild.members.cache.get(user.id);
 	console.send(`discord linked ${member.displayName}`);
 	const filter = m => m.content.includes(member.displayName);
@@ -22,7 +23,7 @@ function checkign(user, command, message) {
 			} });
 			return;
 		}
-		if (playername.includes(' • ') || playername.includes('[')) {
+		if (playername.includes(' ')) {
 			member.send({ embed: {
 				color: 3447003,
 				title: 'Could not get votetotal output.',

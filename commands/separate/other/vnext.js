@@ -1,5 +1,6 @@
 function checkign(user, command, message) {
-	const console = message.guild.channels.cache.find(channel => channel.name === 'console');
+	let console = message.guild.channels.cache.find(channel => channel.name === 'console');
+	if (!console) console = message.guild.channels.cache.find(channel => channel.name === 'hub-console');
 	const member = message.guild.members.cache.get(user.id);
 	console.send(`discord linked ${member.displayName}`);
 	const filter = m => m.content.includes(member.displayName);
@@ -22,7 +23,7 @@ function checkign(user, command, message) {
 			} });
 			return;
 		}
-		if (playername.includes(' • ') || playername.includes('[')) {
+		if (playername.includes(' ')) {
 			member.send({ embed: {
 				color: 3447003,
 				title: 'Could not get votenext output.',
@@ -45,9 +46,9 @@ function checkign(user, command, message) {
 			const vnext4 = output2.find(site => site.startsWith('PMC')).replace('PMC:', '**PMC:**');
 			const vnext5 = output2.find(site => site.startsWith('MCSL')).replace('MCSL:', '**MCSL:**');
 			let vnext6 = ''; let vnext7 = '';
-			if (message.guild.id == '661736128373719141') {
-				vnext6 = '\n' + output2.find(site => site.startsWith('MCMP')).replace('MCMP:', '**MCMP:**');
-				vnext7 = '\n' + output2.find(site => site.startsWith('MCPS')).replace('MCPS:', '**MCPS:**');
+			if (message.guild.id == '661736128373719141' || message.guild.id == '837116518730694678') {
+				vnext6 = `\n${output2.find(site => site.startsWith('MCMP')).replace('MCMP:', '**MCMP:**')}`;
+				vnext7 = `\n${output2.find(site => site.startsWith('MCPS')).replace('MCPS:', '**MCPS:**')}`;
 			}
 			member.send({ embed: {
 				color: 3447003,
