@@ -122,7 +122,9 @@ module.exports = {
 			const json = await fetch(`https://api.mcsrvstat.us/2/${serverip}`);
 			const pong = await json.json();
 			if (id == '') {
-				Embed.setTitle(pong.hostname);
+				if (pong.hostname) Embed.setTitle(pong.hostname);
+				else if (pong.port == 25565) Embed.setTitle(pong.ip);
+				else Embed.setTitle(`${pong.ip}:${pong.port}`);
 				let noadmsg = '**Server is offline**';
 				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:```yml\nPup\nTaco Haven\nNether Depths\nChopsticks (Hub/Survival/Factions/Proxy)\nHallownest```';
 				if (!pong.online) return reply.edit(noadmsg);
