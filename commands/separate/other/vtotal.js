@@ -36,9 +36,21 @@ function checkign(user, command, message) {
 			return;
 		}
 		console.send(`${command} ${playername}`);
-		const filter2 = m2 => m2.content.includes('Total Votes');
+		const filter2 = m2 => m2.content.includes('Total Votes') || m2.content.includes('User does not exist: ');
 		const vnextcollect = console.createMessageCollector(filter2, { time: 7000 });
 		vnextcollect.on('collect', m2 => {
+			if (m2.includes('User does not exist: ')) {
+				member.send({ embed: {
+					color: 3447003,
+					title: 'Could not get votenext output.',
+					description: '(User does not exist) This is a known bug, please be patient while the owner fixes it!',
+					footer: {
+						text: message.guild.name,
+						icon_url: message.guild.iconURL(),
+					},
+				} });
+				return;
+			}
 			const output2 = m2.content.split(/\n/);
 			const vtotal1 = output2.find(site => site.startsWith('Daily')).replace('Daily Total:', '**Daily Total:**');
 			const vtotal2 = output2.find(site => site.startsWith('Weekly')).replace('Weekly Total:', '**Weekly Total:**');
