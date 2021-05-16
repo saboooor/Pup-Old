@@ -6,7 +6,7 @@ function checkign(user, command, message) {
 	const filter = m => m.content.includes(member.displayName);
 	const usernamecollector = console.createMessageCollector(filter, { time: 14000 });
 	usernamecollector.on('collect', m => {
-		if (m.author.id != '661797951223627787' && m.author.id != '743741294190395402') return;
+		if (m.author.id != '661797951223627787' && m.author.id != '743741294190395402' && m.author.id != '837164320780582952') return;
 		const output = m.content.split(/\n/);
 		const check3 = output.find(site => site.includes('- Player: '));
 		if (!check3) return;
