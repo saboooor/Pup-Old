@@ -39,7 +39,7 @@ function checkign(user, command, message) {
 		const filter2 = m2 => m2.content.includes('Next Votes') || m2.content.includes('User does not exist: ');
 		const vnextcollect = console.createMessageCollector(filter2, { time: 7000 });
 		vnextcollect.on('collect', m2 => {
-			if (m2.includes('User does not exist: ')) {
+			if (m2.content.includes('User does not exist: ')) {
 				member.send({ embed: {
 					color: 3447003,
 					title: 'Could not get votenext output.',
