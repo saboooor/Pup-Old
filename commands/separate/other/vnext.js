@@ -2,7 +2,7 @@ function checkign(user, command, message) {
 	let console = message.guild.channels.cache.find(channel => channel.name === 'console');
 	if (!console) console = message.guild.channels.cache.find(channel => channel.name === 'hub-console');
 	const member = message.guild.members.cache.get(user.id);
-	console.send(`discord linked ${member.displayName}`);
+	console.send(`discord linked ${member.id}`);
 	const filter = m => m.content.includes(member.displayName);
 	const usernamecollector = console.createMessageCollector(filter, { time: 14000 });
 	usernamecollector.on('collect', m => {
