@@ -2,7 +2,7 @@ const moment = require('moment');
 module.exports = {
 	name: 'server',
 	description: 'Discord server info',
-	aliases: ['info', 'srv'],
+	aliases: ['info', 'srv', 'guild'],
 	cooldown: 10,
 	async execute(message, args, client, Client, Discord) {
 		const Embed = new Discord.MessageEmbed()
