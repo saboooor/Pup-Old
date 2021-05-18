@@ -12,13 +12,7 @@ module.exports = {
 	aliases: ['status'],
 	cooldown: 5,
 	async execute(message, args, client, Client, Discord) {
-		let srvconfig = [];
-		if (message.channel.type == 'dm') {
-			srvconfig.adfree = 'false';
-		}
-		else {
-			srvconfig = client.settings.get(message.guild.id);
-		}
+		const srvconfig = client.settings.get(message.guild.id);
 		const Embed = new Discord.MessageEmbed()
 			.setThumbnail('https://bugs.mojang.com/secure/attachment/99116/unknown_pack.png')
 			.setColor(3447003);

@@ -4,13 +4,7 @@ module.exports = {
 	aliases: ['commands'],
 	cooldown: 2,
 	async execute(message, args, client, Client, Discord) {
-		let srvconfig = [];
-		if (message.guild) {
-			srvconfig = client.settings.get(message.guild.id);
-		}
-		else {
-			srvconfig.prefix = '-';
-		}
+		const srvconfig = client.settings.get(message.guild.id);
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.floor(Math.random() * 16777215));
 		let arg = args[0];
