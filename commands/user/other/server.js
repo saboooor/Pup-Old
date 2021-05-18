@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, args, client, Client, Discord) {
 		const Embed = new Discord.MessageEmbed()
 			.setColor(Math.round(Math.random() * 16777215))
-			.setTitle(message.guild.name)
+			.setAuthor(message.guild.name, message.guild.iconURL())
 			.setFooter(`Owner: ${client.users.cache.get(message.guild.ownerID).username}`, client.users.cache.get(message.guild.ownerID).avatarURL())
 			.addField('Members', message.guild.members.cache.size)
 			.addField('Channels', message.guild.channels.cache.size)
