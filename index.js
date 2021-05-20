@@ -213,7 +213,7 @@ for (const folder of commandFolders) {
 client.on('message', message => {
 	if (message.author.bot) return;
 	if (message.channel.type == 'dm') {
-		if (message.content.startsWith(srvconfig.prefix)) return message.reply('You can only execute legacy commands in a Discord Server!\nTry using slash (/) commands instead');
+		if (message.content.startsWith('-')) return message.reply('You can only execute legacy commands in a Discord Server!\nTry using slash (/) commands instead');
 		if (client.guilds.cache.get('661736128373719141').members.cache.has(message.author.id)) client.channels.cache.get('776992487537377311').send(`**<@!${message.author.id}>** > ${message.content}`);
 		else client.channels.cache.get('827651453698179134').send(`**<@!${message.author.id}>** > ${message.content}`);
 	}
