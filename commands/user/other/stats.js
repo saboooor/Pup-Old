@@ -79,10 +79,6 @@ module.exports = {
 		else if (arg == 'chopsticks') {
 			serverip = 'play.chopsticksmc.net';
 		}
-		else if (arg == 'hallownest') {
-			id = '03620aa6';
-			serverip = 'hallownest.chopsticksmc.net';
-		}
 		else {
 			serverip = args[0];
 		}
@@ -120,7 +116,7 @@ module.exports = {
 				else if (pong.port == 25565) Embed.setTitle(pong.ip);
 				else Embed.setTitle(`${pong.ip}:${pong.port}`);
 				let noadmsg = '**Server is offline**';
-				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:```yml\nPup\nTaco Haven\nNether Depths\nChopsticks (Hub/Survival/Factions/Proxy)\nHallownest```';
+				if (srvconfig.adfree == 'false') noadmsg = '**Invalid Server**\nYou can use any valid Minecraft server IP\nor use an option from the list below:```yml\nPup\nTaco Haven\nNether Depths\nChopsticks (Hub/Survival/Factions/Proxy)```';
 				if (!pong.online) return reply.edit(noadmsg);
 			}
 			const duration = moment.duration(Date.now() - pong.debug.cachetime * 1000).format('m [mins and] s [secs]');
