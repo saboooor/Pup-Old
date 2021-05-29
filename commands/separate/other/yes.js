@@ -8,6 +8,6 @@ module.exports = {
 		const msg = await message.channel.send(`${moment(Date.now())}`);
 		setInterval(async () => {
 			msg.edit(`${moment(Date.now())}`);
-		}, 1000);
+		}, 1200);
 	},
 };
