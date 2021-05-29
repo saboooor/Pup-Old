@@ -8,7 +8,19 @@ module.exports = {
 				type: 4,
 				data: {
 					content: `Pong! ${Date.now() - Discord.SnowflakeUtil.deconstruct(interaction.id).timestamp}ms`,
-					flags: 64,
+					components: [
+						{
+							type: 1,
+							components: [
+								{
+									type: 2,
+									label: 'Click me to ping again!',
+									style: 1,
+									custom_id: 'ping_again',
+								},
+							],
+						},
+					],
 				},
 			},
 		});

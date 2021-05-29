@@ -103,98 +103,113 @@ client.tickets = new Enmap({
 });
 
 client.ws.on('INTERACTION_CREATE', async interaction => {
-	const command = client.slashcommands.get(interaction.data.name.toLowerCase());
-	const args = interaction.data.options;
-	if (!command) return;
-	const { cooldowns } = client;
-	if (!cooldowns.has(command.name)) {
-		cooldowns.set(command.name, new Discord.Collection());
-	}
+	if (interaction.type == 2) {
+		const command = client.slashcommands.get(interaction.data.name.toLowerCase());
+		const args = interaction.data.options;
+		if (!command) return;
+		const { cooldowns } = client;
+		if (!cooldowns.has(command.name)) {
+			cooldowns.set(command.name, new Discord.Collection());
+		}
 
-	const now = Date.now();
-	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
+		const now = Date.now();
+		const timestamps = cooldowns.get(command.name);
+		const cooldownAmount = (command.cooldown || 3) * 1000;
 
-	if (!interaction.member) {
-		interaction.member = {
-			user: interaction.user,
-		};
-	}
+		if (!interaction.member) {
+			interaction.member = {
+				user: interaction.user,
+			};
+		}
 
-	if (timestamps.has(interaction.member.user.id)) {
-		const expirationTime = timestamps.get(interaction.member.user.id) + cooldownAmount;
-		const random = Math.floor(Math.random() * 4);
-		const messages = ['Do I look like Usain Bolt to u?', 'BRUH IM JUST A DOG SLOW DOWN', 'can u not', 'leave me alone ;-;'];
-		if (now < expirationTime) {
-			const timeLeft = (expirationTime - now) / 1000;
-			const Embed = new Discord.MessageEmbed()
-				.setColor(Math.round(Math.random() * 16777215))
-				.setTitle(messages[random])
-				.setDescription(`wait ${timeLeft.toFixed(1)} more seconds before reusing the ${command.name} command.`);
+		if (timestamps.has(interaction.member.user.id)) {
+			const expirationTime = timestamps.get(interaction.member.user.id) + cooldownAmount;
+			const random = Math.floor(Math.random() * 4);
+			const messages = ['Do I look like Usain Bolt to u?', 'BRUH IM JUST A DOG SLOW DOWN', 'can u not', 'leave me alone ;-;'];
+			if (now < expirationTime) {
+				const timeLeft = (expirationTime - now) / 1000;
+				const Embed = new Discord.MessageEmbed()
+					.setColor(Math.round(Math.random() * 16777215))
+					.setTitle(messages[random])
+					.setDescription(`wait ${timeLeft.toFixed(1)} more seconds before reusing the ${command.name} command.`);
+				return client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							embeds: [Embed],
+						},
+					},
+				});
+			}
+		}
+
+		timestamps.set(interaction.member.user.id, now);
+		setTimeout(() => timestamps.delete(interaction.member.user.id), cooldownAmount);
+
+		const commandLogEmbed = new Discord.MessageEmbed()
+			.setColor(Math.floor(Math.random() * 16777215))
+			.setTitle('Command executed!')
+			.setAuthor(`${interaction.member.user.username}#${interaction.member.user.discriminator}`, `https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}.webp`)
+			.addField('**Type:**', 'Slash');
+
+		if (client.guilds.cache.get(interaction.guild_id)) {
+			commandLogEmbed.addField('**Guild:**', client.guilds.cache.get(interaction.guild_id).name).addField('**Channel:**', client.channels.cache.get(interaction.channel_id).name);
+		}
+		else if (command.guildOnly) {
 			return client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
 					data: {
-						embeds: [Embed],
+						content: 'You can only execute this command in a Discord Server!',
+					},
+				},
+			});
+		}
+
+		commandLogEmbed.addField('**Command:**', command.name);
+
+		if (command.permissions && interaction.member.user.id !== '249638347306303499') {
+			const authorPerms = client.channels.cache.get(interaction.channel_id).members.get(interaction.member.user.id).permissions;
+			if (!authorPerms || !authorPerms.has(command.permissions)) {
+				return client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							content: 'You can\'t do that!',
+						},
+					},
+				});
+			}
+		}
+
+		try {
+			const rn = new Date();
+			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+			console.log(`[${time} INFO]: ${interaction.member.user.username}#${interaction.member.user.discriminator} issued slash command: /${command.name}`);
+			client.users.cache.get('249638347306303499').send(commandLogEmbed);
+			command.execute(interaction, args, client, Client, Discord);
+		}
+		catch (error) {
+			commandLogEmbed.setTitle('COMMAND FAILED').addField('**Error:**', clean(error));
+			client.users.cache.get('249638347306303499').send(commandLogEmbed);
+			const rn = new Date();
+			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
+			console.error(`[${time} ERROR]: ${error}`);
+		}
+	}
+	else if (interaction.type == 3) {
+		if (interaction.data.custom_id == 'ping_again') {
+			client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 7,
+					data: {
+						content: `Double Pong! ${Date.now() - Discord.SnowflakeUtil.deconstruct(interaction.id).timestamp}ms`,
 					},
 				},
 			});
 		}
 	}
 
-	timestamps.set(interaction.member.user.id, now);
-	setTimeout(() => timestamps.delete(interaction.member.user.id), cooldownAmount);
-
-	const commandLogEmbed = new Discord.MessageEmbed()
-		.setColor(Math.floor(Math.random() * 16777215))
-		.setTitle('Command executed!')
-		.setAuthor(`${interaction.member.user.username}#${interaction.member.user.discriminator}`, `https://cdn.discordapp.com/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}.webp`)
-		.addField('**Type:**', 'Slash');
-
-	if (client.guilds.cache.get(interaction.guild_id)) {
-		commandLogEmbed.addField('**Guild:**', client.guilds.cache.get(interaction.guild_id).name).addField('**Channel:**', client.channels.cache.get(interaction.channel_id).name);
-	}
-	else if (command.guildOnly) {
-		return client.api.interactions(interaction.id, interaction.token).callback.post({
-			data: {
-				type: 4,
-				data: {
-					content: 'You can only execute this command in a Discord Server!',
-				},
-			},
-		});
-	}
-
-	commandLogEmbed.addField('**Command:**', command.name);
-
-	if (command.permissions && interaction.member.user.id !== '249638347306303499') {
-		const authorPerms = client.channels.cache.get(interaction.channel_id).members.get(interaction.member.user.id).permissions;
-		if (!authorPerms || !authorPerms.has(command.permissions)) {
-			return client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: 'You can\'t do that!',
-					},
-				},
-			});
-		}
-	}
-
-	try {
-		const rn = new Date();
-		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-		console.log(`[${time} INFO]: ${interaction.member.user.username}#${interaction.member.user.discriminator} issued slash command: /${command.name}`);
-		client.users.cache.get('249638347306303499').send(commandLogEmbed);
-		command.execute(interaction, args, client, Client, Discord);
-	}
-	catch (error) {
-		commandLogEmbed.setTitle('COMMAND FAILED').addField('**Error:**', clean(error));
-		client.users.cache.get('249638347306303499').send(commandLogEmbed);
-		const rn = new Date();
-		const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-		console.error(`[${time} ERROR]: ${error}`);
-	}
 });
 
 client.commands = new Discord.Collection();
