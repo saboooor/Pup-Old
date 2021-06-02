@@ -2,10 +2,8 @@ const start = Date.now();
 const fs = require('fs');
 const Discord = require('discord.js');
 const nodeactyl = require('nodeactyl');
-const fetch = require('node-fetch');
 const Enmap = require('enmap');
 const Client = nodeactyl.Client;
-const moment = require('moment');
 const cron = require('node-cron');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'], intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_PRESENCES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS'], allowedMentions: { parse: ['users', 'roles', 'everyone'], repliedUser: true } });
 client.config = require('./config.json');
@@ -34,7 +32,7 @@ for (const folder of slashcommandFolders) {
 	}
 }
 client.once('ready', () => {
-	client.user.setPresence({ activities: [{ name: 'Just Restarted!', type: 'PLAYING' }], status: 'dnd' });
+	client.user.setPresence({ activities: [{ name: 'Rewrite coming up!', type: 'PLAYING' }], status: 'dnd' });
 	client.channels.cache.get('812082273393704960').messages.fetch({ limit: 1 }).then(msg => {
 		const mesg = msg.first();
 		if (mesg.content !== 'Started Successfully!') client.channels.cache.get('812082273393704960').send('Started Successfully!');
@@ -316,21 +314,6 @@ for (const file of responseFiles) {
 	const response = require(`./response/${file}`);
 	client.response.set(response.name, response);
 }
-setInterval(async () => {
-	const activities = [
-		['WATCHING', `${client.users.cache.size} Users`],
-		['PLAYING', '{UPTIME}'],
-		['PLAYING', 'with you ;)'],
-		['WATCHING', `${client.channels.cache.size} Channels`],
-		['COMPETING', `${client.guilds.cache.size} Servers`],
-		['PLAYING', '{GUILD}'],
-	];
-	const activitynumber = Math.round(Math.random() * (activities.length - 1));
-	const activity = activities[activitynumber];
-	if (activity[1] == '{GUILD}') activity[1] = `in ${client.guilds.cache.get([...client.guilds.cache.keys()][Math.floor(Math.random() * client.guilds.cache.size)]).name}`;
-	if (activity[1] == '{UPTIME}') activity[1] = `for ${moment.duration(client.uptime).format('D [days], H [hrs], m [mins], s [secs]')}`;
-	client.user.setPresence({ activities: [{ name: activity[1], type: activity[0] }] });
-}, 5000);
 
 client.on('message', message => {
 	if (message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
