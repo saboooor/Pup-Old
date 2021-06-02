@@ -332,34 +332,6 @@ setInterval(async () => {
 	client.user.setPresence({ activities: [{ name: activity[1], type: activity[0] }] });
 }, 5000);
 
-let lastUpdated = Date.now() - 270000;
-async function updateCount(global, vc) {
-	if (Date.now() - lastUpdated > 325000) {
-		const json = await fetch('https://api.mcsrvstat.us/2/play.netherdepths.com').catch(error => {
-			const rn = new Date();
-			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-			console.error(`[${time} ERROR]: Couldn't connect to API! ${error}`);
-			return;
-		});
-		if (!json) return;
-		const pong = await json.json();
-		if (!pong.online) return;
-		if (!pong.players) return;
-		if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
-			await client.channels.cache.get(vc).setName(`Players: ${pong.players.online} / ${pong.players.max}`);
-			if (client.channels.cache.get(vc).name != `Players: ${pong.players.online} / ${pong.players.max}`) {
-				const rn = new Date();
-				const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-				console.warn(`[${time} WARN]: Failed to change channel name! Rate limited?`);
-				lastUpdated = Date.now() + 60000;
-			}
-			else {
-				lastUpdated = Date.now();
-			}
-		}
-	}
-}
-
 client.on('message', message => {
 	if (message.content.startsWith('**Online players (') || message.content.includes('PLAYERS ONLINE**')) client.response.get('list').execute(message, Discord, sleep);
 	if (message.webhookID && message.channel.id == '812082273393704960') {
@@ -369,13 +341,6 @@ client.on('message', message => {
 		});
 		Client.restartServer('5bcaad8d').catch();
 		Client.killServer('5bcaad8d').catch();
-	}
-	if (message.author.id == '661797951223627787') {
-		updateCount('776992487537377311', '808188940728664084').catch(error => {
-			const rn = new Date();
-			const time = `${minTwoDigits(rn.getHours())}:${minTwoDigits(rn.getMinutes())}:${minTwoDigits(rn.getSeconds())}`;
-			console.error(`[${time} ERROR]: ${error}`);
-		});
 	}
 	if (message.channel.type == 'dm' || message.content.startsWith(client.settings.get(message.guild.id).prefix) || message.author.bot) return;
 	const srvconfig = client.settings.get(message.guild.id);
